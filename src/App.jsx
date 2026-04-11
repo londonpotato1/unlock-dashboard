@@ -1191,12 +1191,12 @@ const GWEI_DATA = {
 };
 
 const SKYAI_DATA = {
-  price: "$0.12", mcap: "$122M", fdv: "$122M", vol24h: "$25.9M",
-  circulating: "998M / 1B (99.8%)", athDrop: "ATH 돌파 중 (+69.9% 24h)",
+  price: "$0.127", mcap: "$127M", fdv: "$127M", vol24h: "$25.9M",
+  circulating: "998M / 1B (99.8%)", athDrop: "ATH 돌파 중 (+76.4% 24h)",
   chain: "BNB Chain", exchanges: "Gate, HTX, Poloniex, LBank (저급 거래소만)",
   team: "익명 (Google AI, Binance, OpenAI 출신 주장 — 미검증)",
   funding: "Four.meme 런치패드 $50M 주장 (CryptoRank $100 표시 — 불일치)",
-  verdict: "SIREN 패턴 고위험 — 숏 우선",
+  verdict: "SIREN 패턴 + 파생상품 극단 과열",
   verdictColor: "#ef4444",
   redFlags: [
     "#넥스트사이렌: SIREN과 동일 패턴 (BNB Chain + Binance Alpha + 지갑 분산)",
@@ -1205,6 +1205,7 @@ const SKYAI_DATA = {
     "99.8% 유통 주장이지만 실제 집중도 은폐 (SIREN: 52/54 지갑 = 1 엔터티 88.5%)",
     "저급 거래소만 상장 (Coinbase/Binance/OKX 없음). +185% 30d = 수직 상승",
     "알고리즘 매도로 대형 포지션 79% 수익 실현 후 이탈",
+    "펀딩비 0.2058% — 극단적 롱 과밀. OI $299M vs MCap $127M = 2.35x (과열)",
   ],
   greenFlags: [
     "BNB Chain Foundation $100K 매수 (인센티브 프로그램)",
@@ -1212,31 +1213,133 @@ const SKYAI_DATA = {
   ],
 };
 
-const GWEI_SKYAI_SCENARIOS = [
+const GWEI_LEVELS = [
+  { type: "R", label: "R3", price: "$0.085", note: "심리적 저항 + 미유통 오버헤드" },
+  { type: "R", label: "R2", price: "$0.075", note: "ATH 영역" },
+  { type: "R", label: "R1", price: "$0.070", note: "최근 고점" },
+  { type: "NOW", label: "현재가", price: "$0.0675", note: "ATH 근접 (+21.8% 24h)" },
+  { type: "S", label: "S1", price: "$0.055", note: "이전 저항→지지 전환" },
+  { type: "S", label: "S2", price: "$0.04", note: "장기 지지대" },
+];
+
+const GWEI_TOKENOMICS = [
+  { name: "Investors", pct: "27%", schedule: "베스팅 있음 (미공개)", color: "#8b5cf6" },
+  { name: "Team", pct: "22%", schedule: "베스팅 있음 (미공개)", color: "#ef4444" },
+  { name: "Foundation", pct: "8%", schedule: "즉시 언락 (베스팅 없음)", color: "#f59e0b" },
+  { name: "Ecosystem", pct: "43%", schedule: "미공개", color: "#3b82f6" },
+];
+
+const GWEI_SCENARIOS = [
   {
-    id: "GWEI-A", title: "GWEI 숏: 재단 매도 포착 후", priority: "관찰",
-    entry: "재단 지갑 → CEX 입금 감지 시 ($0.065-0.068)", sl: "$0.075 (ATH 위)", tp1: "$0.05 (R:R ≈ 1:2)", tp2: "$0.04",
+    id: "A", title: "숏: 재단 매도 포착 후 진입", priority: "1순위",
+    entry: "재단 지갑 → CEX 입금 감지 시 ($0.065-0.068)", sl: "$0.075 (ATH 위)", tp1: "$0.05 (R:R ≈ 1:2)", tp2: "$0.04 (R:R ≈ 1:3.5)",
     signal: "ethgasfoundation → 시드 지갑 → Bitget 입금 패턴 반복 감지. Arkham 알림 설정",
-    rationale: "Arkham에서 0x096f→Bitget 15M GWEI 입금 확인. 재단 8% 즉시 언락. 82.5% 미유통. ATH 근처 펌핑 중 재단 매도 = 고전적 인사이더 덤프",
+    rationale: "Arkham에서 0x096f→Bitget 15M GWEI 입금 확인. 재단 8% 즉시 언락 (베스팅 없음). 82.5% 미유통 = 향후 언락 매도 압력. ATH 근처 펌핑 중 재단 매도 = 고전적 인사이더 덤프. Bubblemaps 15.17% 클러스터 경고",
     risk: "프로젝트 자체는 합법 (Polychain, Coinbase). 펀더멘털 매수세 유입 가능. 숏 스퀴즈 주의",
-    color: "#f59e0b",
-  },
-  {
-    id: "SKYAI-A", title: "SKYAI 숏: SIREN 패턴 고위험", priority: "1순위 숏",
-    entry: "현재 $0.12 (ATH 돌파 상태) 또는 반등 시", sl: "$0.15 (+25%)", tp1: "$0.07 (R:R ≈ 1:2.5)", tp2: "$0.04 (SIREN급 -80%)",
-    signal: "0x5a26... 웨일 지갑에서 대량 이동/CEX 입금 감지. 거래량 급감 + 가격 정체",
-    rationale: "SIREN 패턴 완벽 매치: 익명 팀, 지갑 분산, 저급 거래소, 수직 상승. SIREN은 최고점에서 -90% 폭락. 커뮤니티 '#넥스트사이렌' 태그. 알고리즘 매도 이탈 이미 관찰",
-    risk: "+69.9% 24h 모멘텀. 숏 스퀴즈 가능. 소규모 포지션 + 넓은 손절. BNB Chain Foundation 매수가 지지할 수 있음",
     color: "#ef4444",
   },
   {
-    id: "SKYAI-B", title: "SKYAI 크래시 후 데드캣 바운스 롱 (고위험)", priority: "관찰",
-    entry: "SIREN급 -70~80% 크래시 후 $0.02-0.03", sl: "$0.015", tp1: "$0.05 (+100%)", tp2: "N/A",
-    signal: "수직 하락 후 거래량 소멸 → 안정화 3일 이상",
-    rationale: "SIREN도 크래시 후 단기 반등 있었음. 단, 순수 투기이며 프로젝트 가치와 무관",
-    risk: "스캠 토큰 반등은 재반등 불가능할 수 있음. 전액 손실 가능. 극소량만",
+    id: "B", title: "숏: 82.5% 미유통 언락 대비", priority: "2순위",
+    entry: "$0.068-0.072 (ATH 근접 시)", sl: "$0.08", tp1: "$0.05 (R:R ≈ 1:1.5)", tp2: "$0.04",
+    signal: "Team 22% + Investors 27% 베스팅 일정 공개 시. 또는 재단 지갑 추가 이동 감지",
+    rationale: "유통 17.5% = 82.5% 잠금. 인사이더(Team+Investors) 49%. 베스팅 일정 미공개 자체가 리스크. ATH 근접 상태에서 재단이 이미 매도 활동 중 = 내부자가 고점으로 판단",
+    risk: "베스팅 일정 공개 전까지 촉매 부재. 장기 포지션 유지 비용. Coinbase/Kraken 상장 신뢰도",
+    color: "#f59e0b",
+  },
+  {
+    id: "C", title: "롱: 펀더멘털 매수 (조건부)", priority: "관찰",
+    entry: "$0.04 이하 조정 시", sl: "$0.03", tp1: "$0.06 (R:R ≈ 1:2)", tp2: "$0.07",
+    signal: "재단 매도 활동 중단 + 프로덕트 출시/채택 뉴스",
+    rationale: "실제 팀 (Morgan Stanley, Deutsche Bank 출신). Polychain $12M 투자. Coinbase+Kraken 상장. 블록스페이스 선물 시장 = 실제 프로덕트. 인사이더 매도 완료 후 저점 매수 기회",
+    risk: "인사이더 매도 규모/일정 미확인. 추가 물량 해제 리스크. 프로덕트 PMF 미검증",
+    color: "#34d399",
+  },
+];
+
+const GWEI_CATALYSTS = [
+  { date: "~2025", event: "TGE + Polychain $12M 시드 라운드. Coinbase, Kraken 상장", impact: "런칭", done: true },
+  { date: "2026.04", event: "재단 지갑 → 10개 신규 지갑에 $6M 분배 → Bitget 입금", impact: "재단 덤프", done: true },
+  { date: "23시간 전", event: "0x096f → Bitget 15M GWEI ($820K). 잔액 $9.64 (전량 매도)", impact: "매도 확인", done: true },
+  { date: "진행중", event: "ATH 근접 펌핑 + 재단 활발 매도 = 인사이더 덤프 패턴", impact: "경고", done: true },
+  { date: "미정", event: "Team 22% + Investors 27% 베스팅 일정 공개", impact: "핵심 리스크", done: false },
+  { date: "미정", event: "Ethereum 블록스페이스 선물 시장 프로덕트 채택 지표", impact: "펀더멘털", done: false },
+];
+
+// ============================================================
+// SKYAI Standalone Deep Analysis — 2026-04-11
+// Source: TradingView (Binance Futures SKYAIUSDT Daily), Velo, Arkham
+// ============================================================
+const SKYAI_MARKET = {
+  price: "$0.127", mcap: "$127M", fdv: "$127M", vol24h: "$25.9M",
+  oi: "$298.9M", oiMcapRatio: "2.35x (OI > MCap = 극단적 투기)",
+  fundingRate: "0.2058% (8H OI 가중평균)",
+  liq24h: "Long 1.385M / Short -722K",
+  athPrice: "$0.128+", athDate: "2026.04.11 (진행중)",
+  atlPrice: "$0.0143", atlDate: "2025.10.11",
+  circulating: "998M / 1B (99.8%)",
+  exchanges: "Binance Futures, Gate.io, HTX, OrangeX, PancakeSwap",
+  chain: "BNB Chain", volumeSma: "769.64M",
+  change24h: "+76.4%", change7d: "+104.8%", change30d: "+185%",
+};
+
+const SKYAI_TECHNICALS = {
+  trend: "Parabolic Extension — 극단적 과열",
+  ma14: "$0.07239", ma21: "$0.06799", ma35: "$0.05875",
+  ma50: "$0.05428", ma100: "$0.04645", ma200: "$0.03635",
+  maDeviation: "+253% (MA200 대비) — 역사적 이격",
+  fundingRate: "0.2058% — 연환산 ~750%. 롱 포지션 유지비용 극단적",
+  oiSurge: "~40M → 298.9M (+647%) in 1개월. MCap의 2.35배",
+  vpvr: "POC $0.035-0.055. $0.06 위 거래량 희박 = 허공 구간",
+  liqProfile: "롱 청산 1.385M > 숏 청산 722K. 롱 레버리지 과다",
+  priceVsMa: "전 이평선(14/21/35/50/100/200) 위에서 거래 — 극단적 이격 상태",
+};
+
+const SKYAI_LEVELS = [
+  { type: "R", label: "R3", price: "$0.14", note: "라운드 넘버, 심리적 저항" },
+  { type: "R", label: "R2", price: "$0.13", note: "4/11 고점 영역" },
+  { type: "NOW", label: "현재가", price: "$0.127", note: "ATH 돌파 중 (+76.4%)" },
+  { type: "S", label: "S1", price: "$0.072", note: "MA14 + VPVR 상단. 1차 되돌림 타겟 (-43%)" },
+  { type: "S", label: "S2", price: "$0.054-0.059", note: "MA35-50 밀집 + VPVR 고밀도대" },
+  { type: "S", label: "S3", price: "$0.036-0.041", note: "MA200 + VPVR POC. 풀 되돌림 (-70%)" },
+  { type: "S", label: "S4", price: "$0.025", note: "직전 저항→지지 전환. SIREN급 크래시 타겟" },
+];
+
+const SKYAI_SCENARIOS_FULL = [
+  {
+    id: "A", title: "숏: 파생상품 과열 되돌림 (최우선)", priority: "1순위",
+    entry: "현재 $0.127 (소규모) 또는 반등 시 $0.13-0.14", sl: "$0.16 (+26%)", tp1: "$0.072 (MA14, R:R ≈ 1:1.8)", tp2: "$0.055 (MA35-50, R:R ≈ 1:2.5)",
+    signal: "4H 캔들 긴 윗꼬리/도지 + 거래량 감소 + OI 감소 시작. 또는 펀딩비 0.3% 초과 시 과열 극대",
+    rationale: "펀딩비 0.2058% = 연환산 ~750%. 롱 포지션 유지비만으로 소멸. OI/MCap 2.35x = 투기적 레버리지 극단. MA200 대비 +253% 이격 = 역사적 수준. VPVR $0.06 위 거래량 부재 = 하락 시 지지 없음. SIREN 패턴 + 익명팀 + 지갑 분산 = 구조적 리스크",
+    risk: "파라볼릭 상승 중 숏은 스퀴즈 위험. +76% 24h 모멘텀 강력. 소규모 포지션 + 넓은 손절 필수. BNB Chain Foundation 매수가 단기 지지",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "숏: 펀딩비 리셋 이벤트", priority: "2순위",
+    entry: "펀딩비 0.3%+ 도달 시 또는 OI 피크 확인 후", sl: "직전 ATH +10%", tp1: "$0.072 (MA14)", tp2: "$0.041 (MA100 부근)",
+    signal: "펀딩비 0.3% 초과 + OI 증가 멈춤 + 가격 정체 = 롱 소진. 대규모 롱 청산 캐스케이드 시작 시 추격 숏",
+    rationale: "펀딩비 0.2%+에서 반전한 역사적 사례 다수 (PEPE, BONK, WIF 등). OI 298.9M이 MCap 127M의 2.35배 = 가격이 10% 하락하면 롱 청산 연쇄. $0.06 위 VPVR 공백 = 하락 시 '에어포켓' — 급락 가능",
+    risk: "고펀딩이 더 오래 유지될 수 있음 (밈코인 광풍기). OI 추가 유입 시 스퀴즈 지속. 타이밍 예측 어려움",
+    color: "#f59e0b",
+  },
+  {
+    id: "C", title: "크래시 후 데드캣 바운스 롱 (극고위험)", priority: "관찰",
+    entry: "SIREN급 -70~80% 크래시 후 $0.025-0.035 안정화 시", sl: "$0.018", tp1: "$0.055 (+80%)", tp2: "N/A",
+    signal: "수직 하락 후 거래량 소멸 → 3일+ 횡보 안정화. OI 90%+ 감소 확인",
+    rationale: "SIREN -90% 크래시 후에도 단기 반등 있었음. MA200 $0.036 부근 = 자연적 평균 회귀 지지. 단, 순수 투기이며 프로젝트 가치와 무관",
+    risk: "스캠 토큰 반등은 재반등 불가능할 수 있음. 전액 손실 가능. 극소량만. SIREN은 반등 후 재하락",
     color: "#6b7280",
   },
+];
+
+const SKYAI_CATALYSTS = [
+  { date: "2025.04", event: "Four.meme 런치패드 $50M 레이징 (주장). 112K 지갑 참여", impact: "런칭", done: true },
+  { date: "2025.05.14", event: "TGE. ATH $0.09 달성 후 하락", impact: "고점", done: true },
+  { date: "2025.10.11", event: "ATL $0.0143 도달 (-84% from ATH)", impact: "바닥", done: true },
+  { date: "2026.04.05", event: "11개월 보유 지갑 79% 수익 실현 후 알고리즘 매도 이탈", impact: "웨일 이탈", done: true },
+  { date: "2026.04.06", event: "MM 240만 토큰 Gate.io 인출 → 서브지갑 분배 (약세 신호)", impact: "분배", done: true },
+  { date: "2026.04.11", event: "+76.4% 급등. ATH 돌파. 펀딩비 0.2058%. OI $299M (MCap의 2.35x)", impact: "극단 과열", done: true },
+  { date: "진행중", event: "0x5a26 웨일 $91-93K씩 정기 서브지갑 매도 지속", impact: "지속 매도", done: true },
+  { date: "미정", event: "펀딩비 리셋 or SIREN급 크래시 — 역사적 패턴상 수일~수주 내", impact: "핵심 리스크", done: false },
 ];
 
 function ShortStrategyTab() {
@@ -1251,11 +1354,12 @@ function ShortStrategyTab() {
 
   const tokens = [
     { id: "WLFI", name: "World Liberty Financial", verdict: "STRONG SHORT", verdictColor: "#ef4444" },
+    { id: "SKYAI", name: "SkyAI", verdict: "SIREN + 파생상품 극단 과열", verdictColor: "#ef4444" },
     { id: "BABY", name: "Babylon", verdict: "LONG BIAS (과매도)", verdictColor: "#34d399" },
     { id: "FF", name: "Falcon Finance", verdict: "DWF 운전 — 분배 중", verdictColor: "#f59e0b" },
     { id: "ARIA", name: "AriaAI", verdict: "크래시 후 회복 — 혼재", verdictColor: "#8b5cf6" },
     { id: "VVV", name: "Venice AI", verdict: "강한 업트렌드 +383%", verdictColor: "#06b6d4" },
-    { id: "GWEI_SKYAI", name: "GWEI + SKYAI", verdict: "재단 덤프 + SIREN 패턴", verdictColor: "#ef4444" },
+    { id: "GWEI", name: "ETHGas", verdict: "재단 인사이더 덤프", verdictColor: "#f59e0b" },
   ];
 
   return (
@@ -1277,11 +1381,12 @@ function ShortStrategyTab() {
       </div>
 
       {selectedToken === "WLFI" && <WLFIAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "SKYAI" && <SkyaiAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "BABY" && <BABYAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "FF" && <FFAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "ARIA" && <ARIAAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "VVV" && <VVVAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
-      {selectedToken === "GWEI_SKYAI" && <GweiSkyaiAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "GWEI" && <GweiAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
     </div>
   );
 }
@@ -2630,100 +2735,189 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
 // ============================================================
 // GWEI + SKYAI Combined Analysis
 // ============================================================
-function GweiSkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
+// ============================================================
+// SKYAI Standalone Analysis Component
+// ============================================================
+function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
   return (
     <div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 20 }}>Last updated: 2026-04-11 · Sources: Arkham, CoinGecko, Bubblemaps, On-chain Radar, CoinMarketCap</div>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
+        <span style={{ fontSize: 24, fontWeight: 800, color: "#f0f0f5" }}>SKYAI</span>
+        <span style={{ fontSize: 14, color: "#888" }}>SkyAI · BNB Chain</span>
+        <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>DERIVATIVES OVERHEATED</span>
+      </div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-11 · Sources: TradingView (Binance Futures), Velo, Arkham, CoinGecko</div>
 
-      {/* Side-by-side comparison */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 28 }}>
-        {/* GWEI */}
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
-            <span style={{ fontSize: 22, fontWeight: 800, color: "#f0f0f5" }}>GWEI</span>
-            <span style={{ fontSize: 12, color: "#888" }}>ETHGas · {GWEI_DATA.chain}</span>
-            <span style={{ fontSize: 10, padding: "2px 6px", borderRadius: 3, background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.2)", color: "#f59e0b", fontWeight: 600 }}>재단 덤프 의심</span>
+      {/* Verdict Banner */}
+      <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>SIREN 패턴 + 파생상품 극단 과열 — 숏 우선</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>펀딩비 0.2058%, OI/MCap 2.35x, MA200 대비 +253%. 역사적 과열 시그널 전부 점등</div>
           </div>
-          <div style={{ ...cardStyle, borderLeft: `3px solid ${GWEI_DATA.verdictColor}`, marginBottom: 12 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: GWEI_DATA.verdictColor, marginBottom: 8 }}>{GWEI_DATA.verdict}</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
-              {[["가격", GWEI_DATA.price], ["시총", GWEI_DATA.mcap], ["FDV", GWEI_DATA.fdv], ["유통", GWEI_DATA.circulating],
-                ["24h Vol", GWEI_DATA.vol24h], ["상태", GWEI_DATA.athDrop], ["팀", GWEI_DATA.team], ["투자", GWEI_DATA.funding],
-              ].map(([l, v]) => (
-                <div key={l}><span style={{ fontSize: 10, color: "#555" }}>{l}: </span><span style={{ fontSize: 11, color: "#ccc" }}>{v}</span></div>
-              ))}
-            </div>
-            <div style={{ fontSize: 11, color: "#888", marginBottom: 6 }}>거래소: {GWEI_DATA.exchanges}</div>
-          </div>
-          <div style={{ ...cardStyle, marginBottom: 8 }}>
-            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 6 }}>Red Flags</div>
-            {GWEI_DATA.redFlags.map((f, i) => (
-              <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #2a1418", marginBottom: 4 }}>{f}</div>
-            ))}
-          </div>
-          <div style={cardStyle}>
-            <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 6 }}>Green Flags</div>
-            {GWEI_DATA.greenFlags.map((f, i) => (
-              <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #1a3a25", marginBottom: 4 }}>{f}</div>
-            ))}
-          </div>
-        </div>
-
-        {/* SKYAI */}
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
-            <span style={{ fontSize: 22, fontWeight: 800, color: "#f0f0f5" }}>SKYAI</span>
-            <span style={{ fontSize: 12, color: "#888" }}>SkyAI · {SKYAI_DATA.chain}</span>
-            <span style={{ fontSize: 10, padding: "2px 6px", borderRadius: 3, background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontWeight: 600 }}>#넥스트사이렌</span>
-          </div>
-          <div style={{ ...cardStyle, borderLeft: `3px solid ${SKYAI_DATA.verdictColor}`, marginBottom: 12 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: SKYAI_DATA.verdictColor, marginBottom: 8 }}>{SKYAI_DATA.verdict}</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 10 }}>
-              {[["가격", SKYAI_DATA.price], ["시총", SKYAI_DATA.mcap], ["FDV", SKYAI_DATA.fdv], ["유통", SKYAI_DATA.circulating],
-                ["24h Vol", SKYAI_DATA.vol24h], ["상태", SKYAI_DATA.athDrop], ["팀", SKYAI_DATA.team], ["펀딩", SKYAI_DATA.funding],
-              ].map(([l, v]) => (
-                <div key={l}><span style={{ fontSize: 10, color: "#555" }}>{l}: </span><span style={{ fontSize: 11, color: "#ccc" }}>{v}</span></div>
-              ))}
-            </div>
-            <div style={{ fontSize: 11, color: "#888", marginBottom: 6 }}>거래소: {SKYAI_DATA.exchanges}</div>
-          </div>
-          <div style={{ ...cardStyle, marginBottom: 8 }}>
-            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 6 }}>Red Flags — SIREN 패턴 매치</div>
-            {SKYAI_DATA.redFlags.map((f, i) => (
-              <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #2a1418", marginBottom: 4 }}>{f}</div>
-            ))}
-          </div>
-          <div style={cardStyle}>
-            <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 6 }}>Green Flags</div>
-            {SKYAI_DATA.greenFlags.map((f, i) => (
-              <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #1a3a25", marginBottom: 4 }}>{f}</div>
+          <div style={{ display: "flex", gap: 12 }}>
+            {[["펀딩비", "0.2058%", "#ef4444"], ["OI/MCap", "2.35x", "#ef4444"], ["MA200 이격", "+253%", "#ef4444"], ["SIREN", "패턴 매치", "#f59e0b"]].map(([label, val, col]) => (
+              <div key={label} style={{ textAlign: "center", minWidth: 70 }}>
+                <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Arkham 발견 */}
+      {/* Market Overview */}
       <div style={sectionStyle}>
-        {sectionTitle("Arkham On-chain 발견")}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-          <div style={{ ...cardStyle, borderLeft: "3px solid #f59e0b" }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f59e0b", marginBottom: 6 }}>GWEI: 0x096f... (Arkham)</div>
-            <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.7 }}>
-              잔액: <b>$9.64</b> (ETH만 남음 — 전량 매도 완료)<br/>
-              23시간 전: → <span style={{ color: "#ef4444" }}>Bitget Deposit 15M GWEI ($820K)</span><br/>
-              1개월 전: → Bitget Deposit 5M GWEI ($156K)<br/>
-              1개월 전: ethgasfoundation → 이 지갑 20M GWEI ($612K)<br/>
-              패턴: <span style={{ color: "#ef4444" }}>재단→시드지갑→Bitget 100%</span>
+        {sectionTitle("Market Overview")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+          {[
+            ["현재가", SKYAI_MARKET.price, "#f0f0f5", true],
+            ["24h 변동", SKYAI_MARKET.change24h, "#34d399", false],
+            ["7d 변동", SKYAI_MARKET.change7d, "#34d399", false],
+            ["30d 변동", SKYAI_MARKET.change30d, "#34d399", false],
+            ["시가총액", SKYAI_MARKET.mcap, "#ccc", false],
+            ["FDV", SKYAI_MARKET.fdv, "#ccc", false],
+            ["유통량", SKYAI_MARKET.circulating, "#ccc", false],
+            ["ATH", `${SKYAI_MARKET.athPrice} (${SKYAI_MARKET.athDate})`, "#34d399", false],
+            ["OI (미결제약정)", SKYAI_MARKET.oi, "#ef4444", true],
+            ["OI/MCap 비율", SKYAI_MARKET.oiMcapRatio, "#ef4444", false],
+            ["펀딩비 (8H)", SKYAI_MARKET.fundingRate, "#ef4444", false],
+            ["24h 청산", SKYAI_MARKET.liq24h, "#f59e0b", false],
+            ["24h 거래량", SKYAI_MARKET.vol24h, "#ccc", false],
+            ["Volume SMA", SKYAI_MARKET.volumeSma, "#ccc", false],
+            ["ATL", `${SKYAI_MARKET.atlPrice} (${SKYAI_MARKET.atlDate})`, "#888", false],
+            ["거래소", SKYAI_MARKET.exchanges, "#888", false],
+          ].map(([label, val, col, big]) => (
+            <div key={label} style={{ ...cardStyle, padding: "10px 14px" }}>
+              <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
+              <div style={{ fontSize: big ? 20 : 14, fontWeight: big ? 800 : 600, color: col, marginTop: 3 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Derivatives Overheating Alert */}
+      <div style={sectionStyle}>
+        {sectionTitle("파생상품 과열 경고 — 핵심 숏 근거")}
+        <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14, padding: "10px 14px", background: "#1a0a0e", borderRadius: 6, border: "1px solid #2a1418" }}>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>Funding Rate</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>0.2058%</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>연환산</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~750%</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>OI / MCap</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>2.35x</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>OI 급증</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+647%</div>
+            </div>
+            <div style={{ fontSize: 11, color: "#888", marginLeft: "auto" }}>Velo · Binance Futures</div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 14 }}>
+            {[
+              ["롱 청산", "1.385M", "#ef4444"],
+              ["숏 청산", "722K", "#34d399"],
+              ["청산 비율", "L:S = 1.92:1", "#f59e0b"],
+            ].map(([label, val, col]) => (
+              <div key={label}>
+                <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase" }}>{label}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: col, marginTop: 2 }}>{val}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "12px 14px", border: "1px solid #2a1418" }}>
+            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>과열 시그널 종합</div>
+            <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.7 }}>
+              펀딩비 0.2058% = 롱이 숏에게 8시간마다 0.2% 지불. 연환산 ~750%. 롱 포지션 유지비만으로 자본 소멸 속도 극대.
+              OI $298.9M이 시총 $127M의 2.35배 = 가격 10% 하락 시 레버리지 롱 연쇄 청산 불가피.
+              1개월 내 OI 40M → 299M (+647%) 급증 = 투기적 레버리지 집중.
+              역사적으로 펀딩비 0.2%+ 구간에서 반전한 사례 다수 (PEPE -35%, BONK -40%, WIF -45%).
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Technical Indicators */}
+      <div style={sectionStyle}>
+        {sectionTitle("Technical Indicators")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          {/* Moving Averages */}
+          <div style={cardStyle}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>이동평균 — 전부 하방 (극단 이격)</div>
+            {[
+              ["MA14", SKYAI_TECHNICALS.ma14, "$0.127 대비 +75.6%"],
+              ["MA21", SKYAI_TECHNICALS.ma21, "$0.127 대비 +86.8%"],
+              ["MA35", SKYAI_TECHNICALS.ma35, "$0.127 대비 +116%"],
+              ["MA50", SKYAI_TECHNICALS.ma50, "$0.127 대비 +134%"],
+              ["MA100", SKYAI_TECHNICALS.ma100, "$0.127 대비 +173%"],
+              ["MA200", SKYAI_TECHNICALS.ma200, "$0.127 대비 +253%"],
+            ].map(([label, val, note]) => (
+              <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid #14161e" }}>
+                <span style={{ fontSize: 12, color: "#888", minWidth: 50 }}>{label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#60a5fa" }}>{val}</span>
+                <span style={{ fontSize: 10, color: "#ef4444" }}>{note}</span>
+              </div>
+            ))}
+            <div style={{ marginTop: 8, padding: "6px 10px", background: "#1a0a0e", borderRadius: 4, border: "1px solid #2a1418" }}>
+              <span style={{ fontSize: 11, color: "#ef4444", fontWeight: 600 }}>VPVR: </span>
+              <span style={{ fontSize: 11, color: "#ef8888" }}>{SKYAI_TECHNICALS.vpvr}</span>
+            </div>
+          </div>
+
+          {/* Support / Resistance */}
+          <div style={cardStyle}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>Support / Resistance Levels</div>
+            {SKYAI_LEVELS.map((lv, i) => {
+              const colors = { R: "#ef4444", NOW: "#34d399", S: "#3b82f6" };
+              const c = colors[lv.type];
+              return (
+                <div key={i} style={{
+                  display: "flex", alignItems: "center", gap: 10, padding: "7px 10px", marginBottom: 4, borderRadius: 6,
+                  background: lv.type === "NOW" ? "rgba(52,211,153,0.08)" : "transparent",
+                  border: lv.type === "NOW" ? "1px solid rgba(52,211,153,0.2)" : "1px solid transparent",
+                }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: c, minWidth: 36 }}>{lv.label}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: lv.type === "NOW" ? "#34d399" : "#ccc", minWidth: 100 }}>{lv.price}</span>
+                  <span style={{ fontSize: 11, color: "#666" }}>{lv.note}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* SIREN Pattern + Red Flags */}
+      <div style={sectionStyle}>
+        {sectionTitle("SIREN 패턴 매치 + Red Flags")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444", marginBottom: 6 }}>SKYAI: 0x5a26... (Arkham)</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444", marginBottom: 8 }}>Red Flags — SIREN 패턴</div>
+            {SKYAI_DATA.redFlags.map((f, i) => (
+              <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #2a1418", marginBottom: 4 }}>{f}</div>
+            ))}
+          </div>
+          <div style={cardStyle}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444", marginBottom: 8 }}>Arkham On-chain: 0x5a26...</div>
             <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.7 }}>
               잔액: <b>$1,105,758</b> (SKYAI Whale 태그)<br/>
               보유: 9.45M SKYAI ($1.11M)<br/>
               2-3주 전: <span style={{ color: "#ef4444" }}>$91-93K씩 동일 금액 반복 분배</span><br/>
               다수 서브 지갑으로 정기 배분 = 조직적 분산<br/>
-              SIREN 동일 패턴: 52/54 지갑 = 1 엔터티
+              <span style={{ color: "#ef4444" }}>SIREN 동일 패턴: 52/54 지갑 = 1 엔터티</span>
+            </div>
+            <div style={{ marginTop: 10, padding: "8px 10px", background: "#0d1f15", borderRadius: 4, border: "1px solid #1a3a25" }}>
+              <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 4 }}>Green Flags (제한적)</div>
+              {SKYAI_DATA.greenFlags.map((f, i) => (
+                <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.5 }}>{f}</div>
+              ))}
             </div>
           </div>
         </div>
@@ -2733,7 +2927,7 @@ function GweiSkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle
       <div style={sectionStyle}>
         {sectionTitle("Entry Scenarios")}
         <div style={{ display: "grid", gap: 12 }}>
-          {GWEI_SKYAI_SCENARIOS.map((sc) => {
+          {SKYAI_SCENARIOS_FULL.map((sc) => {
             const isOpen = expandedScenario === sc.id;
             return (
               <div key={sc.id} style={{ ...cardStyle, borderLeft: `3px solid ${sc.color}`, cursor: "pointer" }} onClick={() => setExpandedScenario(isOpen ? null : sc.id)}>
@@ -2774,35 +2968,238 @@ function GweiSkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle
         </div>
       </div>
 
-      {/* Risk Summary */}
+      {/* Catalyst Timeline */}
       <div style={sectionStyle}>
-        {sectionTitle("비교 요약")}
+        {sectionTitle("Catalyst Timeline")}
         <div style={cardStyle}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr", gap: 4, marginBottom: 8 }}>
-            {["항목", "GWEI", "SKYAI"].map((h) => (
-              <div key={h} style={{ fontSize: 11, color: "#555", fontWeight: 700, textTransform: "uppercase", padding: "4px 0", borderBottom: "1px solid #181c24" }}>{h}</div>
-            ))}
-          </div>
-          {[
-            ["팀", "실명 (ex-Morgan Stanley)", "익명"],
-            ["VC", "Polychain $12M", "없음 (미검증)"],
-            ["프로덕트", "블록스페이스 선물 (실제)", "AI + MCP (모호)"],
-            ["거래소", "Coinbase, Kraken (1급)", "Gate, HTX (2-3급)"],
-            ["유통", "17.5%", "99.8% (집중도 은폐)"],
-            ["30d 변동", "+24%", "+185%"],
-            ["스캠 확률", "낮음 (토큰 매도만 의심)", "높음 (SIREN 패턴)"],
-          ].map(([label, gwei, skyai], i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr", gap: 4, padding: "5px 0", borderBottom: "1px solid #14161e" }}>
-              <span style={{ fontSize: 11, color: "#888" }}>{label}</span>
-              <span style={{ fontSize: 11, color: "#ccc" }}>{gwei}</span>
-              <span style={{ fontSize: 11, color: label === "스캠 확률" ? "#ef4444" : "#ccc" }}>{skyai}</span>
+          {SKYAI_CATALYSTS.map((cat, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "10px 0", borderBottom: i < SKYAI_CATALYSTS.length - 1 ? "1px solid #14161e" : "none" }}>
+              <div style={{ minWidth: 70, fontSize: 12, fontWeight: 700, color: cat.done ? "#555" : "#f0f0f5" }}>{cat.date}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: cat.done ? "#888" : "#ccc", lineHeight: 1.5, textDecoration: cat.done ? "none" : "none" }}>{cat.event}</div>
+              </div>
+              <div style={{ minWidth: 80, textAlign: "right" }}>
+                <span style={{
+                  fontSize: 10, padding: "2px 6px", borderRadius: 3, fontWeight: 600,
+                  background: cat.done ? "rgba(107,114,128,0.1)" : "rgba(239,68,68,0.1)",
+                  border: `1px solid ${cat.done ? "rgba(107,114,128,0.2)" : "rgba(239,68,68,0.2)"}`,
+                  color: cat.done ? "#6b7280" : "#ef4444",
+                }}>{cat.impact}</span>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
-        Sources: Arkham Intelligence · CoinGecko · CoinMarketCap · Bubblemaps · On-chain Radar · The Block · OnChainSchool
+        Sources: TradingView (Binance Futures SKYAIUSDT Daily) · Velo Aggregated Data · Arkham Intelligence · CoinGecko · CoinMarketCap · On-chain Radar
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// GWEI (ETHGas) Standalone Analysis Component
+// ============================================================
+function GweiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
+        <span style={{ fontSize: 24, fontWeight: 800, color: "#f0f0f5" }}>GWEI</span>
+        <span style={{ fontSize: 14, color: "#888" }}>ETHGas · Ethereum</span>
+        <span style={{ fontSize: 11, color: "#f59e0b", background: "rgba(245,158,11,0.08)", padding: "3px 8px", borderRadius: 4, border: "1px solid rgba(245,158,11,0.2)", fontWeight: 700 }}>INSIDER DUMP</span>
+      </div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-11 · Sources: Arkham, CoinGecko, Bubblemaps, On-chain Radar, CoinMarketCap</div>
+
+      {/* Verdict Banner */}
+      <div style={{ background: "linear-gradient(135deg, #1a1408 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a2418", padding: "20px 24px", marginBottom: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 11, color: "#f59e0b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#f59e0b" }}>프로젝트 합법 + 재단 인사이더 덤프 — 숏 대기</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>실제 팀 + Polychain VC 있지만, 재단 지갑→Bitget 100% 매도 패턴 Arkham 확인. 82.5% 미유통</div>
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            {[["유통률", "17.5%", "#ef4444"], ["인사이더", "49%", "#ef4444"], ["재단 매도", "확인", "#f59e0b"], ["프로덕트", "실재", "#34d399"]].map(([label, val, col]) => (
+              <div key={label} style={{ textAlign: "center", minWidth: 65 }}>
+                <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Market Overview */}
+      <div style={sectionStyle}>
+        {sectionTitle("Market Overview")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+          {[
+            ["현재가", GWEI_DATA.price, "#f0f0f5", true],
+            ["24h 변동", GWEI_DATA.athDrop, "#34d399", false],
+            ["시가총액", GWEI_DATA.mcap, "#ccc", false],
+            ["FDV", GWEI_DATA.fdv, "#ccc", false],
+            ["유통량", GWEI_DATA.circulating, "#ef4444", false],
+            ["24h 거래량", GWEI_DATA.vol24h, "#ccc", false],
+            ["체인", GWEI_DATA.chain, "#888", false],
+            ["거래소", GWEI_DATA.exchanges, "#888", false],
+            ["팀", GWEI_DATA.team, "#ccc", false],
+            ["투자", GWEI_DATA.funding, "#ccc", false],
+          ].map(([label, val, col, big]) => (
+            <div key={label} style={{ ...cardStyle, padding: "10px 14px" }}>
+              <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
+              <div style={{ fontSize: big ? 20 : 14, fontWeight: big ? 800 : 600, color: col, marginTop: 3 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tokenomics + Red/Green Flags */}
+      <div style={sectionStyle}>
+        {sectionTitle("Tokenomics & On-chain 분석")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          {/* Tokenomics */}
+          <div style={cardStyle}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>토큰 분배 — 49% 인사이더</div>
+            <div style={{ display: "flex", height: 18, borderRadius: 4, overflow: "hidden", marginBottom: 10 }}>
+              {GWEI_TOKENOMICS.map((t, i) => (
+                <div key={i} style={{ width: t.pct, background: t.color, height: "100%" }} title={`${t.name}: ${t.pct}`} />
+              ))}
+            </div>
+            {GWEI_TOKENOMICS.map((t, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid #14161e" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: 2, background: t.color }} />
+                  <span style={{ fontSize: 12, color: "#ccc" }}>{t.name}</span>
+                </div>
+                <span style={{ fontSize: 12, color: "#888" }}>{t.pct}</span>
+                <span style={{ fontSize: 10, color: "#666" }}>{t.schedule}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* S/R Levels */}
+          <div style={cardStyle}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>Support / Resistance Levels</div>
+            {GWEI_LEVELS.map((lv, i) => {
+              const colors = { R: "#ef4444", NOW: "#34d399", S: "#3b82f6" };
+              const c = colors[lv.type];
+              return (
+                <div key={i} style={{
+                  display: "flex", alignItems: "center", gap: 10, padding: "7px 10px", marginBottom: 4, borderRadius: 6,
+                  background: lv.type === "NOW" ? "rgba(52,211,153,0.08)" : "transparent",
+                  border: lv.type === "NOW" ? "1px solid rgba(52,211,153,0.2)" : "1px solid transparent",
+                }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: c, minWidth: 36 }}>{lv.label}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: lv.type === "NOW" ? "#34d399" : "#ccc", minWidth: 90 }}>{lv.price}</span>
+                  <span style={{ fontSize: 11, color: "#666" }}>{lv.note}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Arkham On-chain Evidence */}
+      <div style={sectionStyle}>
+        {sectionTitle("Arkham On-chain 증거 — 재단 덤프 확인")}
+        <div style={{ ...cardStyle, borderLeft: "3px solid #f59e0b" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#f59e0b", marginBottom: 8 }}>0x096f... → Bitget (Arkham 확인)</div>
+          <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.7, marginBottom: 12 }}>
+            잔액: <b>$9.64</b> (ETH만 남음 — 전량 매도 완료)<br/>
+            23시간 전: → <span style={{ color: "#ef4444" }}>Bitget Deposit 15M GWEI ($820K)</span><br/>
+            1개월 전: → Bitget Deposit 5M GWEI ($156K)<br/>
+            1개월 전: ethgasfoundation → 이 지갑 20M GWEI ($612K)<br/>
+            패턴: <span style={{ color: "#ef4444" }}>재단 → 시드지갑 → Bitget 100% (중간 경유)</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
+              <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>Red Flags</div>
+              {GWEI_DATA.redFlags.map((f, i) => (
+                <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 8, borderLeft: "2px solid #2a1418", marginBottom: 3 }}>{f}</div>
+              ))}
+            </div>
+            <div style={{ background: "#0d1f15", borderRadius: 6, padding: "10px 12px", border: "1px solid #1a3a25" }}>
+              <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 4 }}>Green Flags</div>
+              {GWEI_DATA.greenFlags.map((f, i) => (
+                <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.6, paddingLeft: 8, borderLeft: "2px solid #1a3a25", marginBottom: 3 }}>{f}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Entry Scenarios */}
+      <div style={sectionStyle}>
+        {sectionTitle("Entry Scenarios")}
+        <div style={{ display: "grid", gap: 12 }}>
+          {GWEI_SCENARIOS.map((sc) => {
+            const isOpen = expandedScenario === sc.id;
+            return (
+              <div key={sc.id} style={{ ...cardStyle, borderLeft: `3px solid ${sc.color}`, cursor: "pointer" }} onClick={() => setExpandedScenario(isOpen ? null : sc.id)}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: "#f0f0f5" }}>{sc.title}</span>
+                    <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 4, background: `${sc.color}15`, border: `1px solid ${sc.color}33`, color: sc.color, fontWeight: 600 }}>{sc.priority}</span>
+                  </div>
+                  <span style={{ fontSize: 16, color: "#444" }}>{isOpen ? "▾" : "▸"}</span>
+                </div>
+                {isOpen && (
+                  <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid #14161e" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 10, marginBottom: 12 }}>
+                      {[["진입", sc.entry, sc.color], ["손절", sc.sl, "#ef4444"], ["TP1", sc.tp1, "#34d399"], ["TP2", sc.tp2, "#34d399"]].map(([label, val, col]) => (
+                        <div key={label} style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e" }}>
+                          <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase" }}>{label}</div>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: col, marginTop: 2 }}>{val}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>시그널</div>
+                      <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.6 }}>{sc.signal}</div>
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>근거</div>
+                      <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6 }}>{sc.rationale}</div>
+                    </div>
+                    <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
+                      <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>리스크</div>
+                      <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>{sc.risk}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Catalyst Timeline */}
+      <div style={sectionStyle}>
+        {sectionTitle("Catalyst Timeline")}
+        <div style={cardStyle}>
+          {GWEI_CATALYSTS.map((cat, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "10px 0", borderBottom: i < GWEI_CATALYSTS.length - 1 ? "1px solid #14161e" : "none" }}>
+              <div style={{ minWidth: 70, fontSize: 12, fontWeight: 700, color: cat.done ? "#555" : "#f0f0f5" }}>{cat.date}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: cat.done ? "#888" : "#ccc", lineHeight: 1.5 }}>{cat.event}</div>
+              </div>
+              <div style={{ minWidth: 80, textAlign: "right" }}>
+                <span style={{
+                  fontSize: 10, padding: "2px 6px", borderRadius: 3, fontWeight: 600,
+                  background: cat.done ? "rgba(107,114,128,0.1)" : "rgba(245,158,11,0.1)",
+                  border: `1px solid ${cat.done ? "rgba(107,114,128,0.2)" : "rgba(245,158,11,0.2)"}`,
+                  color: cat.done ? "#6b7280" : "#f59e0b",
+                }}>{cat.impact}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
+        Sources: Arkham Intelligence · CoinGecko · CoinMarketCap · Bubblemaps · On-chain Radar · The Block
       </div>
     </div>
   );
