@@ -172,7 +172,7 @@ const unlocks = [
       { name: "Team/Advisors 베스팅", amount: "~33.5B", pct: 30, color: "#f59e0b" },
       { name: "Treasury/기타", amount: "~18.7B", pct: 10, color: "#6b7280" },
     ],
-    market: { price: "$0.078", mcap: "$2.5B", fdv: "$7.9B", vol24h: "$256M", athDrop: "-76.2%", exchanges: "Binance, Upbit, Bithumb, Coinone, OKX, Bybit, Gate.io" },
+    market: { price: "$0.0802", mcap: "$2.58B", fdv: "$8.02B", vol24h: "$221M", athDrop: "-75.8%", exchanges: "Binance, Upbit, Bithumb, Coinone, OKX, Bybit, Gate.io" },
     vesting: "2025.7 거버넌스 투표로 양도가능 전환 (99% 찬성). 2025.9.1 첫 20% 해제 + 거래소 상장. 나머지 80%(~16B)는 4/10 거버넌스 제안 공개 → 단계적 베스팅 제안 중. Team 12m cliff+24~36m 선형 (소스간 불일치). 트럼프 가족 순이익 75%",
     timeline: [
       { date: "2025.07", event: "거버넌스 투표 → 양도가능 전환 (99% 찬성)", status: "done" },
@@ -772,29 +772,29 @@ function UnlockCard({ u, expanded, onToggle }) {
 // Short Strategy Tab — WLFI Analysis (2026-04-11)
 // ============================================================
 const WLFI_MARKET = {
-  price: "$0.0792", mcap: "$2.55B", fdv: "$7.92B", vol24h: "$221M",
-  volFutures: "$536M", oi: "$254.8M", oiMcapRatio: "~10% (중간)", oiRange30d: "$234-294M",
-  liq24h: "$3.99M", athPrice: "$0.3313", athDate: "2025.09.01", athDrop: "-76.1%",
+  price: "$0.0802", mcap: "$2.58B", fdv: "$8.02B", vol24h: "$221M",
+  volFutures: "Bybit 24h $20.8M", oi: "$124.0M (Binance $91.4M + Bybit $32.6M)", oiMcapRatio: "4.8% (저레버리지)", oiRange30d: "$234-294M (CoinGlass 집계, 실측 대비 2배)",
+  liq24h: "$3.99M", athPrice: "$0.3313", athDate: "2025.09.01", athDrop: "-75.8%",
   atlPrice: "$0.077", atlDate: "2026.04.11", circulating: "32.2B / 100B (32.2%)",
   exchanges: "Binance, Upbit, Bithumb, OKX, Bybit, Gate.io",
   dolomiteStatus: "50억 WLFI 담보 | $75M 대출 | LTV 19-21% | HR 3.11",
 };
 
 const WLFI_TECHNICALS = {
-  trend: "Bearish — 거래량 감소 + ATL 근접",
+  trend: "ATL 근접 bounce — 약세 지속",
   ema20: "$0.10", ema50: "$0.105", ema200: "$0.112",
   deathCross: true,
   supertrend: "Bearish (trailing $0.11)",
   ichimoku: "Red cloud, price below",
   rsi: "45.28 (중립)",
-  change24h: "+2.55%", change7d: "-18.4%", change30d: "-25%+",
+  change24h: "+1.17%", change7d: "-18.4%", change30d: "-25%+",
 };
 
 const WLFI_LEVELS = [
   { type: "R", label: "R3", price: "$0.112", note: "EMA200, 강한 저항" },
   { type: "R", label: "R2", price: "$0.10-0.105", note: "EMA20/50 밀집대" },
   { type: "R", label: "R1", price: "$0.088-0.097", note: "이전 지지→저항 전환" },
-  { type: "NOW", label: "현재가", price: "$0.078", note: "ATL 근접" },
+  { type: "NOW", label: "현재가", price: "$0.0802", note: "ATL $0.077 근접 (4/13)" },
   { type: "S", label: "S1", price: "$0.07", note: "최후 방어선" },
   { type: "S", label: "S2", price: "$0.06", note: "채널 하단, 극단 약세 타겟" },
 ];
@@ -853,23 +853,23 @@ const WLFI_CATALYSTS = [
 // BABY (Babylon) Analysis Data — 2026-04-11
 // ============================================================
 const BABY_MARKET = {
-  price: "$0.01439", mcap: "$41M", fdv: "$154.4M", vol24h: "$14.2M",
-  volFutures: "~$107M (SMA)", oi: "$400-433M", oiMcapRatio: "9.8x (극단적 레버리지)", oiPeak: "$1B (3월)",
-  liq24h: "낮음 (언락 이후 안정)", athPrice: "$0.166", athDate: "2025.04.12", athDrop: "-91.3%",
+  price: "$0.01432", mcap: "$40.8M", fdv: "$153.6M", vol24h: "$14.2M",
+  volFutures: "Binance $1.22M 일 / Bybit $1.23M 일", oi: "$5.3M (Binance $3.0M + Bybit $2.3M)", oiMcapRatio: "13% (정상 범위)", oiPeak: "$1B (3월 CoinGlass 주장)",
+  liq24h: "낮음 (디레버리지 완료)", athPrice: "$0.166", athDate: "2025.04.12", athDrop: "-91.4%",
   atlPrice: "$0.0107", atlDate: "2026.03.07", circulating: "2.85B / 10.73B (26.6%)",
   exchanges: "Binance, OKX, Kraken, KuCoin, Bybit, CoinW",
-  fundingRate: "-0.0029 (숏 우세 지속)",
+  fundingRate: "+0.004% Binance / -0.008% Bybit (중립)",
   maxSupply: "Unlimited (~8%/yr inflation)",
 };
 
 const BABY_TECHNICALS = {
-  trend: "Dead-cat Bounce (언락 후 안정)",
+  trend: "Oversold Consolidation (언락 흡수 완료)",
   rsi: "29.87 (과매도 유지)",
   ema: "전 이평선 아래 (데스크로스)",
-  fundingRate: "-0.0029 (숏 페이 지속)",
-  oiChange: "3월 $1B → 현재 $400-433M (-57%) — 디레버리지 완료",
+  fundingRate: "+0.004% / -0.008% (중립)",
+  oiChange: "Binance+Bybit 실시간 $5.3M = 시총의 13% (정상). CoinGlass 집계 $400M은 과장 가능성",
   volumePattern: "4/10 612.5M 언락 -1.4% 소화. 판매 압력 소멸",
-  change24h: "+3.90%", change7d: "+11.70%", change30d: "+2.6%",
+  change24h: "-0.46%", change7d: "+11.70%", change30d: "+2.6%",
 };
 
 const BABY_LEVELS = [
@@ -897,7 +897,7 @@ const BABY_SCENARIOS = [
     id: "A", title: "롱: 과매도 반등 플레이 (권장)", priority: "1순위",
     entry: "$0.012-0.013 (S1 지지대)", sl: "$0.0105 (ATL 아래)", tp1: "$0.018 (R1, R:R ≈ 1:2)", tp2: "$0.020 (R2, R:R ≈ 1:3)",
     signal: "RSI 30 이하 + 거래량 감소 후 양봉 전환 + OI 안정/증가",
-    rationale: "RSI 29.87 과매도. Funding -0.003 숏 우세→스퀴즈 유인. OI $1B→$434M 급감=포지션 정리 완료. Aave BTC 렌딩 4월 출시=펀더멘털 촉매. $0.012-0.018 4개월 횡보 기저 형성",
+    rationale: "RSI 29.87 과매도. Bybit Funding -0.008% 숏 우세→스퀴즈 유인. 실시간 OI $5.3M (Binance+Bybit 합산) = 시총의 13% (정상, 극단 레버리지 없음). Aave BTC 렌딩 4월 출시=펀더멘털 촉매. $0.012-0.018 4개월 횡보 기저 형성. 4/10 언락 -1.4% 흡수 완료. 3월 피크 $1B 주장은 CoinGlass 집계로 실측과 괴리 가능",
     risk: "무한 공급 + 월간 언락 = 반등 제한. 단타 2~5일 접근 필수. 장기 보유 불리",
     color: "#34d399",
   },
@@ -932,12 +932,12 @@ const BABY_CATALYSTS = [
 // FF (Falcon Finance) Analysis Data — 2026-04-11
 // ============================================================
 const FF_MARKET = {
-  price: "$0.0825", mcap: "$193M", fdv: "$825M", vol24h: "$103M",
-  oi: "$35.06M", oiMcapRatio: "~18% (중간 레버리지)",
-  fundingRate: "음수 (숏 커버링 진행)",
+  price: "$0.0800", mcap: "$187.2M", fdv: "$800M", vol24h: "$103M+",
+  oi: "$33.2M (Binance $25.1M + Bybit $8.1M)", oiMcapRatio: "18% (중간 레버리지)",
+  fundingRate: "-0.002% Binance / +0.001% Bybit (중립)",
   circulating: "2.34B / 10B (23.4%)", athPrice: "$0.77", athDate: "2025.09.29 (TGE)",
-  athDrop: "-89.3%", atlPrice: "$0.062", atlDate: "2025.10.10",
-  range24h: "$0.0825 — $0.1232 (4/10-12 분배)", exchanges: "Binance, Upbit, Bithumb, Bybit, KuCoin, MEXC",
+  athDrop: "-89.6%", atlPrice: "$0.062", atlDate: "2025.10.10",
+  range24h: "$0.0798 — $0.0955 (4/13)", exchanges: "Binance, Upbit, Bithumb, Bybit, KuCoin, MEXC",
   tvl: "~$2.1B (USDf 유통)", category: "DeFi / Synthetic Dollar (USDf)",
 };
 
@@ -956,14 +956,14 @@ const FF_TECHNICALS = {
   bb: "BB 중립",
   atr: "변동성 고 (33% 풀백)",
   kimchi: "김치프리미엄 감소",
-  change24h: "-13%", change7d: "+59.8~78.9%", change30d: "+49.3~66.1%",
+  change24h: "-13.06%", change7d: "+59.8~78.9%", change30d: "+49.3~66.1%",
 };
 
 const FF_LEVELS = [
   { type: "R", label: "R3", price: "$0.1232", note: "4/10 고점 (ATH 이후 최고)" },
   { type: "R", label: "R2", price: "$0.11", note: "4/11 반등 고점" },
   { type: "R", label: "R1", price: "$0.098", note: "4/11 종가, 단기 저항" },
-  { type: "NOW", label: "현재가", price: "$0.0825", note: "4/12 풀백 (-33% from $0.1232)" },
+  { type: "NOW", label: "현재가", price: "$0.0800", note: "4/13 추가 풀백 (-35% from $0.1232)" },
   { type: "S", label: "S1", price: "$0.074", note: "웨일 매집 평단 (7개 지갑)" },
   { type: "S", label: "S2", price: "$0.062", note: "ATL (2025.10.10)" },
 ];
@@ -1042,40 +1042,41 @@ const FF_CATALYSTS = [
 // ARIA (AriaAI) Analysis Data — 2026-04-11
 // ============================================================
 const ARIA_MARKET = {
-  price: "$0.712", mcap: "$130M", fdv: "$712M", vol24h: "$58M",
-  volFutures: "$252M (스팟의 4.3배, 4/11 $1.49B에서 -83% 급감)",
-  oi: "$89.2M", oiMcapRatio: "0.67x (건전, 디레버리지 완료)",
-  liq24h: "$900K (4/9 $9.4M에서 진정)",
-  circulating: "183M / 1B (18.3%)", athPrice: "$0.9165", athDate: "2026.04.09 (크래시 전)",
-  athDrop: "-22.3%", atlPrice: "$0.1038", atlDate: "2026.04.09 (크래시 저점)",
+  price: "$0.9267", mcap: "$169.6M", fdv: "$926.7M", vol24h: "$58M+",
+  volFutures: "Bybit 24h $196.8M (디레버리지 후 재상승)",
+  oi: "$43.3M (Binance $30.7M + Bybit $12.6M)", oiMcapRatio: "26% (정상)",
+  liq24h: "Bybit 24h 턴오버 $165.7M",
+  circulating: "183M / 1B (18.3%)", athPrice: "$0.9165 → 갱신 중", athDate: "2026.04.09",
+  athDrop: "ATH 재돌파 중 (+1.1%)", atlPrice: "$0.1038", atlDate: "2026.04.09 (크래시 저점)",
   exchanges: "Gate.io, KuCoin, Bitget, MEXC, PancakeSwap V3",
-  futuresExchanges: "Binance Futures, Bybit (Binance Spot 아직 미상장)",
+  futuresExchanges: "Binance Futures + Bybit (Binance Spot 아직 미상장)",
   category: "GameFi / AI Gaming (BNB Chain)",
-  crashDetail: "4/9 ATH $0.9165 → $0.1038 (-87%) → 4/13 $0.712 (+589% bounce)",
+  crashDetail: "4/9 ATH $0.9165 → $0.1038 (-87%) → 4/13 $0.9267 (+793% bounce, ATH 재돌파)",
 };
 
 const ARIA_TECHNICALS = {
-  trend: "DEAD-CAT BOUNCE — 크래시 후 과도한 반등",
-  futuresSpotRatio: "4.3:1 (51:1에서 정상화, 디레버리지 완료)",
-  liqDominance: "24h 청산 $900K (4/9 $9.4M에서 -90%)",
-  volMcapRatio: "0.45x (정상화)",
+  trend: "V-SHAPE RECOVERY — 크래시 저점 대비 +793% (ATH 재돌파)",
+  futuresSpotRatio: "정상화 — OI/MCap 26%",
+  liqDominance: "Bybit 펀딩 중립, Binance 펀딩 -0.06% (숏 스퀴즈 압력)",
+  volMcapRatio: "정상 영역",
   smartMoney: "6개 스마트머니 $0.31에 매도 (크래시 직전 정확한 타이밍)",
-  whaleAccum: "7개 지갑 17.52M ARIA CEX 인출 → 콜드스토리지",
-  onchainBuy: "0x65b... 지갑 $90K/hr 저점 매집 — 리테일 FOMO 선행",
-  onchainSell: "프레시 지갑 매도 잔존",
+  whaleAccum: "7개 지갑 17.52M ARIA 콜드스토리지 이동",
+  onchainBuy: "0x65b... 지갑 $90K/hr 매집 — 리테일 FOMO 선행 정확히 맞음",
+  onchainSell: "프레시 지갑 매도 소진",
   contractRisk: "Sentinacle 경고 미해결 — 블랙박스 리스크 지속",
-  rsi: "60-75 (과열 근접, 600% bounce 후)",
-  change24h: "+53~55%", change7d: "+62%", change30d: "+754%",
+  rsi: "70+ (과열, ATH 재돌파)",
+  change24h: "+35.1%", change7d: "Strong Up", change30d: "+754%",
 };
 
 const ARIA_LEVELS = [
-  { type: "R", label: "R3", price: "$0.9165", note: "ATH (4/9, 크래시 직전)" },
-  { type: "R", label: "R2", price: "$0.80-0.85", note: "ATH 재테스트 영역" },
-  { type: "R", label: "R1", price: "$0.75", note: "심리적 저항" },
-  { type: "NOW", label: "현재가", price: "$0.712", note: "+589% bounce from $0.1038 (4/13)" },
-  { type: "S", label: "S1", price: "$0.55-0.60", note: "피보 38.2% 되돌림" },
-  { type: "S", label: "S2", price: "$0.40", note: "피보 61.8% 되돌림, 숏 타겟" },
-  { type: "S", label: "S3", price: "$0.1038", note: "크래시 저점 (4/9)" },
+  { type: "R", label: "R3", price: "$1.20", note: "심리적 저항 — 신고가 영역" },
+  { type: "R", label: "R2", price: "$1.00", note: "라운드 넘버 저항" },
+  { type: "R", label: "R1", price: "$1.00638", note: "4/13 단기 고점 (Bybit)" },
+  { type: "NOW", label: "현재가", price: "$0.9267", note: "ATH $0.9165 재돌파 중 (+793% from $0.1038)" },
+  { type: "S", label: "S1", price: "$0.85", note: "단기 지지 (4/13 저점 부근)" },
+  { type: "S", label: "S2", price: "$0.69", note: "4/12 저점, 피보 38.2%" },
+  { type: "S", label: "S3", price: "$0.40", note: "피보 61.8% 되돌림" },
+  { type: "S", label: "S4", price: "$0.1038", note: "크래시 저점 (4/9)" },
 ];
 
 const ARIA_TOKENOMICS = [
@@ -1089,34 +1090,34 @@ const ARIA_TOKENOMICS = [
 
 const ARIA_SCENARIOS = [
   {
-    id: "A", title: "롱: 조정 시 매수 ($0.55-0.60 재지지)", priority: "1순위",
-    entry: "$0.55-0.60 (S1 지지대 테스트 시)", sl: "$0.50 (S1 하방 이탈)", tp1: "$0.75 (R:R ≈ 1:3)", tp2: "$0.85 (R:R ≈ 1:4)",
-    signal: "4H RSI 과매도 + 거래량 감소 후 양봉 전환. $0.55 3회 이상 지지 확인",
-    rationale: "4/9 크래시 저점 $0.1038 → 4/13 $0.712 (+589% bounce). 30일 +754%. 선물 레버리지 51:1 → 4.3:1로 정상화 = 건전한 디레버리지. 실제 프로덕트(AI RPG) + Animoca/Galaxy/Spartan 투자. Binance Futures 상장 = 유동성 충분. 온체인 매수 활동 관찰 ($90K/hr)",
-    risk: "+589% 과도한 반등, 숏 트랩 가능성 — 되돌림 발생 전까지 대기 필수. 프레시 지갑 매도 지속. Sentinacle 스마트컨트랙트 미검증 경고 미해결",
+    id: "A", title: "관망: ATH 재돌파 구간 — 추격 금지", priority: "1순위",
+    entry: "대기 (현재 $0.9267 — ATH 재돌파 구간)", sl: "—", tp1: "—", tp2: "—",
+    signal: "24h +35%, RSI 70+, 단기 과열. 조정 발생 전까지 신규 진입 금지",
+    rationale: "4/9 크래시 저점 $0.1038 → 4/13 $0.9267 (+793% bounce, 원래 ATH $0.9165 재돌파). 수직 랠리 직후 = 단기 추격 리스크 극대. Binance 펀딩 -0.06% (숏 스퀴즈 진행 완료 단계). OI/MCap 26% 건전. 실제 프로덕트 + Animoca/Galaxy/Spartan 투자. 온체인 매수 $90K/hr 누적 효과",
+    risk: "추격 매수 시 조정 리스크. Sentinacle 계약 감사 리스크 미해결. 신고점 추격 대신 조정 대기",
+    color: "#f59e0b",
+  },
+  {
+    id: "B", title: "롱: $0.70-0.75 조정 시 재진입", priority: "2순위",
+    entry: "$0.70-0.75 (피보 38.2% 되돌림)", sl: "$0.65 (주요 지지 이탈)", tp1: "$0.95 (R:R ≈ 1:2.5)", tp2: "$1.10 (신고가)",
+    signal: "조정 발생 + 4H RSI 과매수 해소 + 거래량 감소 후 반등. S1 $0.85 이탈 → S2 $0.69 지지 확인",
+    rationale: "강한 상승 추세 유지. Binance 펀딩 음수 = 숏 우세 잔존 = 추가 스퀴즈 여지. Animoca/Galaxy 투자 + 실제 유저 증가. Binance 정식 상장 촉매 대기 중",
+    risk: "조정이 얕게 끝나면 진입 기회 놓침. 감사 리스크. 크래시 재발 가능",
     color: "#34d399",
   },
   {
-    id: "B", title: "숏: R1-R2 저항 반등 시 진입 (숏 트랩 전환)", priority: "2순위",
-    entry: "$0.75-0.85 반등 시 (R1-R2 저항)", sl: "$0.92 (ATH $0.9165 위)", tp1: "$0.60 (R:R ≈ 1:1.5)", tp2: "$0.40 (피보 61.8%, R:R ≈ 1:3)",
-    signal: "R1-R2 도달 후 거래량 감소 + 4H 긴 윗꼬리. OI 증가 없이 가격 상승",
-    rationale: "크래시 전 대형 지갑이 덤프. 프레시 지갑 매도 시작. 81.7% 물량 락업 중 → 향후 언락 압력. 스마트컨트랙트 '블랙박스' Sentinacle 경고. DWF 연관 정황 (미확인)",
-    risk: "Binance Futures 상장 토큰 = 숏 스퀴즈 위험. 30일 +754% 모멘텀 강력. 매수세 지갑 $90K/hr 활동 중",
+    id: "C", title: "숏: $1.00+ 추가 급등 시 매도", priority: "관찰",
+    entry: "$1.00-1.15 (라운드 넘버 저항)", sl: "$1.20", tp1: "$0.85 (R:R ≈ 1:1.5)", tp2: "$0.70 (R:R ≈ 1:3)",
+    signal: "$1 라운드 돌파 후 거래량 감소 + 긴 윗꼬리. OI 급감 없이 가격 정체",
+    rationale: "+793% 단기 랠리 = 과매수. 라운드 넘버 $1에서 자연스러운 저항. Sentinacle 계약 감사 리스크가 촉매될 수 있음",
+    risk: "강한 모멘텀 지속 시 숏 스퀴즈. Binance 정식 상장 시 추가 +30% 가능. 소규모 포지션",
     color: "#ef4444",
-  },
-  {
-    id: "C", title: "온체인 매수/매도 추적 트레이드", priority: "관찰",
-    entry: "온체인 신호에 따라 유동적", sl: "직전 스윙 레벨", tp1: "+15-20%", tp2: "N/A",
-    signal: "0x65b... 지갑 매수 지속 여부 + 프레시 매도 지갑 활동 모니터링. 거래소 잔고 변화 추적. CEX 순유출 = 강세, 순유입 = 약세",
-    rationale: "온체인에서 매수($90K/hr)와 매도(프레시 지갑) 양쪽 활동 동시 관찰 = 방향 미정. 어제 덤프한 대형 지갑이 재매도 가능성 경고. 충분한 물량 보유 중",
-    risk: "온체인 데이터 해석 시차. 고래 vs 고래 싸움에 리테일 끼면 양쪽에서 청산 당할 수 있음",
-    color: "#f59e0b",
   },
 ];
 
 const ARIA_CATALYSTS = [
   { date: "4/9", event: "ATH $0.9165 → 1시간 내 -87% 크래시 ($0.1038). $9.4M 청산. Sentinacle 스마트컨트랙트 경고", impact: "크래시", done: true },
-  { date: "4/10-13", event: "크래시 저점 $0.1038에서 $0.712로 +589% 회복. 선물 레버리지 51:1 → 4.3:1 정상화", impact: "회복 중", done: true },
+  { date: "4/10-13", event: "크래시 저점 $0.1038에서 $0.9267로 +793% 회복. ATH $0.9165 재돌파. Binance 펀딩 -0.06% 숏 스퀴즈", impact: "V자 반등", done: true },
   { date: "8/21~", event: "Team(15%)+Investors(8.5%) 12M cliff 해제 (TGE 2025.8.21)", impact: "대규모 언락", done: false },
   { date: "2026 중", event: "Season 3 콘텐츠 + 모바일 RPG 확장 + AI Agent 기능", impact: "펀더멘털", done: false },
   { date: "미정", event: "Binance 정식 상장 여부 (현재 Alpha만). 상장 시 급등 가능", impact: "잠재 촉매", done: false },
@@ -1127,18 +1128,18 @@ const ARIA_CATALYSTS = [
 // VVV (Venice Token) Analysis Data — 2026-04-11
 // ============================================================
 const VVV_MARKET = {
-  price: "$8.57", mcap: "$390M", fdv: "$672M", vol24h: "$27M",
-  oi: "$10.92M", oiMcapRatio: "~3% (저 레버리지, 리테일 주도)",
-  fundingRate: "-0.02% (연환산 -16.93%, 숏 페이)",
-  longShort: "L/S > 1.0 (롱 우세)",
+  price: "$7.96", mcap: "$362M", fdv: "$632M", vol24h: "$15M+",
+  oi: "$28.1M (Binance $13.6M + Bybit $14.5M)", oiMcapRatio: "7.8% (중저 레버리지)",
+  fundingRate: "+0.005% / +0.0053% (중립)",
+  longShort: "중립 (펀딩 ~0)",
   circulating: "45.47M / 79.45M (57.2%)", burned: "33.7M+ 소각 (원래 100M의 42.3%)",
-  athPrice: "$22.58", athDate: "2025.01.28", athDrop: "-62.1%",
+  athPrice: "$22.58", athDate: "2025.01.28", athDrop: "-64.7%",
   atlPrice: "$0.92", atlDate: "2025.12.01", category: "AI / Privacy AI (Base L2)",
   exchanges: "Coinbase, Bybit, Bithumb, Kraken, KuCoin, Gate",
   notListed: "Binance 스팟 아직 미상장 (선물만) → 잠재 촉매",
   emissions: "6M VVV/년 (2026.2.10 25% 감축 완료)",
   stakingApy: "~65% APY, 7일 쿨다운",
-  change24h: "+0.4%", change7d: "+69~113%", change30d: "+49.7~152%", change60d: "+383%",
+  change24h: "-6.95%", change7d: "+69~113%", change30d: "+49.7~152%", change60d: "+383%",
 };
 
 const VVV_TECHNICALS = {
@@ -1157,7 +1158,7 @@ const VVV_LEVELS = [
   { type: "R", label: "R3", price: "$22.58", note: "ATH (2025.01.28)" },
   { type: "R", label: "R2", price: "$10.00", note: "심리적 저항, 오버헤드 매물대" },
   { type: "R", label: "R1", price: "$8.50-9.00", note: "현재 고점 영역" },
-  { type: "NOW", label: "현재가", price: "$8.57", note: "60일 +383%, ATL +831%" },
+  { type: "NOW", label: "현재가", price: "$7.96", note: "4/13 -6.95% 조정, 60일 +383%" },
   { type: "S", label: "S1", price: "$7.00-7.50", note: "24h 저점 + 최근 지지" },
   { type: "S", label: "S2", price: "$5.50-6.00", note: "3월 중순 브레이크아웃 레벨" },
   { type: "S", label: "S3", price: "$3.50", note: "2월 구조적 지지" },
@@ -1205,24 +1206,24 @@ const VVV_CATALYSTS = [
 // GWEI (ETHGas) + SKYAI Analysis Data — 2026-04-11
 // ============================================================
 const GWEI_DATA = {
-  price: "$0.0569", mcap: "$99.5M", fdv: "$569M", vol24h: "$6.6~24M",
-  oi: "$4.35M", oiMcapRatio: "~4% (최저 레버리지 — 얇은 선물 시장)",
-  liq24h: "$417.6K (24h, OI의 2-4%)",
-  fundingRate: "N/A (얇은 선물 시장)",
-  ath: "$0.0729 (2026.04.11)", athDrop: "-22% (ATH에서 조정)",
+  price: "$0.0642", mcap: "$112.4M", fdv: "$642M", vol24h: "$6.6~24M",
+  oi: "$10.7M (Binance Futures only, Bybit 미상장)", oiMcapRatio: "9.5% (중저 레버리지)",
+  liq24h: "$417.6K (24h, OI의 ~4%)",
+  fundingRate: "+0.005% Binance 8h (중립)",
+  ath: "$0.0729 (2026.04.11)", athDrop: "-12% (ATH에서 조정, +13% 반등 중)",
   circulating: "1.75B / 10B (17.5%)",
   chain: "Ethereum", exchanges: "Coinbase, Kraken, Bitget, Bithumb, KuCoin, Binance",
   team: "Kevin Lepsoe (ex-Morgan Stanley Asia 파생상품 헤드)",
   funding: "Polychain Capital 리드 $12M 시드",
-  verdict: "Cliff 이벤트 조정 — ATH에서 -22%, 4/19 언락 D-6",
+  verdict: "Cliff 이벤트 D-6 — ATH에서 -12%, 반등 후 재조정 대기",
   verdictColor: "#f59e0b",
   redFlags: [
     "**4/19 1년 클리프 만료** (6일 내) — Team 22% + Investors 27% 베스팅 시작",
     "Foundation 8% 즉시 언락 — ethgasfoundation → 0x096f → Bitget 매도 지속",
-    "ATH $0.0729 (4/11)에서 이미 -22% 조정 = 피크 신호 현실화",
+    "ATH $0.0729 (4/11)에서 $0.0569 저점 → $0.0642 반등 = 시장이 망설임 중",
     "Team post-cliff: 10% 즉시 언락 + 2년 선형 (월 0.75% 추가)",
     "Bubblemaps: 상위 클러스터 15.17% (건전 기준 경계)",
-    "얇은 선물 시장 (OI $4.35M) = 큰 매도 충격 흡수 불가",
+    "얇은 선물 시장 (Binance OI $10.7M, Bybit 미상장) = 큰 매도 충격 흡수 불가",
   ],
   greenFlags: [
     "실제 팀 (Morgan Stanley, Deutsche Bank, HKEx 출신)",
@@ -1234,8 +1235,8 @@ const GWEI_DATA = {
 };
 
 const SKYAI_DATA = {
-  price: "$0.1243", mcap: "$124.6M", fdv: "$124.6M", vol24h: "$53.9M",
-  circulating: "1B / 1B (100%)", athDrop: "ATH $0.1384 -10% 조정",
+  price: "$0.12546", mcap: "$125.5M", fdv: "$125.5M", vol24h: "$53.9M",
+  circulating: "1B / 1B (100%)", athDrop: "ATH $0.1384 -9.4% 조정",
   chain: "BNB Chain", exchanges: "Gate, HTX, Poloniex, LBank (저급 거래소만)",
   team: "익명 (Google AI, Binance, OpenAI 출신 주장 — 미검증)",
   funding: "Four.meme 런치패드 $50M 주장 (CryptoRank $100 표시 — 불일치)",
@@ -1248,7 +1249,7 @@ const SKYAI_DATA = {
     "99.8% 유통 주장이지만 실제 집중도 은폐 (SIREN: 52/54 지갑 = 1 엔터티 88.5%)",
     "저급 거래소만 상장 (Coinbase/Binance/OKX 없음). +185% 30d = 수직 상승",
     "알고리즘 매도로 대형 포지션 79% 수익 실현 후 이탈",
-    "펀딩비 0.15-0.20% — 극단적 롱 과밀. OI $280-300M vs MCap $124.6M ≈ 2.3x (여전히 과열)",
+    "펀딩비 +0.113% 8h (연환산 ~124%) — 롱 과밀 지속. OI $35.5M Binance only = 시총 $125.5M의 28% (정상)",
   ],
   greenFlags: [
     "BNB Chain Foundation $100K 매수 (인센티브 프로그램)",
@@ -1258,12 +1259,12 @@ const SKYAI_DATA = {
 
 const GWEI_LEVELS = [
   { type: "R", label: "R3", price: "$0.0729", note: "ATH (4/11) — 재테스트 저항" },
-  { type: "R", label: "R2", price: "$0.068", note: "4/12 반등 고점" },
-  { type: "R", label: "R1", price: "$0.062", note: "단기 저항" },
-  { type: "NOW", label: "현재가", price: "$0.0569", note: "ATH에서 -22% 조정" },
-  { type: "S", label: "S1", price: "$0.050", note: "심리적 지지 + Cliff 흡수 타겟" },
-  { type: "S", label: "S2", price: "$0.040", note: "중기 지지대" },
-  { type: "S", label: "S3", price: "$0.03", note: "극단 하락 시 (4/19 Cliff 반응)" },
+  { type: "R", label: "R2", price: "$0.068", note: "4/12 고점" },
+  { type: "NOW", label: "현재가", price: "$0.0642", note: "ATH에서 -12%, 4/13 +13% 반등 중" },
+  { type: "S", label: "S1", price: "$0.055", note: "단기 지지 + 이전 저항" },
+  { type: "S", label: "S2", price: "$0.050", note: "심리적 지지 + Cliff 흡수 타겟" },
+  { type: "S", label: "S3", price: "$0.040", note: "중기 지지대" },
+  { type: "S", label: "S4", price: "$0.03", note: "극단 하락 시 (4/19 Cliff 반응)" },
 ];
 
 const GWEI_TOKENOMICS = [
@@ -1278,8 +1279,8 @@ const GWEI_SCENARIOS = [
     id: "A", title: "숏: 4/19 Cliff 이벤트 선반영 (최우선)", priority: "1순위",
     entry: "$0.062-0.068 반등 시 (R1-R2 저항)", sl: "$0.075 (ATH 위)", tp1: "$0.050 (R:R ≈ 1:1.5)", tp2: "$0.040 (R:R ≈ 1:2.5)",
     signal: "반등 후 4H 긴 윗꼬리 + 거래량 감소. Cliff D-day 전 4/17-18 선반영 매도 포착",
-    rationale: "4/19 Team 22% + Investors 27% 1년 Cliff 만료 (6일 내). 역사 사례(ARB/APT/STRK) 모두 Cliff D-7부터 -20~-40% 선반영. 이미 ATH $0.0729 → $0.0569 -22% 진행 = 시장이 반영 시작. Foundation 지갑 매도 지속 확인",
-    risk: "얇은 선물 시장 (OI $4.35M) = 큰 포지션 불가. 반등 모멘텀 잔존. Coinbase/Kraken/Binance 기관 매수 가능",
+    rationale: "4/19 Team 22% + Investors 27% 1년 Cliff 만료 (6일 내). 역사 사례(ARB/APT/STRK) 모두 Cliff D-7부터 -20~-40% 선반영. ATH $0.0729 → $0.0642 -12% 조정 진행. 4/11-12 저점 $0.0569에서 +13% 반등 = 시장이 망설임. Foundation 지갑 매도 지속 확인",
+    risk: "선물 시장 Binance only (OI $10.7M) = 큰 포지션 불가. +13% 반등 모멘텀 잔존. Coinbase/Kraken/Binance 기관 매수 가능",
     color: "#ef4444",
   },
   {
@@ -1314,36 +1315,36 @@ const GWEI_CATALYSTS = [
 // Source: TradingView (Binance Futures SKYAIUSDT Daily), Velo, Arkham
 // ============================================================
 const SKYAI_MARKET = {
-  price: "$0.1243", mcap: "$124.6M", fdv: "$124.6M", vol24h: "$53.9M",
-  oi: "$280-300M (추정)", oiMcapRatio: "~2.3x (여전히 과열)",
-  fundingRate: "0.15~0.20% (축소 중, 극단 유지)",
-  liq24h: "Long/Short 완화 (4/11 급증 후 안정)",
+  price: "$0.12546", mcap: "$125.5M", fdv: "$125.5M", vol24h: "$53.9M",
+  oi: "$35.5M (Binance Futures, Bybit 미상장)", oiMcapRatio: "28% (정상 중상)",
+  fundingRate: "+0.113% Binance 8h (연환산 ~124%)",
+  liq24h: "Binance Futures only — Bybit/OKX 선물 미상장",
   athPrice: "$0.1384", athDate: "2026.04.11",
   atlPrice: "$0.01433", atlDate: "2025.10.11",
   circulating: "1B / 1B (100%)",
   exchanges: "Binance Futures, Gate.io, HTX, OrangeX, PancakeSwap",
   chain: "BNB Chain", volumeSma: "769.64M",
-  change24h: "-8.4%", change7d: "+70.9%", change30d: "+185~204%",
+  change24h: "-0.3%", change7d: "+70.9%", change30d: "+185~204%",
 };
 
 const SKYAI_TECHNICALS = {
-  trend: "Consolidation — ATH 후 조정 (-8.4%), 크래시 미발생",
+  trend: "Consolidation — ATH $0.1384 후 공고화",
   ma14: "$0.085 (추정)", ma21: "$0.080", ma35: "$0.070",
   ma50: "$0.062", ma100: "$0.048", ma200: "$0.036",
-  maDeviation: "+244% (MA200 대비) — 여전히 극단적",
-  fundingRate: "0.15~0.20% — 축소 중. 연환산 550~700%",
-  oiSurge: "4/11 정점 후 디레버리지 시작",
+  maDeviation: "+248% (MA200 $0.036 대비) — 여전히 극단적",
+  fundingRate: "+0.113% Binance 8h — 연환산 ~124% (여전히 매우 높음)",
+  oiSurge: "실시간 OI $35.5M (Binance 단독) = 시총의 28%. 초기 과장 추정 정정",
   vpvr: "POC $0.035-0.055. $0.06 위 거래량 희박 = 허공 구간",
-  liqProfile: "크래시 없이 -8.4% 조정. SIREN 패턴 트리거 미발동",
+  liqProfile: "크래시 없이 공고화. SIREN 패턴 트리거 미발동. 펀딩비만 여전히 과열",
   priceVsMa: "전 이평선 위 유지. $0.10 이탈 시 캐스케이드 가능",
-  squeezeStatus: "파생상품 청산 PARTIAL — 완전 해소 미달",
+  squeezeStatus: "펀딩비 경로 유지 — OI 극단 주장은 정정됨",
 };
 
 const SKYAI_LEVELS = [
   { type: "R", label: "R3", price: "$0.15", note: "라운드 넘버, 심리적 저항" },
   { type: "R", label: "R2", price: "$0.1384", note: "ATH (4/11), 재테스트 저항" },
   { type: "R", label: "R1", price: "$0.13", note: "4/12 단기 고점" },
-  { type: "NOW", label: "현재가", price: "$0.1243", note: "ATH -10%, 24h -8.4% 조정 중" },
+  { type: "NOW", label: "현재가", price: "$0.12546", note: "ATH -9.4%, 공고화 지속" },
   { type: "S", label: "S1", price: "$0.10", note: "심리적 지지, $0.10 이탈 시 캐스케이드" },
   { type: "S", label: "S2", price: "$0.072", note: "MA14 추정 + VPVR 상단 (-42%)" },
   { type: "S", label: "S3", price: "$0.054-0.059", note: "MA35-50 + VPVR 고밀도대" },
@@ -1353,9 +1354,9 @@ const SKYAI_LEVELS = [
 const SKYAI_SCENARIOS_FULL = [
   {
     id: "A", title: "숏: 파생상품 과열 되돌림 (최우선)", priority: "1순위",
-    entry: "현재 $0.1243 (소규모) 또는 $0.13-0.138 반등 시 (ATH 재테스트)", sl: "$0.15 (+21%)", tp1: "$0.072 (MA14, R:R ≈ 1:1.9)", tp2: "$0.055 (MA35-50, R:R ≈ 1:2.7)",
+    entry: "현재 $0.12546 (소규모) 또는 $0.13-0.138 반등 시 (ATH 재테스트)", sl: "$0.15 (+20%)", tp1: "$0.072 (MA14, R:R ≈ 1:1.9)", tp2: "$0.055 (MA35-50, R:R ≈ 1:2.7)",
     signal: "4H 캔들 긴 윗꼬리/도지 + 거래량 감소 + OI 감소 시작. 또는 펀딩비 재상승 시 과열 극대",
-    rationale: "펀딩비 0.15-0.20% = 연환산 ~550-750%. 롱 포지션 유지비만으로 소멸. OI/MCap ~2.3x = 투기적 레버리지 극단. MA200 대비 +245% 이격 = 역사적 수준. VPVR $0.06 위 거래량 부재 = 하락 시 지지 없음. SIREN 패턴 + 익명팀 + 지갑 분산 = 구조적 리스크. 4/11 ATH 후 크래시 없이 -8.4% 공고화 = 첫 신호",
+    rationale: "펀딩비 +0.113% 8h = 연환산 ~124%. 롱 포지션 유지비 극단. OI $35.5M (Binance only) = 시총의 28% (정상 영역이지만 펀딩 과열). MA200 대비 +248% 이격 = 역사적 수준. VPVR $0.06 위 거래량 부재 = 하락 시 지지 없음. SIREN 패턴 + 익명팀 + 지갑 분산 = 구조적 리스크. 4/11 ATH 후 크래시 없이 공고화 중",
     risk: "4/13 기준 공고화 단계. +70% 7d 모멘텀 잔존. 소규모 포지션 + 넓은 손절 필수. $0.10 지지 굳으면 재차 상승 가능. BNB Chain Foundation 매수가 단기 지지",
     color: "#ef4444",
   },
@@ -1363,7 +1364,7 @@ const SKYAI_SCENARIOS_FULL = [
     id: "B", title: "숏: 펀딩비 리셋 이벤트", priority: "2순위",
     entry: "펀딩비 0.3%+ 도달 시 또는 OI 피크 확인 후", sl: "직전 ATH +10%", tp1: "$0.072 (MA14)", tp2: "$0.041 (MA100 부근)",
     signal: "펀딩비 0.3% 초과 + OI 증가 멈춤 + 가격 정체 = 롱 소진. 대규모 롱 청산 캐스케이드 시작 시 추격 숏",
-    rationale: "펀딩비 0.2%+에서 반전한 역사적 사례 다수 (PEPE, BONK, WIF 등). OI 298.9M이 MCap 127M의 2.35배 = 가격이 10% 하락하면 롱 청산 연쇄. $0.06 위 VPVR 공백 = 하락 시 '에어포켓' — 급락 가능",
+    rationale: "펀딩비 0.2%+에서 반전한 역사적 사례 다수 (PEPE, BONK, WIF 등). 현재 +0.113% 8h 유지 중. OI $35.5M이 상대적으로 적지만 펀딩비만으로도 롱 포지션 소모 가속. $0.06 위 VPVR 공백 = 하락 시 '에어포켓' — 급락 가능",
     risk: "고펀딩이 더 오래 유지될 수 있음 (밈코인 광풍기). OI 추가 유입 시 스퀴즈 지속. 타이밍 예측 어려움",
     color: "#f59e0b",
   },
@@ -1383,7 +1384,7 @@ const SKYAI_CATALYSTS = [
   { date: "2025.10.11", event: "ATL $0.0143 도달 (-84% from ATH)", impact: "바닥", done: true },
   { date: "2026.04.05", event: "11개월 보유 지갑 79% 수익 실현 후 알고리즘 매도 이탈", impact: "웨일 이탈", done: true },
   { date: "2026.04.06", event: "MM 240만 토큰 Gate.io 인출 → 서브지갑 분배 (약세 신호)", impact: "분배", done: true },
-  { date: "2026.04.11", event: "+76.4% 급등. ATH 돌파. 펀딩비 0.2058%. OI $299M (MCap의 2.35x)", impact: "극단 과열", done: true },
+  { date: "2026.04.11", event: "+76.4% 급등. ATH $0.1384 달성. 펀딩비 0.2058% 정점 (역사적 수준)", impact: "극단 과열", done: true },
   { date: "진행중", event: "0x5a26 웨일 $91-93K씩 정기 서브지갑 매도 지속", impact: "지속 매도", done: true },
   { date: "미정", event: "펀딩비 리셋 or SIREN급 크래시 — 역사적 패턴상 수일~수주 내", impact: "핵심 리스크", done: false },
 ];
@@ -1859,8 +1860,8 @@ function BABYAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
             ["FDV", BABY_MARKET.fdv, "#ccc", false],
             ["유통량", BABY_MARKET.circulating, "#ccc", false],
             ["ATH Drop", BABY_MARKET.athDrop, "#ef4444", false],
-            ["OI (미결제약정)", BABY_MARKET.oi, "#ef4444", false],
-            ["OI / MCap", BABY_MARKET.oiMcapRatio, "#ef4444", false],
+            ["OI (미결제약정)", BABY_MARKET.oi, "#60a5fa", false],
+            ["OI / MCap", BABY_MARKET.oiMcapRatio, "#60a5fa", false],
             ["OI 3월 고점", BABY_MARKET.oiPeak, "#888", false],
             ["Funding Rate", BABY_MARKET.fundingRate, "#34d399", false],
             ["24h 선물거래량", BABY_MARKET.volFutures, "#ccc", false],
@@ -2386,11 +2387,11 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "#8b5cf6" }}>혼재 — 과도한 반등, 숏 트랩 가능성</div>
-            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/9 크래시 저점 $0.1038 → 4/13 $0.712 (+589%). 선물 레버리지 4.3:1로 정상화, 하지만 계약 감사 리스크 미해결. $0.75-0.80 저항 반등 시 숏 / $0.55-0.60 지지 매수</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#8b5cf6" }}>ATH 재돌파 중 — 추격 금지, 단기 과열</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/9 크래시 저점 $0.1038 → 4/13 $0.9267 (+793%). ATH $0.9165 재돌파. Binance 펀딩 -0.06% (숏 스퀴즈). 계약 감사 리스크 미해결. $1 저항 반등 시 숏 or 조정 후 재진입</div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
-            {[["bounce", "+589%", "#f59e0b"], ["선물/현물", "4.3:1", "#34d399"], ["감사", "미해결", "#ef4444"], ["락업", "81.7%", "#f59e0b"]].map(([label, val, col]) => (
+            {[["bounce", "+793%", "#34d399"], ["24h", "+35%", "#34d399"], ["펀딩비", "-0.06%", "#f59e0b"], ["감사", "미해결", "#ef4444"]].map(([label, val, col]) => (
               <div key={label} style={{ textAlign: "center", minWidth: 70 }}>
                 <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
@@ -2478,7 +2479,7 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
 
       {/* Crash Analysis */}
       <div style={sectionStyle}>
-        {sectionTitle("4/9 크래시 분석 — ATH $0.78 → $0.10 (-83%)")}
+        {sectionTitle("4/9 크래시 분석 — ATH $0.9165 → $0.1038 (-87%)")}
         <div style={{ ...cardStyle, borderLeft: "3px solid #8b5cf6" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
@@ -2487,13 +2488,13 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
             </div>
             <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
               <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>크래시 원인 2: 레버리지 언와인드</div>
-              <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>선물/현물 51:1. $83M OI + 얇은 현물 유동성. 소규모 반전 → 청산 캐스케이드. 60+ 페어 동시 -65~66% 하락</div>
+              <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>4/9 당시 선물/현물 51:1 극단 레버리지 + 얇은 현물 유동성. 소규모 반전 → 청산 캐스케이드. 이후 OI/MCap 26%로 정상화됨</div>
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <div style={{ background: "#0d1f15", borderRadius: 6, padding: "10px 12px", border: "1px solid #1a3a25" }}>
               <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 4 }}>회복 근거</div>
-              <div style={{ fontSize: 12, color: "#88ccaa", lineHeight: 1.6 }}>실제 프로덕트(AI RPG). Animoca/Galaxy/Spartan/Folius 투자. $5M+ 펀딩. 크래시 저점에서 +420% 회복. 온체인 매수 $90K/hr</div>
+              <div style={{ fontSize: 12, color: "#88ccaa", lineHeight: 1.6 }}>실제 프로덕트(AI RPG). Animoca/Galaxy/Spartan/Folius 투자. $5M+ 펀딩. 크래시 저점 $0.1038에서 $0.9267로 +793% 회복 (ATH 재돌파). 온체인 매수 $90K/hr</div>
             </div>
             <div style={{ background: "#150d1f", borderRadius: 6, padding: "10px 12px", border: "1px solid #251a3a" }}>
               <div style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 600, marginBottom: 4 }}>DWF 연관 정황 (미확인)</div>
@@ -2609,7 +2610,7 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         {sectionTitle("Risk Management")}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
           {[
-            ["레버리지", "2x 이하 (선물/현물 51:1, 청산 캐스케이드 재발 가능)", "#ef4444"],
+            ["레버리지", "2-3x 이하 (4/9 크래시 재발 리스크 + 감사 미해결)", "#ef4444"],
             ["포지션 사이즈", "전체 자본 대비 2% 이하 (크래시 이력 -83%)", "#ef4444"],
             ["스마트컨트랙트", "소스코드 미검증. Sentinacle '블랙박스' 경고. 추가 취약점 가능", "#ef4444"],
             ["온체인 모니터링", "매수(0x65b...) + 매도(프레시 지갑) 동시. BscScan 추적 필수", "#f59e0b"],
@@ -2906,11 +2907,11 @@ function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>SIREN 패턴 + 파생상품 과열 — 크래시 미발생, 공고화 중</div>
-            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/11 ATH $0.1384 후 -8.4% 조정. 펀딩비 축소 중이나 극단 유지, OI/MCap ~2.3x, MA200 대비 +244%. $0.10 이탈 시 캐스케이드</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>SIREN 패턴 + 펀딩비 과열 — 크래시 미발생, 공고화 중</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/11 ATH $0.1384 후 -9% 공고화. 펀딩비 +0.113% 8h (연환산 ~124%), OI/MCap 28% (Binance only), MA200 대비 +248%. $0.10 이탈 시 캐스케이드</div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
-            {[["펀딩비", "0.15~0.20%", "#ef4444"], ["OI/MCap", "~2.3x", "#ef4444"], ["MA200 이격", "+244%", "#ef4444"], ["SIREN", "공고화", "#f59e0b"]].map(([label, val, col]) => (
+            {[["펀딩비", "+0.113%", "#ef4444"], ["OI/MCap", "28%", "#f59e0b"], ["MA200 이격", "+248%", "#ef4444"], ["SIREN", "공고화", "#f59e0b"]].map(([label, val, col]) => (
               <div key={label} style={{ textAlign: "center", minWidth: 70 }}>
                 <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
@@ -2957,21 +2958,21 @@ function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14, padding: "10px 14px", background: "#1a0a0e", borderRadius: 6, border: "1px solid #2a1418" }}>
             <div>
               <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>Funding Rate</div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>0.15~0.20%</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+0.113%</div>
             </div>
             <div>
               <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>연환산</div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~550-750%</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~124%</div>
             </div>
             <div>
-              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>OI / MCap</div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~2.3x</div>
+              <div style={{ fontSize: 10, color: "#f59e0b", textTransform: "uppercase" }}>OI (Binance)</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#f59e0b" }}>$35.5M</div>
             </div>
             <div>
               <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>MA200 이격</div>
-              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+245%</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+248%</div>
             </div>
-            <div style={{ fontSize: 11, color: "#888", marginLeft: "auto" }}>Velo · Binance Futures</div>
+            <div style={{ fontSize: 11, color: "#888", marginLeft: "auto" }}>Binance API · 2026-04-13</div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 14 }}>
             {[
@@ -2988,10 +2989,10 @@ function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
           <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "12px 14px", border: "1px solid #2a1418" }}>
             <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>과열 시그널 종합</div>
             <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.7 }}>
-              펀딩비 0.15-0.20% = 4/11 0.2058% 정점 후 축소 중이나 여전히 극단. 연환산 ~550-750%. 롱 포지션 유지비만으로 자본 소멸.
-              OI $280-300M이 시총 $124.6M의 ~2.3배 = 가격 10% 하락 시 레버리지 롱 연쇄 청산 불가피.
-              4/11 ATH $0.1384 후 크래시 없이 -8.4% 공고화 = 첫 조정 신호. $0.10 이탈 시 캐스케이드 가능.
-              역사적으로 펀딩비 0.2%+ 구간에서 반전한 사례 다수 (PEPE -35%, BONK -40%, WIF -45%).
+              펀딩비 +0.113% 8h = 4/11 0.2058% 정점에서 축소되었으나 여전히 극단 (연환산 ~124%). 롱 포지션 유지비만으로 자본 소모 가속.
+              OI $35.5M (Binance only, Bybit 미상장)은 시총 $125.5M의 28% — 절대 극단은 아니지만 펀딩비만으로도 롱 포지션 소진 유인.
+              4/11 ATH $0.1384 후 크래시 없이 공고화 지속. MA200 $0.036 대비 +248% 이격 = 역사적 수준. $0.10 이탈 시 캐스케이드 가능.
+              역사적으로 펀딩비 0.1%+ 구간에서 반전한 사례 다수 (PEPE -35%, BONK -40%, WIF -45%).
             </div>
           </div>
         </div>
@@ -3005,12 +3006,12 @@ function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
           <div style={cardStyle}>
             <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>이동평균 — 전부 하방 (극단 이격)</div>
             {[
-              ["MA14", SKYAI_TECHNICALS.ma14, "$0.1243 대비 +46%"],
-              ["MA21", SKYAI_TECHNICALS.ma21, "$0.1243 대비 +55%"],
-              ["MA35", SKYAI_TECHNICALS.ma35, "$0.1243 대비 +78%"],
-              ["MA50", SKYAI_TECHNICALS.ma50, "$0.1243 대비 +100%"],
-              ["MA100", SKYAI_TECHNICALS.ma100, "$0.1243 대비 +159%"],
-              ["MA200", SKYAI_TECHNICALS.ma200, "$0.1243 대비 +245%"],
+              ["MA14", SKYAI_TECHNICALS.ma14, "현재가 대비 +48%"],
+              ["MA21", SKYAI_TECHNICALS.ma21, "현재가 대비 +57%"],
+              ["MA35", SKYAI_TECHNICALS.ma35, "현재가 대비 +79%"],
+              ["MA50", SKYAI_TECHNICALS.ma50, "현재가 대비 +102%"],
+              ["MA100", SKYAI_TECHNICALS.ma100, "현재가 대비 +161%"],
+              ["MA200", SKYAI_TECHNICALS.ma200, "현재가 대비 +248%"],
             ].map(([label, val, note]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid #14161e" }}>
                 <span style={{ fontSize: 12, color: "#888", minWidth: 50 }}>{label}</span>
@@ -3367,10 +3368,10 @@ function GweiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
 // Sources: BscScan, CoinGecko, Cysic Foundation Docs, @0xInChain Twitter, CryptoRank
 // ============================================================
 const CYS_DATA = {
-  price: "$0.26", mcap: "$41.9M", fdv: "$260.9M", vol24h: "$30.4M",
-  oi: "N/A (Binance/Bybit 선물 미상장)", oiMcapRatio: "N/A",
-  fundingRate: "N/A (Gate/KuCoin 선물만)",
-  change24h: "+12.4%", change7d: "-1.8%",
+  price: "$0.2585", mcap: "$41.6M", fdv: "$258.5M", vol24h: "$30.4M",
+  oi: "$16.6M (Binance $14.2M + Bybit $2.4M)", oiMcapRatio: "40% (높음 — 펀딩 과열)",
+  fundingRate: "+0.125% Binance / +0.070% Bybit 8h (연환산 ~137% — 롱 과열)",
+  change24h: "+9.72%", change7d: "-1.8%",
   circulating: "160.8M / 1B (16.08%)",
   athDrop: "ATH $0.75 (-65% / Bithumb 개장 $6.24 기준 -96%)",
   chain: "BNB Chain (+ Base, Ethereum)",
@@ -3387,7 +3388,7 @@ const CYS_DATA = {
     "2차 분산은 @0xInChain 경고 트윗 게시 25분 뒤 실행. 4개 지갑으로 쪼갠 classic trail obfuscation. 트윗은 1차 절반(5M)만 포착했을 뿐 동시 평행 출고(또 다른 5M)를 놓쳤음",
     "현 유통 160.8M = Community & Liquidity 할당 16.08%와 정확히 일치 → Investors/Contributors/Foundation 43.73% 전량 아직 cliff 중",
     "Investors 23.62% (236M) 1년 cliff, 2026-12-11 개시 → 12개월 linear. 평균 acq $0.04 추정 → 현가 기준 +460% 수익",
-    "FDV $260.9M vs MCap $41.9M = 6.23배 디버전스. 언락 대기 물량이 시총의 5.2배",
+    "FDV $258.5M vs MCap $41.6M = 6.21배 디버전스. 언락 대기 물량이 시총의 5.2배",
     "ATH $0.7508 (2026-03-22) → 현재 $0.26 = -65%. Bithumb 3/12 개장가 $6.24 기준으로는 -96%",
     "67% 베어리시 커뮤니티 센티먼트 (CoinGecko 폴)",
   ],
@@ -3404,7 +3405,7 @@ const CYS_LEVELS = [
   { type: "R", label: "R3", price: "$0.40", note: "직전 박스권 고점 / 심리적 저항" },
   { type: "R", label: "R2", price: "$0.32", note: "50일 EMA 추정" },
   { type: "R", label: "R1", price: "$0.29", note: "최근 단기 고점" },
-  { type: "NOW", label: "현재가", price: "$0.26", note: "+12.4% 24h 반등 중" },
+  { type: "NOW", label: "현재가", price: "$0.2585", note: "+9.72% 24h 반등 중" },
   { type: "S", label: "S1", price: "$0.21", note: "4월 중간 지지" },
   { type: "S", label: "S2", price: "$0.13", note: "ATL $0.1332 (2026-01-30)" },
   { type: "S", label: "S3", price: "$0.08", note: "Cliff 선반영 시 타겟" },
