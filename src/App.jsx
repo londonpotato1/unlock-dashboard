@@ -3505,7 +3505,8 @@ const INX_DATA = {
     "TGE ATH $0.033 강력 저항 — 미도달 상태",
     "2026-10 Team 2B INX (유통 100%) 12개월 linear 언락 개시",
     "2027-01-30 Patron Locked NFT 클리프 + Sonar Sale 언락 추가",
-    "DEX 유동성 얇음 (~$1.3M) — 큰 포지션 슬리피지 극대",
+    "**선물/스팟 26% 프리미엄** (Binance Futures $0.024 vs DEX spot $0.01775) — 극단적 콘탱고, mean-revert 임박",
+    "DEX 유동성 $3.12M (Uniswap INX/USDC 96% 집중). 큰 포지션 슬리피지 주의",
   ],
   greenFlags: [
     "Kain Warwick (Synthetix 창업자) 검증된 트랙 레코드",
@@ -3535,11 +3536,11 @@ const INX_TOKENOMICS = [
 ];
 
 const INX_ARKHAM = [
-  { label: "베스팅 매도 #1", addr: "0x7489661eE3dE9216D4920A8fEf911f1a31B9764a", detail: "베스팅에서 받은 토큰 일부 매도 · ~$400K 매도 완료 · CoW Protocol 경유 · 잠재 매도 잔여" },
-  { label: "베스팅 매도 #2", addr: "0xB568c358A5c7424875D907610aF2eB936823A27A", detail: "베스팅에서 받은 토큰 일부 매도 · ~$400K 매도 완료 · CoW Protocol 경유 · 잠재 매도 잔여" },
-  { label: "두 지갑 합계 잔여", addr: "—", detail: "합산 약 $1M 잠재 추가 매도 물량" },
-  { label: "매집 지갑 (MM 추정)", addr: "0x5Deb6F32f9Ba3f44871F77756dB1204Ddec0AE65", detail: "지난 1시간 $100K 재매수 — 분배 물량 흡수 중 (반대 포지션)" },
-  { label: "라우팅", addr: "EmaxBuild: SwapShortcuts + CoW Protocol Settlement", detail: "MEV 보호 배치 옥션 경유 — 슬리피지 최소화 + 탐지 회피" },
+  { label: "베스팅 매도 #1 (실측)", addr: "0x7489661eE3dE9216D4920A8fEf911f1a31B9764a", detail: "잔고: 8,995,879 INX ($162K @ spot $0.018). 2026-03-24 15.2M INX 수령 (vesting src 0xc78974d8). 4/13 17:07 → CoW Protocol Settlement (0x9008d19f58) 3.79M INX 전송 확인. 4/13 추가 매도 총 ~6.79M INX ($122K spot)" },
+  { label: "베스팅 매도 #2 (실측)", addr: "0xB568c358A5c7424875D907610aF2eB936823A27A", detail: "잔고: 10,868,942 INX ($194K @ spot). TGE 당일 2026-01-31: 41.45M 수령 후 즉시 16M 덤프 이력. 2026-02-27 5.3M 추가. 4/13 17:10~17:35: 20.18M INX ($363K spot) 대규모 매도" },
+  { label: "실측 매도 요약 (4/13)", addr: "—", detail: "W1 $122K + W2 $363K = 총 $485K 오늘 매도 (스크린샷 $400K 주장 vs 실측 $485K — 과소 보고). 잠재 매도 잔여: W1+W2 합계 19.86M INX = $356K spot / $477K futures" },
+  { label: "매집 지갑 #1 (MM bot)", addr: "0x5Deb6F32f9Ba3f44871F77756dB1204Ddec0AE65", detail: "잔고: 0 (즉시 분배 패턴). 4/13 16:48-17:57 사이 15+ 트랜잭션, Uniswap 풀 직접 상호작용. 활발한 MM 중립 포지션 — 단순 매집이 아닌 양방향 트레이딩" },
+  { label: "라우팅 패턴", addr: "CoW Protocol Settlement (0x9008d19f58)", detail: "W1 4/13 17:07 전송 확인 (3.79M INX). MEV 보호 배치 옥션 경유 — 슬리피지 최소화 + 기관급 분배 시그널" },
 ];
 
 const INX_SCENARIOS = [
@@ -3548,7 +3549,7 @@ const INX_SCENARIOS = [
     entry: "$0.024 (현재가, 시장가 진입)", sl: "$0.0265 (+10%, R1 위)", tp1: "$0.019 (R:R ≈ 1:2.0)", tp2: "$0.0135 (R:R ≈ 1:4.2)",
     signal: "**즉시 진입** — 현재 펀딩비 이미 역사적 극단. '반등 없이 직접 하락' 대비. 목표 사이즈의 30-40%만 구축, 나머지는 A2 대기",
     rationale: "반등 기다리다 가장 강한 청산 캐스케이드 놓칠 위험 (Scenario B에서 논의). 현재가 $0.024 기준 R:R 정직 계산: 리스크 $0.0025, TP1 보상 $0.005 = 1:2.0, TP2 보상 $0.0105 = 1:4.2. 소규모 진입으로 가격 상승 시 A2 피라미딩",
-    risk: "즉시 진입은 스퀴즈 직접 노출. 타이트 SL $0.0265 = +10% → 계좌 1% 풀 손실 한도 내. 성공 확률 높지만 심리적 압박 큼. MM 매집 $100K/hr 주의. DEX 유동성 $1.3M — 포지션 크기 조심",
+    risk: "즉시 진입은 스퀴즈 직접 노출. 타이트 SL $0.0265 = +10% → 계좌 1% 풀 손실 한도 내. 성공 확률 높지만 심리적 압박 큼. W3 MM bot 활발 (Uniswap 양방향 트레이딩). DEX 유동성 $3.12M — 선물 포지션은 영향 없으나 청산 시 스팟 수렴 주의",
     color: "#ef4444",
   },
   {
@@ -3837,8 +3838,8 @@ function InxAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>펀딩비 역사적 극단 + 베스팅 분배 — 숏 최우선</div>
-            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>24h +87.5% 수직 랠리 직후. Binance +0.276% (8h, 연 302%) / Bybit +0.491% (4h, 연 1074%). 베스팅 지갑 2개 CoW 경유 $400K 매도 완료, $1M 잠재. TGE ATH $0.033 저항</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>3중 숏 시그널 — 펀딩 극단 + 베스팅 분배 + 스팟/선물 26% 프리미엄</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>선물 $0.024 vs DEX spot $0.01775 = 26% 콘탱고 (mean-revert 임박). Binance 펀딩 +0.276% (8h, 연 302%) / Bybit +0.491% (4h, 연 1074%). 베스팅 W1+W2 실측 $485K 오늘 매도 (CoW 경유 확인), $356K 잠재 잔여</div>
             <div style={{ fontSize: 11, color: "#f59e0b", marginTop: 6, fontStyle: "italic" }}>⚡ 플레이북: A1 (즉시 스타터) → A2 (반등 피라미드) → B (9~10월 클리프 선반영) → C (2027+ 바닥 매수). 순차 전략, 대안 아님.</div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
@@ -3915,7 +3916,7 @@ function InxAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
               Binance 8h 주기 +0.276% = 연환산 302% (하루 3번 롱 지불). Bybit는 4h 주기로 +0.491% = 연환산 1074% (하루 6번 롱 지불, 2배 속도).
               Bybit는 4일 안에 롱 포지션 자본 전액 소멸시키는 수준. 역사적으로 연환산 300%+ 구간에서 반전한 사례 다수 (PEPE, BONK, WIF).
               24h +87.5% 수직 랠리 직후 = 전형적 FOMO 피크 시그널. 베스팅 지갑 2개가 CoW Protocol (MEV 보호)로 $400K 매도 완료 + $1M 잠재 매도 = 지속 공급 압력.
-              DEX 유동성 $1.3M = 큰 포지션 청산 시 슬리피지 10%+ 가능.
+              DEX 유동성 $3.12M (Uniswap INX/USDC). **스팟 $0.01775 vs 선물 $0.024 = 26% 프리미엄** = 극단적 콘탱고, mean-revert 필연.
             </div>
           </div>
         </div>
