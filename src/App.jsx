@@ -1401,12 +1401,13 @@ function ShortStrategyTab() {
 
   const tokens = [
     { id: "WLFI", name: "World Liberty Financial", verdict: "STRONG SHORT", verdictColor: "#ef4444" },
+    { id: "INX", name: "Infinex", verdict: "펀딩 극단 + 베스팅 분배", verdictColor: "#ef4444" },
     { id: "CYS", name: "Cysic", verdict: "Safe 완전 고갈 + 12월 Cliff", verdictColor: "#ef4444" },
     { id: "SKYAI", name: "SkyAI", verdict: "SIREN + 파생상품 극단 과열", verdictColor: "#ef4444" },
     { id: "BABY", name: "Babylon", verdict: "LONG BIAS (과매도)", verdictColor: "#34d399" },
     { id: "FF", name: "Falcon Finance", verdict: "DWF 운전 — 분배 중", verdictColor: "#f59e0b" },
-    { id: "ARIA", name: "AriaAI", verdict: "크래시 후 회복 — 혼재", verdictColor: "#8b5cf6" },
-    { id: "VVV", name: "Venice AI", verdict: "강한 업트렌드 +383%", verdictColor: "#06b6d4" },
+    { id: "ARIA", name: "AriaAI", verdict: "ATH 재돌파 — 관망", verdictColor: "#8b5cf6" },
+    { id: "VVV", name: "Venice AI", verdict: "업트렌드 + 조정", verdictColor: "#06b6d4" },
     { id: "GWEI", name: "ETHGas", verdict: "재단 인사이더 덤프", verdictColor: "#f59e0b" },
   ];
 
@@ -1436,6 +1437,7 @@ function ShortStrategyTab() {
       {selectedToken === "VVV" && <VVVAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "GWEI" && <GweiAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "CYS" && <CysicAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "INX" && <InxAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
     </div>
   );
 }
@@ -3475,6 +3477,127 @@ const CYS_CATALYSTS = [
 ];
 
 // ============================================================
+// INX (Infinex) Analysis Data — 2026-04-13
+// Source: Binance/Bybit Futures API, CoinGecko, Arkham, On-chain Radar
+// ============================================================
+const INX_DATA = {
+  price: "$0.0240", mcap: "$48M", fdv: "$240M", vol24h: "$28.5M",
+  oi: "$10.7M (Binance $7.65M + Bybit $3.02M)", oiMcapRatio: "22%",
+  fundingRate: "+0.276% Binance (8h) / +0.491% Bybit (4h)",
+  fundingAnnualized: "연환산 ~302% (Binance) ~ 1074% (Bybit) — 역사적 극단",
+  athPrice: "$0.033", athDate: "2026.01.30 (TGE)", athDrop: "-27% (ATH), +125% (ATL $0.0107에서)",
+  atlPrice: "$0.01067", atlDate: "2026년 내 형성",
+  circulating: "2B / 10B (20%)",
+  change24h: "+87.5%", change7d: "~+100%", change30d: "N/A",
+  chain: "Multi-chain (Ethereum, Solana, Base, Arbitrum 외 9체인)",
+  category: "DeFi 슈퍼앱 / 크로스체인 애그리게이터",
+  exchanges: "Binance Alpha, Bybit, KuCoin, Gate, MEXC, Bitget, Kraken",
+  futuresExchanges: "Binance Futures + Bybit Futures (4h 펀딩)",
+  founder: "Kain Warwick (Synthetix 창업자)",
+  investors: "Framework Ventures, Solana Ventures, Wintermute, Bankless, Eden Block",
+  verdict: "베스팅 분배 + 펀딩비 역사적 극단 — 숏 최우선",
+  verdictColor: "#ef4444",
+  redFlags: [
+    "**펀딩비 Binance +0.276% (8h, 연 302%) / Bybit +0.491% (4h, 연 1074%)** — 역사적 극단 영역",
+    "베스팅 지갑 2개 (0x7489..., 0xB568...) $400K 매도 완료 + 약 $1M 잠재 매도 잔여",
+    "베스팅 지갑 CoW Protocol (MEV 보호 라우팅) 경유 = 조직적·전략적 분배 패턴",
+    "24h +87.5% 수직 랠리 ($0.01276 → $0.02973) 후 조정 불가피",
+    "TGE ATH $0.033 강력 저항 — 미도달 상태",
+    "2026-10 Team 2B INX (유통 100%) 12개월 linear 언락 개시",
+    "2027-01-30 Patron Locked NFT 클리프 + Sonar Sale 언락 추가",
+    "DEX 유동성 얇음 (~$1.3M) — 큰 포지션 슬리피지 극대",
+  ],
+  greenFlags: [
+    "Kain Warwick (Synthetix 창업자) 검증된 트랙 레코드",
+    "Framework Ventures, Solana Ventures, Wintermute 기관 투자",
+    "실제 프로덕트 (Multi-chain DeFi 슈퍼앱) + Synthetix sUSD 통합",
+    "Binance Alpha + Bybit 조기 상장 (유동성 확보)",
+    "매집 지갑 0x5Deb... 1시간 $100K 매수 = 분배 흡수 중",
+  ],
+};
+
+const INX_LEVELS = [
+  { type: "R", label: "R3", price: "$0.033", note: "TGE ATH (2026.01.30) — 강한 저항" },
+  { type: "R", label: "R2", price: "$0.0297", note: "4/13 24h 고점" },
+  { type: "R", label: "R1", price: "$0.0265", note: "4/13 직전 단기 고점" },
+  { type: "NOW", label: "현재가", price: "$0.0240", note: "24h +87.5% — 펀딩비 극단 과열" },
+  { type: "S", label: "S1", price: "$0.019", note: "피보 38.2% 되돌림" },
+  { type: "S", label: "S2", price: "$0.0135", note: "24h 저점 근방 / 피보 61.8%" },
+  { type: "S", label: "S3", price: "$0.01067", note: "ATL 바닥" },
+];
+
+const INX_TOKENOMICS = [
+  { name: "Patron NFT", pct: "44.04%", schedule: "다양한 베스팅 (Locked 36m cliff+vest / Unlocked 24m daily)", color: "#3b82f6" },
+  { name: "Team/Advisors", pct: "20%", schedule: "2026-10 cliff 후 12m linear — 월 167M INX", color: "#ef4444" },
+  { name: "Investors", pct: "미공개", schedule: "Framework/Solana VC/Wintermute (정확 할당 미공개)", color: "#8b5cf6" },
+  { name: "Ecosystem/Treasury", pct: "~30%", schedule: "미공개", color: "#f59e0b" },
+  { name: "Sonar Sale", pct: "5%", schedule: "1년 락 (2027.01.30) or 조기 언락 (decaying FDV)", color: "#34d399" },
+];
+
+const INX_ARKHAM = [
+  { label: "베스팅 매도 #1", addr: "0x7489661eE3dE9216D4920A8fEf911f1a31B9764a", detail: "베스팅에서 받은 토큰 일부 매도 · ~$400K 매도 완료 · CoW Protocol 경유 · 잠재 매도 잔여" },
+  { label: "베스팅 매도 #2", addr: "0xB568c358A5c7424875D907610aF2eB936823A27A", detail: "베스팅에서 받은 토큰 일부 매도 · ~$400K 매도 완료 · CoW Protocol 경유 · 잠재 매도 잔여" },
+  { label: "두 지갑 합계 잔여", addr: "—", detail: "합산 약 $1M 잠재 추가 매도 물량" },
+  { label: "매집 지갑 (MM 추정)", addr: "0x5Deb6F32f9Ba3f44871F77756dB1204Ddec0AE65", detail: "지난 1시간 $100K 재매수 — 분배 물량 흡수 중 (반대 포지션)" },
+  { label: "라우팅", addr: "EmaxBuild: SwapShortcuts + CoW Protocol Settlement", detail: "MEV 보호 배치 옥션 경유 — 슬리피지 최소화 + 탐지 회피" },
+];
+
+const INX_SCENARIOS = [
+  {
+    id: "A1", title: "숏 A1: 즉시 스타터 (사이즈 30-40%)", priority: "1순위 / 즉시",
+    entry: "$0.024 (현재가, 시장가 진입)", sl: "$0.0265 (+10%, R1 위)", tp1: "$0.019 (R:R ≈ 1:2.0)", tp2: "$0.0135 (R:R ≈ 1:4.2)",
+    signal: "**즉시 진입** — 현재 펀딩비 이미 역사적 극단. '반등 없이 직접 하락' 대비. 목표 사이즈의 30-40%만 구축, 나머지는 A2 대기",
+    rationale: "반등 기다리다 가장 강한 청산 캐스케이드 놓칠 위험 (Scenario B에서 논의). 현재가 $0.024 기준 R:R 정직 계산: 리스크 $0.0025, TP1 보상 $0.005 = 1:2.0, TP2 보상 $0.0105 = 1:4.2. 소규모 진입으로 가격 상승 시 A2 피라미딩",
+    risk: "즉시 진입은 스퀴즈 직접 노출. 타이트 SL $0.0265 = +10% → 계좌 1% 풀 손실 한도 내. 성공 확률 높지만 심리적 압박 큼. MM 매집 $100K/hr 주의. DEX 유동성 $1.3M — 포지션 크기 조심",
+    color: "#ef4444",
+  },
+  {
+    id: "A2", title: "숏 A2: 반등 시 추가 진입 (사이즈 60-70%)", priority: "1순위 / 피라미드",
+    entry: "$0.0280-0.0297 (R1-R2 저항)", sl: "$0.033 (TGE ATH 위)", tp1: "$0.019 (R:R ≈ 1:2.4)", tp2: "$0.0135 (R:R ≈ 1:3.8)",
+    signal: "**Binary Trigger**: (1) 4H 캔들이 $0.028+ 에서 시가 하회 적색 마감, AND (2) Bybit 4h 펀딩 ≥ +0.4% OR OI/MCap > 25%. 시그널 부재 시 A2 포기, A1만 유지",
+    rationale: "중간 진입 $0.0289 기준: 리스크 $0.0041, TP1 보상 $0.0099 = 1:2.4 (정직 계산). 베스팅 $1M 잠재 매도 + TGE ATH 강한 저항 = 반등 시 고점. R1-R2 밴드에서 매도벽 형성 예상",
+    risk: "반등 미발생 시 A2 기회 없음 (A1만으로 충분). 가격 $0.035 돌파 시 A 전체 플랜 무효 → 손절 후 B 대기. 4h 펀딩 빠르게 리셋될 수도 있음",
+    color: "#ef4444",
+  },
+  {
+    id: "EXIT", title: "조기 익절 규칙 (A1/A2 공통)", priority: "실행 규칙",
+    entry: "—", sl: "—", tp1: "절반 익절 @ Bybit 펀딩 리셋", tp2: "전량 트레일링",
+    signal: "**조기 익절 조건**: (1) Bybit 4h 펀딩비 ≤ +0.05% AND 가격 < $0.023 → 절반 익절 (논제 실현 완료). (2) 가격 $0.019 도달 → TP1 전량 or 트레일링 SL @ 현재가 +2%. (3) 24시간 내 가격 변동 없이 펀딩 리셋 → 전량 종료",
+    rationale: "논제('펀딩비 극단 리버설')가 실현되면 가격이 TP1 도달 안 해도 논리적 출구. 기회비용 최소화. 펀딩이 그대로인데 가격만 하락 시 TP까지 대기",
+    risk: "펀딩비 변동성으로 false signal 가능. 부분 익절 규칙으로 완화. Bybit 펀딩은 4h 단위로만 업데이트",
+    color: "#6b7280",
+  },
+  {
+    id: "B", title: "숏 B: 2026-10 Team 클리프 선반영 (장기)", priority: "2순위 / 장기",
+    entry: "9월말~10월초 반등 시 $0.025+ (D-30 선반영)", sl: "$0.035", tp1: "$0.015 (R:R ≈ 1:1.5)", tp2: "$0.010 (R:R ≈ 1:2.5)",
+    signal: "D-30 선반영 시작. 역사 사례 (TIA, APT, PYTH, ARB, STRK) 모두 클리프 D-30~D-7부터 -30~-60% 선반영. **지금 할 일**: 8월말 알림 설정, 매주 베스팅 컨트랙트 확인, 클리프 연장 DAO 제안 모니터링",
+    rationale: "2026-10 Team 2B INX (현 유통의 100%) 12개월 linear 시작. 월 167M INX = 현 유통의 8.3%/월 지속 매도 압력. 2027-01 Patron Locked NFT 클리프 + Sonar Sale 언락 추가. FDV $240M vs MCap $48M = 5배 디버전스. Scenario A → B → C는 순차 플레이북 (대안 아님)",
+    risk: "**Kill Switch**: 팀 클리프 연장/재협상 발표 시 즉시 포지션 종료 — ARB·STRK 선례 있음 (PYTH는 DAO 연기 투표로 숏 스퀴즈 발생). Infinex 플랫폼 채택 가속 시 반전 가능. Kain Warwick 트랙 레코드 강력",
+    color: "#f59e0b",
+  },
+  {
+    id: "C", title: "롱 C: 클리프 덤프 이후 바닥 매수 (2027+)", priority: "관찰 / 2027+",
+    entry: "**2026-10 클리프 덤프 확인 후** $0.008-0.011", sl: "$0.0070", tp1: "$0.018 (R:R ≈ 1:3.0)", tp2: "$0.025 (R:R ≈ 1:5.0)",
+    signal: "**Hard Gate**: 2026-10 Team 클리프 실제 덤프 확인 전 진입 금지. 신호: (1) 펀딩비 중립/음수 전환, (2) 월간 언락 매도 소화 확인, (3) Infinex TVL 증가, (4) 3일+ 저점 횡보 안정화",
+    rationale: "Kain Warwick (Synthetix 창업자) SNX을 0에서 $1B+ 구축 트랙 레코드. Framework/Solana/Wintermute 지원. Multi-chain DeFi 슈퍼앱 전략 + Synthetix sUSD 통합. 단, 167M/월 매도 감안 시 ATL $0.01067 하회 가능성 높음 — 기존 entry $0.011-0.013은 너무 높음",
+    risk: "**조기 진입 절대 금지**: 2026-10 클리프 덤프 확인 전 매수 금지. 현재 ATL $0.01067은 클리프 전 형성된 바닥이라 언더컷 가능성 높음. $0.008 이하 바닥 형성 후 진입 권장. Scenario A/B 숏 완료 후 이어지는 플레이",
+    color: "#34d399",
+  },
+];
+
+const INX_CATALYSTS = [
+  { date: "2026.01.03-10", event: "Sonar Sale (공개 판매) — $15M ICO @ $300M 밸류", impact: "자금 조달", done: true },
+  { date: "2026.01.30", event: "TGE @ $0.033 ($330M FDV). Binance Alpha + Bybit 조기 상장", impact: "런칭 고점", done: true },
+  { date: "2026.02", event: "Early Feb -36% 크래시 (TGE 에어드롭/ICO 수익 실현)", impact: "크래시", done: true },
+  { date: "2026.02-04", event: "수개월 $0.011-0.013 ATL 형성, -64% drawdown", impact: "바닥", done: true },
+  { date: "2026.03.16", event: "Synthetix sUSD 디포짓 보상 8주 확장 (펀더멘털 통합)", impact: "긍정 촉매", done: true },
+  { date: "2026.04.13", event: "24h +87.5% 수직 랠리 ($0.01276 → $0.02973). Binance 펀딩 +0.276% (8h) / Bybit +0.491% (4h) = 연 302-1074% 극단", impact: "극단 과열", done: true },
+  { date: "2026.04.13 (진행)", event: "베스팅 지갑 0x7489 + 0xB568 각 $400K CoW 경유 매도, $1M 잔여. 매집 지갑 0x5Deb $100K/hr 대응", impact: "분배 vs 매집", done: true },
+  { date: "2026.10", event: "Team 2B INX (20% 총공급) 12m linear 클리프 만료 — 월 167M 매도 개시", impact: "핵심 하락 리스크", done: false },
+  { date: "2027.01.30", event: "Patron Locked NFT 클리프 + Sonar Sale 1년 락 해제", impact: "추가 매도 압력", done: false },
+];
+
+// ============================================================
 // CysicAnalysis Component
 // ============================================================
 function CysicAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
@@ -3690,6 +3813,267 @@ function CysicAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
 
       <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
         Sources: BscScan (온체인 팩트체크) · CoinGecko · CoinMarketCap · Cysic Foundation Docs · CryptoRank · @0xInChain Twitter · MEXC
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// INX (Infinex) Standalone Analysis Component
+// ============================================================
+function InxAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
+        <span style={{ fontSize: 24, fontWeight: 800, color: "#f0f0f5" }}>INX</span>
+        <span style={{ fontSize: 14, color: "#888" }}>Infinex · Multi-chain DeFi 슈퍼앱</span>
+        <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>FUNDING OVERHEATED</span>
+      </div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: Binance/Bybit API (라이브), CoinGecko, Arkham, On-chain Radar</div>
+
+      {/* Verdict Banner */}
+      <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#ef4444" }}>펀딩비 역사적 극단 + 베스팅 분배 — 숏 최우선</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>24h +87.5% 수직 랠리 직후. Binance +0.276% (8h, 연 302%) / Bybit +0.491% (4h, 연 1074%). 베스팅 지갑 2개 CoW 경유 $400K 매도 완료, $1M 잠재. TGE ATH $0.033 저항</div>
+            <div style={{ fontSize: 11, color: "#f59e0b", marginTop: 6, fontStyle: "italic" }}>⚡ 플레이북: A1 (즉시 스타터) → A2 (반등 피라미드) → B (9~10월 클리프 선반영) → C (2027+ 바닥 매수). 순차 전략, 대안 아님.</div>
+          </div>
+          <div style={{ display: "flex", gap: 12 }}>
+            {[["Binance 8h", "+0.276%", "#ef4444"], ["Bybit 4h", "+0.491%", "#ef4444"], ["24h", "+87.5%", "#f59e0b"], ["베스팅", "분배 중", "#ef4444"]].map(([label, val, col]) => (
+              <div key={label} style={{ textAlign: "center", minWidth: 70 }}>
+                <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Market Overview */}
+      <div style={sectionStyle}>
+        {sectionTitle("Market Overview")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+          {[
+            ["현재가", INX_DATA.price, "#f0f0f5", true],
+            ["24h 변동", INX_DATA.change24h, "#34d399", false],
+            ["7d 변동", INX_DATA.change7d, "#34d399", false],
+            ["ATH Drop", INX_DATA.athDrop, "#f59e0b", false],
+            ["시가총액", INX_DATA.mcap, "#ccc", false],
+            ["FDV", INX_DATA.fdv, "#ccc", false],
+            ["유통량", INX_DATA.circulating, "#ef4444", false],
+            ["ATH", `${INX_DATA.athPrice} (${INX_DATA.athDate})`, "#888", false],
+            ["OI (Binance+Bybit)", INX_DATA.oi, "#60a5fa", true],
+            ["OI / MCap", INX_DATA.oiMcapRatio, "#60a5fa", false],
+            ["펀딩비 (4h)", INX_DATA.fundingRate, "#ef4444", false],
+            ["연환산 펀딩", INX_DATA.fundingAnnualized, "#ef4444", false],
+            ["24h 거래량", INX_DATA.vol24h, "#ccc", false],
+            ["체인", INX_DATA.chain, "#888", false],
+            ["카테고리", INX_DATA.category, "#888", false],
+            ["파생상품", INX_DATA.futuresExchanges, "#888", false],
+            ["ATL", `${INX_DATA.atlPrice} (${INX_DATA.atlDate})`, "#888", false],
+            ["거래소", INX_DATA.exchanges, "#888", false],
+            ["창업자", INX_DATA.founder, "#34d399", false],
+            ["투자자", INX_DATA.investors, "#34d399", false],
+          ].map(([label, val, col, big]) => (
+            <div key={label} style={{ ...cardStyle, padding: "10px 14px" }}>
+              <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
+              <div style={{ fontSize: big ? 20 : 14, fontWeight: big ? 800 : 600, color: col, marginTop: 3 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Funding Overheating Alert */}
+      <div style={sectionStyle}>
+        {sectionTitle("펀딩비 과열 경고 — 역사적 극단 영역")}
+        <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14, padding: "10px 14px", background: "#1a0a0e", borderRadius: 6, border: "1px solid #2a1418" }}>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>Binance 펀딩 (8h)</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+0.276%</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>Bybit 펀딩 (4h)</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>+0.491%</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>연환산 (Binance)</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~302%</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 10, color: "#ef4444", textTransform: "uppercase" }}>연환산 (Bybit)</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#ef4444" }}>~1074%</div>
+            </div>
+            <div style={{ fontSize: 11, color: "#888", marginLeft: "auto" }}>Binance/Bybit API · 2026-04-13</div>
+          </div>
+          <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "12px 14px", border: "1px solid #2a1418" }}>
+            <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>펀딩 극단 과열의 의미</div>
+            <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.7 }}>
+              Binance 8h 주기 +0.276% = 연환산 302% (하루 3번 롱 지불). Bybit는 4h 주기로 +0.491% = 연환산 1074% (하루 6번 롱 지불, 2배 속도).
+              Bybit는 4일 안에 롱 포지션 자본 전액 소멸시키는 수준. 역사적으로 연환산 300%+ 구간에서 반전한 사례 다수 (PEPE, BONK, WIF).
+              24h +87.5% 수직 랠리 직후 = 전형적 FOMO 피크 시그널. 베스팅 지갑 2개가 CoW Protocol (MEV 보호)로 $400K 매도 완료 + $1M 잠재 매도 = 지속 공급 압력.
+              DEX 유동성 $1.3M = 큰 포지션 청산 시 슬리피지 10%+ 가능.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Support / Resistance Levels */}
+      <div style={sectionStyle}>
+        {sectionTitle("Support / Resistance Levels")}
+        <div style={cardStyle}>
+          {INX_LEVELS.map((lv, i) => {
+            const colors = { R: "#ef4444", NOW: "#34d399", S: "#3b82f6" };
+            const c = colors[lv.type];
+            return (
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 4, borderRadius: 6,
+                background: lv.type === "NOW" ? "rgba(52,211,153,0.08)" : "transparent",
+                border: lv.type === "NOW" ? "1px solid rgba(52,211,153,0.2)" : "1px solid transparent",
+              }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: c, minWidth: 36 }}>{lv.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: lv.type === "NOW" ? "#34d399" : "#ccc", minWidth: 100 }}>{lv.price}</span>
+                <span style={{ fontSize: 11, color: "#666" }}>{lv.note}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Tokenomics */}
+      <div style={sectionStyle}>
+        {sectionTitle("Tokenomics & Vesting")}
+        <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
+          <div style={{ display: "flex", height: 18, borderRadius: 4, overflow: "hidden", marginBottom: 12 }}>
+            {INX_TOKENOMICS.map((t, i) => (
+              <div key={i} style={{ width: t.pct, background: t.color, height: "100%" }} title={`${t.name}: ${t.pct}`} />
+            ))}
+          </div>
+          {INX_TOKENOMICS.map((t, i) => (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "1.5fr 0.7fr 2.5fr", gap: 8, padding: "6px 0", borderBottom: "1px solid #14161e" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: t.color }} />
+                <span style={{ fontSize: 12, color: "#ccc" }}>{t.name}</span>
+              </div>
+              <span style={{ fontSize: 12, color: "#888", fontWeight: 700 }}>{t.pct}</span>
+              <span style={{ fontSize: 11, color: "#666" }}>{t.schedule}</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 10, padding: "8px 12px", background: "#1a0a0e", borderRadius: 4, border: "1px solid #2a1418" }}>
+            <span style={{ fontSize: 11, color: "#ef4444", fontWeight: 600 }}>핵심 위험: </span>
+            <span style={{ fontSize: 11, color: "#ef8888" }}>FDV $240M vs MCap $48M = 5배 디버전스. 잠금 물량이 현 시총의 5배. 2026-10 Team 클리프부터 월 167M INX 매도 압력</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Arkham On-chain */}
+      <div style={sectionStyle}>
+        {sectionTitle("Arkham On-chain — 베스팅 분배 vs MM 매집")}
+        <div style={cardStyle}>
+          {INX_ARKHAM.map((w, i) => (
+            <div key={i} style={{ padding: "10px 0", borderBottom: i < INX_ARKHAM.length - 1 ? "1px solid #14161e" : "none" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#f0f0f5" }}>{w.label}</span>
+                <span style={{ fontSize: 10, color: "#555", fontFamily: "monospace" }}>{w.addr}</span>
+              </div>
+              <div style={{ fontSize: 11, color: "#888", lineHeight: 1.5 }}>{w.detail}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Red/Green Flags */}
+      <div style={sectionStyle}>
+        {sectionTitle("Red Flags & Green Flags")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444", marginBottom: 8 }}>Red Flags</div>
+            {INX_DATA.redFlags.map((f, i) => (
+              <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #2a1418", marginBottom: 4 }}>{f}</div>
+            ))}
+          </div>
+          <div style={{ ...cardStyle, borderLeft: "3px solid #34d399" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#34d399", marginBottom: 8 }}>Green Flags</div>
+            {INX_DATA.greenFlags.map((f, i) => (
+              <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #1a3a25", marginBottom: 4 }}>{f}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Scenarios */}
+      <div style={sectionStyle}>
+        {sectionTitle("Entry Scenarios")}
+        <div style={{ display: "grid", gap: 12 }}>
+          {INX_SCENARIOS.map((sc) => {
+            const isOpen = expandedScenario === sc.id;
+            return (
+              <div key={sc.id} style={{ ...cardStyle, borderLeft: `3px solid ${sc.color}`, cursor: "pointer" }} onClick={() => setExpandedScenario(isOpen ? null : sc.id)}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: "#f0f0f5" }}>{sc.title}</span>
+                    <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 4, background: `${sc.color}15`, border: `1px solid ${sc.color}33`, color: sc.color, fontWeight: 600 }}>{sc.priority}</span>
+                  </div>
+                  <span style={{ fontSize: 16, color: "#444" }}>{isOpen ? "▾" : "▸"}</span>
+                </div>
+                {isOpen && (
+                  <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid #14161e" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 10, marginBottom: 12 }}>
+                      {[["진입", sc.entry, sc.color], ["손절", sc.sl, "#ef4444"], ["TP1", sc.tp1, "#34d399"], ["TP2", sc.tp2, "#34d399"]].map(([label, val, col]) => (
+                        <div key={label} style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e" }}>
+                          <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase" }}>{label}</div>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: col, marginTop: 2 }}>{val}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>시그널</div>
+                      <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.6 }}>{sc.signal}</div>
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>근거</div>
+                      <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6 }}>{sc.rationale}</div>
+                    </div>
+                    <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
+                      <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>리스크</div>
+                      <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>{sc.risk}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Catalysts */}
+      <div style={sectionStyle}>
+        {sectionTitle("Catalyst Timeline")}
+        <div style={cardStyle}>
+          {INX_CATALYSTS.map((cat, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "10px 0", borderBottom: i < INX_CATALYSTS.length - 1 ? "1px solid #14161e" : "none" }}>
+              <div style={{ minWidth: 120, fontSize: 12, fontWeight: 700, color: cat.done ? "#555" : "#f0f0f5" }}>{cat.date}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: cat.done ? "#888" : "#ccc", lineHeight: 1.5 }}>{cat.event}</div>
+              </div>
+              <div style={{ minWidth: 100, textAlign: "right" }}>
+                <span style={{
+                  fontSize: 10, padding: "2px 6px", borderRadius: 3, fontWeight: 600,
+                  background: cat.done ? "rgba(107,114,128,0.1)" : "rgba(239,68,68,0.1)",
+                  border: `1px solid ${cat.done ? "rgba(107,114,128,0.2)" : "rgba(239,68,68,0.2)"}`,
+                  color: cat.done ? "#6b7280" : "#ef4444",
+                }}>{cat.impact}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
+        Sources: Binance Futures API · Bybit API v5 · CoinGecko · CoinMarketCap · Arkham Intelligence · Etherscan · The Block · Infinex Official Docs
       </div>
     </div>
   );
