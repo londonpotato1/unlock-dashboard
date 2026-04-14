@@ -1401,7 +1401,14 @@ function ShortStrategyTab() {
 
   const tokens = [
     { id: "WLFI", name: "World Liberty Financial", verdict: "STRONG SHORT", verdictColor: "#ef4444" },
+    { id: "WCT", name: "WalletConnect", verdict: "TGE 1주년 Cliff D-1", verdictColor: "#ef4444" },
     { id: "INX", name: "Infinex", verdict: "펀딩 극단 + 베스팅 분배", verdictColor: "#ef4444" },
+    { id: "ENJ", name: "Enjin Coin", verdict: "숏 스퀴즈 극단 +23%", verdictColor: "#f59e0b" },
+    { id: "YGG", name: "Yield Guild", verdict: "Cliff D-13 (4/27)", verdictColor: "#f59e0b" },
+    { id: "OP", name: "Optimism", verdict: "Quarterly Cliff D-16", verdictColor: "#f59e0b" },
+    { id: "NXPC", name: "Nexpace", verdict: "FDV 3.77x Overhang", verdictColor: "#ef4444" },
+    { id: "TRUST", name: "Intuition", verdict: "무한 공급 + Q4 Cliff", verdictColor: "#ef4444" },
+    { id: "POLYX", name: "Polymesh", verdict: "RWA 모멘텀 (관찰)", verdictColor: "#06b6d4" },
     { id: "CYS", name: "Cysic", verdict: "Safe 완전 고갈 + 12월 Cliff", verdictColor: "#ef4444" },
     { id: "SKYAI", name: "SkyAI", verdict: "SIREN + 파생상품 극단 과열", verdictColor: "#ef4444" },
     { id: "BABY", name: "Babylon", verdict: "LONG BIAS (과매도)", verdictColor: "#34d399" },
@@ -1438,6 +1445,13 @@ function ShortStrategyTab() {
       {selectedToken === "GWEI" && <GweiAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "CYS" && <CysicAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
       {selectedToken === "INX" && <InxAnalysis expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "ENJ" && <GenericTokenAnalysis data={ENJ_DATA} levels={ENJ_LEVELS} tokenomics={ENJ_TOKENOMICS} scenarios={ENJ_SCENARIOS} catalysts={ENJ_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "YGG" && <GenericTokenAnalysis data={YGG_DATA} levels={YGG_LEVELS} tokenomics={YGG_TOKENOMICS} scenarios={YGG_SCENARIOS} catalysts={YGG_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "OP" && <GenericTokenAnalysis data={OP_DATA} levels={OP_LEVELS} tokenomics={OP_TOKENOMICS} scenarios={OP_SCENARIOS} catalysts={OP_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "NXPC" && <GenericTokenAnalysis data={NXPC_DATA} levels={NXPC_LEVELS} tokenomics={NXPC_TOKENOMICS} scenarios={NXPC_SCENARIOS} catalysts={NXPC_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "TRUST" && <GenericTokenAnalysis data={TRUST_DATA} levels={TRUST_LEVELS} tokenomics={TRUST_TOKENOMICS} scenarios={TRUST_SCENARIOS} catalysts={TRUST_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "WCT" && <GenericTokenAnalysis data={WCT_DATA} levels={WCT_LEVELS} tokenomics={WCT_TOKENOMICS} scenarios={WCT_SCENARIOS} catalysts={WCT_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
+      {selectedToken === "POLYX" && <GenericTokenAnalysis data={POLYX_DATA} levels={POLYX_LEVELS} tokenomics={POLYX_TOKENOMICS} scenarios={POLYX_SCENARIOS} catalysts={POLYX_CATALYSTS} expandedScenario={expandedScenario} setExpandedScenario={setExpandedScenario} sectionStyle={sectionStyle} sectionTitle={sectionTitle} cardStyle={cardStyle} />}
     </div>
   );
 }
@@ -4075,6 +4089,780 @@ function InxAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
 
       <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
         Sources: Binance Futures API · Bybit API v5 · CoinGecko · CoinMarketCap · Arkham Intelligence · Etherscan · The Block · Infinex Official Docs
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// Multi-Token Analysis Data — 2026-04-14
+// Live Binance+Bybit API verified. 7 tokens added via token-analysis skill.
+// ============================================================
+
+// ============================================================
+// ENJ (Enjin Coin) — Short-Squeeze Extreme
+// ============================================================
+const ENJ_DATA = {
+  token: "ENJ", name: "Enjin Coin", chain: "Ethereum (+ Polygon, Harmony)",
+  category: "GameFi / NFT 인프라", icon: "🎮",
+  price: "$0.04516", mcap: "$88.0M", fdv: "$89.4M", vol24h: "$1.03B",
+  oi: "$22.15M (Binance $13.0M + Bybit $9.2M)", oiMcapRatio: "25.2%",
+  fundingRate: "-0.228% Binance 8h / **-0.365% Bybit 1h** (연환산 -3196%)",
+  fundingAnnualized: "Bybit 1h 주기 = 하루 24번 부담. 역사적 극단 숏 스퀴즈",
+  athPrice: "$4.82", athDate: "2021.11.25", athDrop: "-99.06%",
+  atlPrice: "$0.01740", atlDate: "2026.03.08",
+  circulating: "1.95B / 1.98B (98.35%)",
+  change24h: "+23.15%", change7d: "+128.83%", change30d: "+144.79%",
+  exchanges: "Binance, Upbit, Coinbase, Kraken, Bybit, OKX",
+  futuresExchanges: "Binance Futures 8h / Bybit Futures 1h",
+  founder: "Maxim Blagov (CEO), Witek Radomski (CTO)",
+  verdict: "과매수 RSI 87 + 극단 숏 스퀴즈 진행 — 위험한 숏 기회",
+  verdictColor: "#f59e0b",
+  redFlags: [
+    "RSI 87.29 극단 과매수 — 단기 조정 확률 높음",
+    "Bybit 1h 펀딩비 -0.365% (연환산 -3196%) = 숏 포지션이 롱에게 지불 중, 숏 과다 포지셔닝",
+    "24h +23%, 7d +129%, 30d +145% 수직 랠리 = 수익 실현 압력",
+    "ATL $0.0174 (3/8)에서 +160% 반등 = 단기 exit liquidity",
+    "DEX 유동성 매우 얇음 ($117K) — CEX 의존",
+  ],
+  greenFlags: [
+    "Fully unlocked (98.35% circulating) — 추가 희석 리스크 없음",
+    "GameFi 섹터 로테이션 + Hyperbridge 크로스체인 출시 예정",
+    "Microsoft, Square Enix, Samsung 기존 파트너십",
+    "숏 포지션 과다 = 추가 스퀴즈 leg 가능",
+    "24h 거래량 $1B (Binance Futures) = 강한 유동성",
+  ],
+};
+const ENJ_LEVELS = [
+  { type: "R", label: "R3", price: "$0.060", note: "심리적 저항, 추가 스퀴즈 타겟" },
+  { type: "R", label: "R2", price: "$0.0510", note: "24h 고점 영역" },
+  { type: "R", label: "R1", price: "$0.048", note: "직전 고점" },
+  { type: "NOW", label: "현재가", price: "$0.0452", note: "24h +23% 극단 과매수, RSI 87" },
+  { type: "S", label: "S1", price: "$0.035", note: "피보 38.2% 되돌림" },
+  { type: "S", label: "S2", price: "$0.030", note: "피보 50% + 주요 지지" },
+  { type: "S", label: "S3", price: "$0.0174", note: "ATL (2026.03.08)" },
+];
+const ENJ_TOKENOMICS = [
+  { name: "ENJ/EFI Migrated", pct: "53.22%", schedule: "TGE 2017 완료, 100% 유통", color: "#3b82f6" },
+  { name: "Early Governance", pct: "14.04%", schedule: "Migration 완료", color: "#8b5cf6" },
+  { name: "Staking", pct: "12.44%", schedule: "Staking rewards", color: "#06b6d4" },
+  { name: "Ecosystem", pct: "11.20%", schedule: "Ecosystem grants", color: "#f59e0b" },
+  { name: "Company", pct: "5.60%", schedule: "Company treasury", color: "#34d399" },
+  { name: "Team", pct: "3.50%", schedule: "Vesting 완료", color: "#ef4444" },
+];
+const ENJ_SCENARIOS = [
+  {
+    id: "A1", title: "숏 A1: 즉시 스타터 (사이즈 20-30%)", priority: "1순위 / 즉시",
+    entry: "$0.0452 (현재가, 소규모)", sl: "$0.055 (+22%)", tp1: "$0.035 (R:R ≈ 1:1.06)", tp2: "$0.030 (R:R ≈ 1:1.55)",
+    signal: "**즉시 진입 (소규모)**: 스퀴즈 모멘텀이 너무 강해서 바운스를 기다리면 기회 놓침 가능. 목표 사이즈의 20-30%만 구축",
+    rationale: "entry $0.0452, SL $0.055, risk $0.0098. TP1 $0.035 reward $0.0102 = 1:1.04. 정직한 R:R 낮음 — A2 피라미딩 필수. RSI 87 극단 과매수 + Bybit 1h 펀딩 -0.365%",
+    risk: "**숏 스퀴즈 2차 leg 위험**: Bybit 1h 펀딩 연환산 -3196%는 숏 과다 포지션. 추가 스퀴즈 $0.06+ 가능. 20-30% 이상 진입 금지. Thesis invalidation: 펀딩비 양수 전환 시 즉시 종료",
+    color: "#ef4444",
+  },
+  {
+    id: "A2", title: "숏 A2: $0.048+ 반등 시 피라미드 (사이즈 70-80%)", priority: "1순위 / 피라미드",
+    entry: "$0.048-0.051 (R1-R2 반등)", sl: "$0.055", tp1: "$0.035 (R:R ≈ 1:3)", tp2: "$0.030 (R:R ≈ 1:4.4)",
+    signal: "**바이너리 트리거**: (1) 4H RSI >85 + divergence, AND (2) Bybit 1h 펀딩 ≤ -0.3% 유지 중단 (0에 근접 = 스퀴즈 종료), AND (3) 4H 적색 캔들 $0.048+ 에서 시가 하회",
+    rationale: "entry_mid $0.0495, SL $0.055, risk $0.0055. TP1 reward $0.0145 = 1:2.64 (honest, A1 대비 훨씬 유리). TP2 reward $0.0195 = 1:3.55. 바운스 확인 후 정당한 진입",
+    risk: "반등 미발생 시 A2 기회 없음. $0.055+ 돌파 시 전체 A 플랜 무효 → 손절. Thesis kill: 펀딩비 양수 전환",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "관망: 스퀴즈 종료 확인 대기", priority: "2순위",
+    entry: "Bybit 펀딩이 0 또는 양수 전환 후", sl: "—", tp1: "—", tp2: "—",
+    signal: "펀딩비 리셋 (-0.3% → 0%) + 24h 거래량 30% 이상 감소 + 4H 종가 하락 전환",
+    rationale: "현재 숏 진입은 스퀴즈 노출 위험. 펀딩 리셋 후 기술적 하락 전환 확인 시 깨끗한 숏 진입",
+    risk: "진입 기회 놓칠 가능성. 모멘텀 전환 확인에만 집중",
+    color: "#f59e0b",
+  },
+  {
+    id: "C", title: "롱: $0.025-0.030 조정 시 저점 매수", priority: "관찰",
+    entry: "$0.025-0.030 (S2-S3)", sl: "$0.022 (타이트)", tp1: "$0.040 (R:R ≈ 1:1.8)", tp2: "$0.055 (R:R ≈ 1:5.3)",
+    signal: "되돌림 후 거래량 감소 + 안정화 3일+",
+    rationale: "entry_mid $0.0275, SL $0.022, risk $0.0055. TP1 $0.040 reward $0.0125 = 1:2.27 (honest). TP2 $0.055 reward $0.0275 = 1:5. Fully unlocked = 구조적 overhang 없음. GameFi 로테이션 + Hyperbridge 촉매",
+    risk: "GameFi 섹터 약세 지속 시 ATL $0.0174 재시험. 모멘텀 전환 확인 후 진입",
+    color: "#34d399",
+  },
+];
+const ENJ_CATALYSTS = [
+  { date: "2021.11.25", event: "ATH $4.82 (불런 고점)", impact: "과거 고점", done: true },
+  { date: "2023.Q4", event: "ENJ 2.0 migration + Efinity 통합", impact: "토큰 업그레이드", done: true },
+  { date: "2026.02.03", event: "Essence of Elements 시즌 캠페인 시작", impact: "사용자 유입", done: true },
+  { date: "2026.03.08", event: "ATL $0.0174 도달", impact: "바닥", done: true },
+  { date: "2026.04.12", event: "ENJ +38% 단일 세션 랠리 (가속 시작)", impact: "모멘텀 시작", done: true },
+  { date: "2026.04.13-14", event: "24h +23% 수직 랠리, RSI 87, Bybit 펀딩 -0.365%/1h", impact: "극단 과매수", done: true },
+  { date: "미정", event: "Hyperbridge Mainnet 출시 (크로스체인)", impact: "긍정 촉매", done: false },
+];
+
+// ============================================================
+// YGG (Yield Guild Games) — Cliff D-13
+// ============================================================
+const YGG_DATA = {
+  token: "YGG", name: "Yield Guild Games", chain: "Ethereum (+ Ronin, Base, Polygon, BSC)",
+  category: "GameFi / Guild", icon: "⚔️",
+  price: "$0.0385", mcap: "$28.1M", fdv: "$38.5M", vol24h: "$1.92M",
+  oi: "$3.27M (Binance $2.10M + Bybit $1.17M)", oiMcapRatio: "11.6%",
+  fundingRate: "+0.005% Binance / +0.005% Bybit 4h (중립)",
+  fundingAnnualized: "연환산 ~5.5% (극히 중립)",
+  athPrice: "$11.17", athDate: "2021.11.20", athDrop: "-99.66%",
+  atlPrice: "$0.03347", atlDate: "2026.03.29",
+  circulating: "730.6M / 1B (73.06%)",
+  change24h: "+0.71%", change7d: "+7.20%", change30d: "-8.87%",
+  exchanges: "Binance, Upbit, Bithumb, Bybit, OKX, KuCoin",
+  futuresExchanges: "Binance Futures 4h / Bybit Futures 4h",
+  verdict: "4/27 언락 D-13 + Legend of YMIR 파트너십 혼재",
+  verdictColor: "#f59e0b",
+  redFlags: [
+    "**2026-04-27 Cliff D-13** — 8.82M YGG ($340K) 커뮤니티 언락, 유통의 0.88%",
+    "1y -77% 추락 (P2E 섹터 약세 지속)",
+    "OI 매우 낮음 ($3.27M) — 선물 시장 관심 부족",
+    "KuCoin 크로스마진 딜리스팅 (3/26) = 레버리지 감소",
+    "Investors 22.42% + Founders 15% = 37.42% 내부자 (대부분 해제됨)",
+  ],
+  greenFlags: [
+    "ATL $0.0335에서 +15% 탈출 = 기술적 저점 확인",
+    "Legend of YMIR Web3 MMORPG 파트너십 (Axie 이후 첫 대형 통합)",
+    "73.06% 이미 유통 = 추가 희석 제한적",
+    "펀딩 중립 = 양방향 균형",
+  ],
+};
+const YGG_LEVELS = [
+  { type: "R", label: "R3", price: "$0.055", note: "주요 저항대" },
+  { type: "R", label: "R2", price: "$0.045", note: "1월 반등 고점" },
+  { type: "R", label: "R1", price: "$0.040", note: "직전 단기 고점" },
+  { type: "NOW", label: "현재가", price: "$0.0385", note: "ATL +15%, 박스권 중간" },
+  { type: "S", label: "S1", price: "$0.036", note: "단기 지지" },
+  { type: "S", label: "S2", price: "$0.0335", note: "ATL (2026.03.29)" },
+  { type: "S", label: "S3", price: "$0.028", note: "Cliff 반영 타겟" },
+];
+const YGG_TOKENOMICS = [
+  { name: "Community", pct: "45.00%", schedule: "4년 선형 (주간 언락)", color: "#3b82f6" },
+  { name: "Investors", pct: "24.92%", schedule: "1Y cliff + 3Y linear (완료)", color: "#ef4444" },
+  { name: "Founders", pct: "15.00%", schedule: "1Y cliff + 3Y linear (완료)", color: "#8b5cf6" },
+  { name: "Treasury", pct: "13.33%", schedule: "Governance", color: "#f59e0b" },
+  { name: "Advisors", pct: "1.75%", schedule: "Vesting", color: "#34d399" },
+];
+const YGG_SCENARIOS = [
+  {
+    id: "A", title: "숏 A: 4/27 Cliff + S1 $0.036 이탈 트리거", priority: "1순위",
+    entry: "$0.040-0.042 (R1 반등 시)", sl: "$0.0435 (타이트)", tp1: "$0.034 (R:R ≈ 1:2.8)", tp2: "$0.030 (R:R ≈ 1:4.4)",
+    signal: "**바이너리 트리거**: (1) R1 $0.040 재도달 + 4H 적색 마감 거래량 감소, OR (2) S1 $0.036 하락 이탈 확인 (모멘텀 확정). Cliff D-10 이내 진입",
+    rationale: "entry_mid $0.041, SL $0.0435, risk $0.0025 (타이트 손절). TP1 $0.034 reward $0.007 = 1:2.8 (honest). TP2 $0.030 reward $0.011 = 1:4.4. 4/27 언락 0.88% dilution. OI $3.27M 매우 얇아서 소규모 매도도 가격 영향",
+    risk: "**Kill switch**: Legend YMIR 파트너십 상세 공시 (MMORPG 통합 세부사항) 발표 시 즉시 숏 종료. OI 낮아서 스퀴즈보다 횡보 지속 가능",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "롱 B: Legend YMIR 파트너십 확정 후", priority: "관찰",
+    entry: "$0.040 이상 + 파트너십 세부사항 공시", sl: "$0.034", tp1: "$0.045", tp2: "$0.055",
+    signal: "R1 $0.040 돌파 + 뉴스 촉매 + 거래량 증가",
+    rationale: "실제 MMORPG 통합 = 유저 유입 촉매. P2E 섹터 reversion 후보",
+    risk: "파트너십 소프트 런치 시 실망 매도",
+    color: "#34d399",
+  },
+];
+const YGG_CATALYSTS = [
+  { date: "2021.11.20", event: "ATH $11.17 (불런 고점)", impact: "과거 고점", done: true },
+  { date: "2026.03.26", event: "KuCoin 크로스마진 딜리스팅", impact: "유동성 감소", done: true },
+  { date: "2026.03.29", event: "ATL $0.0335 도달", impact: "바닥", done: true },
+  { date: "2026.04.09", event: "'Degen Mode' $CHAD 스테이킹 티저", impact: "커뮤니티", done: true },
+  { date: "**2026.04.27**", event: "**Cliff 언락 8.82M YGG (0.88%)**", impact: "**핵심 리스크 D-13**", done: false },
+  { date: "미정", event: "Legend of YMIR MMORPG 출시", impact: "긍정 촉매", done: false },
+];
+
+// ============================================================
+// OP (Optimism) — Quarterly Unlock D-16
+// ============================================================
+const OP_DATA = {
+  token: "OP", name: "Optimism", chain: "Optimism L2 (+ Superchain ecosystem)",
+  category: "Ethereum L2", icon: "🔴",
+  price: "$0.1147", mcap: "$245M", fdv: "$492M", vol24h: "$25.8M",
+  oi: "$27.79M (Binance $15.37M + Bybit $12.42M)", oiMcapRatio: "11.3%",
+  fundingRate: "+0.010% Binance / +0.010% Bybit 8h (중립)",
+  fundingAnnualized: "연환산 ~11% (중립)",
+  athPrice: "$4.84", athDate: "2024.03.06", athDrop: "-97.63%",
+  atlPrice: "$0.100", atlDate: "2026.03.29",
+  circulating: "2.14B / 4.29B (49.74%)",
+  change24h: "+7.79%", change7d: "+4.74%", change30d: "-7.20%",
+  exchanges: "Binance, Coinbase, Kraken, Bybit, OKX, Upbit",
+  futuresExchanges: "Binance Futures 8h / Bybit Futures 8h",
+  verdict: "4/30 quarterly cliff D-16 + Superchain buyback 완화",
+  verdictColor: "#f59e0b",
+  redFlags: [
+    "**2026-04-30 Quarterly Unlock D-16** — 31.34M OP, 유통의 1.89% (Core Contributors)",
+    "97.63% ATH $4.84에서 추락 — 장기 loser",
+    "4.29B 총공급 vs 2.14B 유통 (50% 미유통 overhang)",
+    "L2 경쟁 격화 (Arbitrum, Base, zkSync)",
+    "BTC 상관관계 0.85 — BTC 약세 시 -30% 동반",
+  ],
+  greenFlags: [
+    "**Superchain Revenue Buyback** (Feb 2026 시작) — 50% 수수료 → OP 매입 (디플레이션)",
+    "Fraud Proofs Live (Stage 1 성숙) — 기술적 credibility",
+    "30+ OP Stack 체인 (Base, World Chain 등) — 네트워크 효과",
+    "ATL $0.100에서 +15% 탈출 + 기술적 bounce",
+    "Core allocation 분산 (RetroPGF 20% + Airdrop 19% + Governance) = 정당성",
+  ],
+};
+const OP_LEVELS = [
+  { type: "R", label: "R3", price: "$0.19", note: "2024 반등 고점" },
+  { type: "R", label: "R2", price: "$0.14", note: "3월 고점" },
+  { type: "R", label: "R1", price: "$0.12", note: "단기 저항 (20일 MA)" },
+  { type: "NOW", label: "현재가", price: "$0.1147", note: "ATL +15%, 24h +7.79%" },
+  { type: "S", label: "S1", price: "$0.105", note: "피보 38.2%" },
+  { type: "S", label: "S2", price: "$0.100", note: "ATL (2026.03.29)" },
+  { type: "S", label: "S3", price: "$0.085", note: "ATL 이탈 시 타겟" },
+];
+const OP_TOKENOMICS = [
+  { name: "Ecosystem Fund", pct: "25.00%", schedule: "거버넌스 배분", color: "#3b82f6" },
+  { name: "RetroPG Funding", pct: "20.00%", schedule: "분기별 Retroactive", color: "#8b5cf6" },
+  { name: "Core Contributors", pct: "19.00%", schedule: "Quarterly unlocks thru 2029 (D-16)", color: "#ef4444" },
+  { name: "Airdrops", pct: "19.00%", schedule: "Community airdrops", color: "#06b6d4" },
+  { name: "Sugar Momma / Investors", pct: "17.00%", schedule: "Quarterly unlocks", color: "#f59e0b" },
+];
+const OP_SCENARIOS = [
+  {
+    id: "A", title: "숏 A: 4/30 Cliff 선반영 ($0.12+ 반등 시)", priority: "1순위",
+    entry: "$0.120-0.125 (R1 저항)", sl: "$0.132 (타이트)", tp1: "$0.105 (R:R ≈ 1:2.2)", tp2: "$0.095 (R:R ≈ 1:3.4)",
+    signal: "**바이너리 트리거**: (1) R1 $0.120 재시험 + Cliff D-10 이내 + 4H 적색 마감, AND (2) 최근 7일 Superchain 월간 buyback 볼륨 < $1M (매입 압력 약화 확인). **No-bounce 대안**: 10일 내 바운스 미발생 시 A skip, B(롱)로 전환",
+    rationale: "entry_mid $0.1225, SL $0.132, risk $0.0095. TP1 $0.105 reward $0.0175 = 1:1.84. TP2 $0.095 reward $0.0275 = 1:2.89 (honest). 1.89% dilution 중간 규모. 역사상 OP quarterly unlock마다 -5~15% 조정",
+    risk: "**Buyback Kill switch**: Superchain 50% 수수료 매입이 월 $2M+ 확인되면 숏 종료 (언락 흡수 가능). BTC 상승 상관 시 숏 스퀴즈. NOW $0.1147 < entry — 바운스 대기 설정",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "롱 B: 반등 지속 + $0.14 돌파", priority: "2순위",
+    entry: "$0.115 (현재가) 또는 $0.14 돌파 후", sl: "$0.100 (ATL)", tp1: "$0.14", tp2: "$0.19",
+    signal: "Superchain 수수료 데이터 증가 + 4월 cliff 무난 소화 + BTC 강세",
+    rationale: "Fraud Proofs + OP Stack 네트워크 효과 + RetroPGF 지속 = 장기 펀더멘털. ATL $0.100 지지 확실",
+    risk: "L2 경쟁 + BTC 상관 리스크",
+    color: "#34d399",
+  },
+];
+const OP_CATALYSTS = [
+  { date: "2024.03.06", event: "ATH $4.84", impact: "과거 고점", done: true },
+  { date: "2026.01", event: "Fraud Proofs Live (Stage 1 성숙)", impact: "기술", done: true },
+  { date: "2026.02", event: "Superchain Revenue Buyback 시작 (50% 수수료)", impact: "디플레이션", done: true },
+  { date: "2026.03.29", event: "ATL $0.100 도달", impact: "바닥", done: true },
+  { date: "2026.04", event: "op-node v1.16.11 업데이트 + ZK Proving 파트너십", impact: "기술", done: true },
+  { date: "**2026.04.30**", event: "**Quarterly Unlock 31.34M OP (1.89%)**", impact: "**핵심 리스크 D-16**", done: false },
+  { date: "2026.07/10", event: "Q3, Q4 quarterly unlocks (계속)", impact: "주기적 압력", done: false },
+];
+
+// ============================================================
+// NXPC (Nexpace) — Nexon GameFi Overhang
+// ============================================================
+const NXPC_DATA = {
+  token: "NXPC", name: "Nexpace (MapleStory Universe)", chain: "Ethereum (+ Solana, Avalanche)",
+  category: "GameFi / Nexon IP", icon: "🍁",
+  price: "$0.2839", mcap: "$74.8M", fdv: "$282.4M", vol24h: "$6.5M",
+  oi: "$6.68M (Binance $5.09M + Bybit $1.59M)", oiMcapRatio: "8.9%",
+  fundingRate: "-0.002% Binance / +0.005% Bybit 4h (중립)",
+  fundingAnnualized: "연환산 ~0% (극히 중립)",
+  athPrice: "$3.77", athDate: "2025.05.15", athDrop: "-92.47%",
+  atlPrice: "$0.2469", atlDate: "2026.02.11",
+  circulating: "263.5M / 994.6M (26.5%)",
+  change24h: "+1.98%", change7d: "N/A", change30d: "N/A",
+  exchanges: "Binance, Kraken, Gate, Bitget, KuCoin, MEXC",
+  futuresExchanges: "Binance Futures 4h / Bybit Futures 4h",
+  founder: "Nexon (MapleStory 제작사)",
+  verdict: "구조적 Overhang FDV $282M vs MCap $74.8M (3.77배)",
+  verdictColor: "#ef4444",
+  redFlags: [
+    "**FDV $282M vs MCap $74.8M = 3.77배 디버전스** — 잠금 물량이 시총의 2.77배",
+    "72.5% 미유통 (731M 토큰 lock) — 구조적 overhang",
+    "ATH $3.77 (2025-05-15)에서 **-92.5% 추락** — 레거시 매도 압력",
+    "9개월 cliff 후 quarterly unlocks thru Q4 2027 (12개월+ 남음)",
+    "Contribution Reward 80% (Play-to-earn 보상) — 지속적 생산/매도",
+    "MapleStory Universe 아직 playtest 단계 — 프로덕트 미검증",
+  ],
+  greenFlags: [
+    "Nexon 브랜드 + 20년+ MapleStory IP",
+    "$50M 에코시스템 펀드 (2025.11 deployed)",
+    "Polygon Supernet + Avalanche 파트너십",
+    "Verse Eight AI 파트너십 (2026.01.30)",
+    "Binance Futures 상장 (유동성)",
+  ],
+};
+const NXPC_LEVELS = [
+  { type: "R", label: "R3", price: "$0.40", note: "심리적 저항, 2026.03 고점 근방" },
+  { type: "R", label: "R2", price: "$0.32", note: "20/50 MA" },
+  { type: "R", label: "R1", price: "$0.30", note: "단기 저항" },
+  { type: "NOW", label: "현재가", price: "$0.2839", note: "ATL +15%, 24h +1.98% 플랫" },
+  { type: "S", label: "S1", price: "$0.272", note: "단기 지지" },
+  { type: "S", label: "S2", price: "$0.247", note: "ATL (2026.02.11)" },
+  { type: "S", label: "S3", price: "$0.20", note: "Cliff 반영 타겟" },
+];
+const NXPC_TOKENOMICS = [
+  { name: "Contribution Reward", pct: "80.00%", schedule: "P2E 지속 생산", color: "#3b82f6" },
+  { name: "Early Community", pct: "16.31%", schedule: "1Y cliff + 36m quarterly", color: "#ef4444" },
+  { name: "Airdrop", pct: "3.00%", schedule: "TGE 완료", color: "#34d399" },
+  { name: "IP Management", pct: "2.00%", schedule: "Vesting", color: "#f59e0b" },
+  { name: "Team", pct: "0.70%", schedule: "Vesting", color: "#8b5cf6" },
+];
+const NXPC_SCENARIOS = [
+  {
+    id: "A", title: "숏 A: $0.30 저항 반등 시 (타이트)", priority: "1순위",
+    entry: "$0.30-0.31 (R1 근접)", sl: "$0.325 (+6%)", tp1: "$0.26 (R:R ≈ 1:1.8)", tp2: "$0.20 (R:R ≈ 1:4)",
+    signal: "**바이너리 트리거**: R1 $0.30 재시험 + 4H 적색 마감 + 거래량 감소. 바운스 없이 $0.272 이탈 시 skip (이미 하락 중 신호)",
+    rationale: "entry_mid $0.305, SL $0.325, risk $0.02. TP1 $0.26 reward $0.045 = 1:2.25 (honest). TP2 $0.20 reward $0.105 = 1:5.25. FDV/MCap 3.77배 overhang. 72.5% 미유통. 펀딩 중립",
+    risk: "**No-bounce fallback**: NOW $0.2839가 entry 하단보다 낮음 = 바운스 미발생 시 기회 놓침. 10일 내 바운스 없으면 취소. Nexon 브랜드 retail 유입 가능",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "롱 B: MapleStory 정식 출시 확인 후", priority: "관찰",
+    entry: "정식 출시 + DAU 10K+ 확인 후", sl: "$0.23", tp1: "$0.40", tp2: "$0.55",
+    signal: "MapleStory Universe 메인넷 출시 + 게임 metrics 검증",
+    rationale: "Nexon 브랜드 + 실제 프로덕트 검증 시 펀더멘털 재평가 가능",
+    risk: "Playtest 연장 / 출시 지연. overhang 해제 없이는 상승 제한",
+    color: "#34d399",
+  },
+];
+const NXPC_CATALYSTS = [
+  { date: "2025.05.15", event: "TGE & Binance 상장 ATH $3.77", impact: "런칭 고점", done: true },
+  { date: "2025.11", event: "$50M Ecosystem Fund deployed", impact: "펀더멘털", done: true },
+  { date: "2026.01.30", event: "Verse Eight AI 파트너십", impact: "통합", done: true },
+  { date: "2026.02.11", event: "ATL $0.247 도달", impact: "바닥", done: true },
+  { date: "미정", event: "MapleStory Universe 정식 출시 (현재 playtest)", impact: "핵심 촉매", done: false },
+  { date: "Q4 2026+", event: "Cliff quarterly unlocks 지속 thru 2027", impact: "구조적 압력", done: false },
+];
+
+// ============================================================
+// TRUST (Intuition) — Infinite Supply + Airdrop Collapse
+// ============================================================
+const TRUST_DATA = {
+  token: "TRUST", name: "Intuition", chain: "Base L3 (+ Ethereum)",
+  category: "AI / Data Trust Layer", icon: "🧠",
+  price: "$0.0691", mcap: "$12.4M", fdv: "$68.9M", vol24h: "$2.9M",
+  oi: "$1.48M (Binance $0.86M + Bybit $0.62M)", oiMcapRatio: "11.9%",
+  fundingRate: "+0.005% / +0.005% 4h (중립)",
+  fundingAnnualized: "연환산 ~5.5% (극히 중립)",
+  athPrice: "$0.606", athDate: "2025.11.05", athDrop: "-88.6%",
+  atlPrice: "$0.0605", atlDate: "2026.03.29",
+  circulating: "179.6M / 1B (17.96%)",
+  change24h: "+8.17%", change7d: "N/A", change30d: "N/A",
+  exchanges: "Binance, Coinbase, Upbit, Bitget, Bybit",
+  futuresExchanges: "Binance Futures 4h / Bybit Futures 4h",
+  verdict: "무한 공급 + 88% 크래시 + Q4 2026 Cliff — 강한 숏",
+  verdictColor: "#ef4444",
+  redFlags: [
+    "**무한 공급 (Max: Unlimited)** — 구조적 디플레이션 불가",
+    "2025.11 에어드롭 덤프 -88% 크래시 = 리테일 고갈",
+    "**Q4 2026 (Oct-Nov) 주요 vesting cliff** — Investors 20.5% + Contributors 14% = 34.5% 선형 시작",
+    "FDV $68.9M vs MCap $12.4M = 5.56배 디버전스",
+    "82% 미유통 + 무한 공급 = 영구 희석 리스크",
+    "Q1 2026 AI Agent 로드맵 미출시 (프로덕트 미검증)",
+    "DEX 가격 divergence 있음 (Base Uniswap)",
+  ],
+  greenFlags: [
+    "Base L3 (Arbitrum Orbit) — 커스터디 리스크 감소",
+    "AI + 데이터 trust layer = 서사 있음",
+    "Code4rena 감사 (2026.03)",
+    "ATL $0.0605 근처 + 14% bounce",
+    "Binance Futures 50x 상장 (유동성)",
+  ],
+};
+const TRUST_LEVELS = [
+  { type: "R", label: "R3", price: "$0.15", note: "2026.01 반등 고점" },
+  { type: "R", label: "R2", price: "$0.09", note: "저항 클러스터" },
+  { type: "R", label: "R1", price: "$0.08", note: "직전 저항" },
+  { type: "NOW", label: "현재가", price: "$0.0691", note: "ATL +14%, 24h +8.17%" },
+  { type: "S", label: "S1", price: "$0.065", note: "단기 지지" },
+  { type: "S", label: "S2", price: "$0.0605", note: "ATL (2026.03.29)" },
+  { type: "S", label: "S3", price: "$0.045", note: "Q4 cliff 반영 타겟" },
+];
+const TRUST_TOKENOMICS = [
+  { name: "Community/Ecosystem", pct: "20.00%", schedule: "Linear", color: "#3b82f6" },
+  { name: "Investors", pct: "20.50%", schedule: "1Y cliff + 2Y linear (Q4 2026 시작)", color: "#ef4444" },
+  { name: "Labs/Strategic", pct: "14.50%", schedule: "Reserve", color: "#8b5cf6" },
+  { name: "Core Contributors", pct: "14.00%", schedule: "1Y cliff + 3Y linear (Q4 2026)", color: "#f59e0b" },
+  { name: "Liquidity/MM", pct: "2.50%", schedule: "TGE 완료", color: "#34d399" },
+  { name: "미공개 (Airdrop/Foundation 추정)", pct: "28.50%", schedule: "공식 문서 미완전 공개 — 추가 희석 리스크", color: "#6b7280" },
+];
+const TRUST_SCENARIOS = [
+  {
+    id: "A", title: "숏 A: 단기 반등 시 즉시 진입 (타이트)", priority: "1순위",
+    entry: "$0.072-0.078 (+4~13% from NOW $0.069)", sl: "$0.085 (타이트)", tp1: "$0.065 (R:R ≈ 1:1)", tp2: "$0.045 (R:R ≈ 1:3)",
+    signal: "**바이너리 트리거**: 4H 캔들 $0.075+ 도달 후 적색 마감 + 거래량 감소 + RSI >60. 10일 내 바운스 미발생 시 B(장기 Q4 cliff)로 전환",
+    rationale: "entry_mid $0.075, SL $0.085, risk $0.010. TP1 $0.065 reward $0.010 = 1:1 (sub-optimal, A2 보완 필요). TP2 $0.045 reward $0.030 = 1:3. 무한 공급 + 88% 크래시 + 28.5% 미공개 allocation. 펀딩 중립",
+    risk: "**Kill switch**: AI Agent 출시 + 실사용 데이터 증가 시 즉시 종료. ATL 근접 $0.0605 reversal 리스크. 소규모 포지션 권장",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "숏 B: Q4 2026 Cliff 선반영 (장기)", priority: "2순위",
+    entry: "9월말~10월 초 반등 시 $0.08+", sl: "$0.10", tp1: "$0.05", tp2: "$0.035",
+    signal: "Cliff D-30 선반영 시작. 역사 사례 (ARB, APT, STRK) 패턴",
+    rationale: "Investors 20.5% + Contributors 14% = 34.5% 선형 시작. 월 1M+ TRUST 매도 압력 예상",
+    risk: "Kill switch: AI Agent 출시 + 실사용 지표 증가",
+    color: "#f59e0b",
+  },
+];
+const TRUST_CATALYSTS = [
+  { date: "2025.11.05", event: "ATH $0.606 + 에어드롭 시작", impact: "고점", done: true },
+  { date: "2025.11.18", event: "스테이킹 버그 수정 (protocol 미성숙)", impact: "경고", done: true },
+  { date: "2025.Q4", event: "에어드롭 덤프 -88% 크래시", impact: "크래시", done: true },
+  { date: "2026.03", event: "Code4rena 보안 감사", impact: "긍정", done: true },
+  { date: "2026.03.29", event: "ATL $0.0605 도달", impact: "바닥", done: true },
+  { date: "**2026.Q4 (Oct-Nov)**", event: "**Major Vesting Cliff** — Investors 20.5% + Contributors 14%", impact: "**핵심 리스크**", done: false },
+  { date: "미정", event: "AI Agent Integration 로드맵 (Q1 2026 예정, 지연)", impact: "펀더멘털", done: false },
+];
+
+// ============================================================
+// WCT (WalletConnect Token) — TGE 1주년 Cliff D-1!
+// ============================================================
+const WCT_DATA = {
+  token: "WCT", name: "WalletConnect Token", chain: "Optimism",
+  category: "Infrastructure / Wallet Protocol", icon: "🔗",
+  price: "$0.0587", mcap: "$10.9M", fdv: "$58.6M", vol24h: "$13.8M",
+  oi: "$6.54M (Binance $3.70M + Bybit $2.84M)", oiMcapRatio: "60.0% (시총 대비 매우 높음)",
+  fundingRate: "-0.0007% Binance / -0.0093% Bybit 4h (약한 음수)",
+  fundingAnnualized: "Bybit 연환산 ~-20% (숏 페이, 미약)",
+  athPrice: "$1.34", athDate: "2025.05.31", athDrop: "-95.62%",
+  atlPrice: "$0.0506", atlDate: "2026.02.06",
+  circulating: "186.2M / 1B (18.62%)",
+  change24h: "+9.46%", change7d: "N/A", change30d: "N/A",
+  exchanges: "Binance, Coinbase, Bybit, KuCoin, Gate, OKX",
+  futuresExchanges: "Binance Futures 4h / Bybit Futures 4h",
+  founder: "WalletConnect Foundation",
+  investors: "1kx, USV, Coinbase Ventures, ConsenSys, Circle, Hashkey",
+  verdict: "**2026-04-15 TGE 1주년 Cliff D-1!** — 팀/투자자 베스팅 시작",
+  verdictColor: "#ef4444",
+  redFlags: [
+    "**2026-04-15 TGE 1주년 = Team + Investor 1Y Cliff 만료 (D-1)!**",
+    "Team 18.5% + Investors 11.5% + Token Warrants 11.25% = 41.25% 베스팅 시작",
+    "4Y 선형 베스팅 = 월간 매도 압력 지속",
+    "FDV $58.6M vs MCap $10.9M = 5.37배 디버전스",
+    "OI/MCap 60% — 매우 높음 (작은 시총 대비 선물 과다)",
+    "95.6% ATH $1.34 추락 = 에어드롭 덤프 피해",
+    "RSI 25 과매도이나 구조적 매도 압력 우세",
+  ],
+  greenFlags: [
+    "**WalletConnect = Web3 인프라 핵심** (billions of wallet connections/yr)",
+    "탑-tier 투자자 (1kx, USV, Coinbase Ventures, Circle, ConsenSys, Hashkey)",
+    "Stake 메커니즘 + 거버넌스 유틸리티",
+    "Optimism L2 배포 — 저가 거래",
+    "RSI 25 극단 과매도 = 단기 반등 가능",
+    "18.62% 유통 = 낮은 유통으로 시총 민감",
+  ],
+};
+const WCT_LEVELS = [
+  { type: "R", label: "R3", price: "$0.12", note: "2월 반등 고점" },
+  { type: "R", label: "R2", price: "$0.09", note: "주요 저항" },
+  { type: "R", label: "R1", price: "$0.070", note: "단기 저항" },
+  { type: "NOW", label: "현재가", price: "$0.0587", note: "ATL +16%, RSI 25 과매도, Cliff D-1" },
+  { type: "S", label: "S1", price: "$0.052", note: "단기 지지" },
+  { type: "S", label: "S2", price: "$0.0506", note: "ATL (2026.02.06)" },
+  { type: "S", label: "S3", price: "$0.040", note: "Cliff 덤프 타겟" },
+];
+const WCT_TOKENOMICS = [
+  { name: "Foundation Treasury", pct: "20.05%", schedule: "설정 기간 후 일괄", color: "#3b82f6" },
+  { name: "Team", pct: "18.50%", schedule: "**1Y cliff + 4Y linear (2026.04.15 만료)**", color: "#ef4444" },
+  { name: "Rewards Pool", pct: "17.50%", schedule: "Staking rewards", color: "#06b6d4" },
+  { name: "Seasonal Airdrops", pct: "13.50%", schedule: "Multi-season", color: "#34d399" },
+  { name: "Early Investors", pct: "11.50%", schedule: "**1Y cliff + 4Y linear (D-1)**", color: "#ef4444" },
+  { name: "Token Warrants", pct: "11.25%", schedule: "**1Y cliff (D-1)**", color: "#f59e0b" },
+  { name: "Protocol Dev", pct: "7.00%", schedule: "Dev fund", color: "#8b5cf6" },
+];
+const WCT_SCENARIOS = [
+  {
+    id: "A1", title: "숏 A1: 즉시 스타터 (4/15 Cliff D-1)", priority: "1순위 / 즉시",
+    entry: "$0.0587 (현재가, 사이즈 30-40%)", sl: "$0.0680 (+16%)", tp1: "$0.052 (R:R ≈ 1:0.7)", tp2: "$0.040 (R:R ≈ 1:2)",
+    signal: "**D-1 이벤트 임박** — 즉시 진입. 소규모로 구축. Cliff 당일 반응 대기",
+    rationale: "팀/투자자 1Y cliff 4/15 만료. 총 41.25% 물량 베스팅 시작. 단, R:R 1:0.7로 TP1은 타이트. Cliff 당일 즉시 반영 여부에 따라 조정",
+    risk: "RSI 25 과매도 + 단기 반등 가능. Cliff가 이미 선반영되었을 수 있음. 소규모 + 타이트 손절",
+    color: "#ef4444",
+  },
+  {
+    id: "A2", title: "숏 A2: $0.07 반등 시 추가 진입", priority: "1순위 / 피라미드",
+    entry: "$0.070-0.075 (R1)", sl: "$0.08", tp1: "$0.052 (R:R ≈ 1:2.7)", tp2: "$0.040 (R:R ≈ 1:4.3)",
+    signal: "R1 $0.07 재시험 + 4H 적색 마감 + OI 감소",
+    rationale: "entry_mid $0.0725, SL $0.08, risk $0.0075. TP1 $0.052 reward $0.0205 = 1:2.73. TP2 $0.040 reward $0.0325 = 1:4.33 (honest). Cliff 이후 dead-cat bounce 진입",
+    risk: "반등 미발생 시 A1만 유지. $0.08+ 돌파 시 전체 무효",
+    color: "#ef4444",
+  },
+  {
+    id: "B", title: "롱 B: Cliff 흡수 + $0.045 바닥 매수 (조건부)", priority: "관찰",
+    entry: "**Cliff 덤프 확인 후** $0.045-0.050", sl: "$0.040", tp1: "$0.070", tp2: "$0.090",
+    signal: "4/15 이후 매도 소화 + 3일+ 안정화 + RSI 반전",
+    rationale: "WalletConnect 인프라 가치 + 기관 투자자. Cliff 이후 매수 기회. RSI 25 극단 과매도 역발상",
+    risk: "**조기 진입 금지**: 4/15 Cliff 덤프 확인 전 매수 금지",
+    color: "#34d399",
+  },
+];
+const WCT_CATALYSTS = [
+  { date: "2024.09", event: "WCT 발표 (WalletConnect Foundation)", impact: "런칭", done: true },
+  { date: "2024.11~2025.01", event: "에어드롭 시즌 1 (50M WCT 청구)", impact: "분배", done: true },
+  { date: "2025.04.15", event: "TGE + Binance/Bybit/Coinbase 상장", impact: "유통 시작", done: true },
+  { date: "2025.05.31", event: "ATH $1.34", impact: "고점", done: true },
+  { date: "2026.02.06", event: "ATL $0.0506 도달", impact: "바닥", done: true },
+  { date: "**2026.04.15**", event: "**TGE 1주년 — Team 18.5% + Investor 11.5% Cliff 만료 (D-1!)**", impact: "**핵심 리스크 D-1**", done: false },
+  { date: "2026.04.16+", event: "4Y 선형 베스팅 시작 (월간 매도 압력)", impact: "지속 압력", done: false },
+];
+
+// ============================================================
+// POLYX (Polymesh) — Inflationary RWA
+// ============================================================
+const POLYX_DATA = {
+  token: "POLYX", name: "Polymesh", chain: "Polymesh (Substrate)",
+  category: "RWA / Regulated Assets", icon: "📜",
+  price: "$0.0500", mcap: "$63.3M", fdv: "$63.3M", vol24h: "$2.1M",
+  oi: "$3.14M (Binance $1.80M + Bybit $1.34M)", oiMcapRatio: "5.0%",
+  fundingRate: "-0.0001% Binance / +0.003% Bybit 4h (중립)",
+  fundingAnnualized: "연환산 ~3% (극히 중립)",
+  athPrice: "$0.7488", athDate: "2024.03.31", athDrop: "-93.32%",
+  atlPrice: "$0.03831", atlDate: "2026.02.06",
+  circulating: "1.266B (100% + 연 11% 인플레이션)",
+  change24h: "+3.71%", change7d: "+8.00%", change30d: "+26.30%",
+  exchanges: "Binance, Bybit, Gate, Bitvavo, KuCoin, MEXC",
+  futuresExchanges: "Binance Futures 4h / Bybit Futures 4h",
+  founder: "Polymath (합병 완료)",
+  verdict: "RWA 내러티브 강세 + 연 11% 인플레이션 — 중립",
+  verdictColor: "#06b6d4",
+  redFlags: [
+    "**연 11% 인플레이션** (140M POLYX/년 고정) — 구조적 dilution",
+    "93.3% ATH $0.7488 추락 — 장기 loser",
+    "RWA 섹터 아직 material TVL 부재 (아나운스만 있음)",
+    "DEX 유동성 부재 (Substrate native, CEX only)",
+    "OI 낮음 ($3.14M) — 선물 시장 관심 부족",
+    "SEC 증권 분류 리스크 (Polymath FINRA 라이선스 역풍)",
+  ],
+  greenFlags: [
+    "**30일 +26.3% 강한 모멘텀** (섹터 로테이션 1순위)",
+    "Polymath-Polymesh 합병 완료 (거버넌스 명확)",
+    "Republic, BitGo, Paysafe, GK8 파트너십",
+    "Polymath FINRA 브로커-딜러 라이선스",
+    "On-chain identity 의무화 (규제 준수)",
+    "ATL +30% 탈출 + 기술적 반등 확인",
+  ],
+};
+const POLYX_LEVELS = [
+  { type: "R", label: "R3", price: "$0.11", note: "전 사이클 상단 저항대" },
+  { type: "R", label: "R2", price: "$0.081", note: "주요 저항" },
+  { type: "R", label: "R1", price: "$0.052", note: "1차 저항" },
+  { type: "NOW", label: "현재가", price: "$0.0500", note: "30일 +26% 강한 모멘텀" },
+  { type: "S", label: "S1", price: "$0.046", note: "단기 지지" },
+  { type: "S", label: "S2", price: "$0.0383", note: "ATL (2026.02.06)" },
+];
+const POLYX_TOKENOMICS = [
+  { name: "Public Sale + Airdrops", pct: "40.00%", schedule: "Community 분배 (완료)", color: "#3b82f6" },
+  { name: "Team (Vesting)", pct: "22.50%", schedule: "Vesting (대부분 해제)", color: "#ef4444" },
+  { name: "Polymath Dev Fund", pct: "22.50%", schedule: "Dev operations", color: "#8b5cf6" },
+  { name: "Ecosystem", pct: "15.00%", schedule: "Partners", color: "#f59e0b" },
+  { name: "Inflation", pct: "연 11%", schedule: "140M POLYX/년 고정 (PoS 리워드)", color: "#34d399" },
+];
+const POLYX_SCENARIOS = [
+  {
+    id: "A", title: "롱 A: RWA 내러티브 돌파 ($0.052+)", priority: "1순위",
+    entry: "$0.052 돌파 시", sl: "$0.046", tp1: "$0.065 (R:R ≈ 1:2.2)", tp2: "$0.081 (R:R ≈ 1:5)",
+    signal: "**트리거**: R1 $0.052 재테스트 + 거래량 증가 + BTC 강세",
+    rationale: "30일 +26% 강한 모멘텀. Polymath 합병 + FINRA + Republic/BitGo 파트너십. RWA 섹터 로테이션. ATL +30% 탈출",
+    risk: "연 11% 인플레이션 지속 = 장기 매도 압력. RWA TVL 실측 부재",
+    color: "#34d399",
+  },
+  {
+    id: "B", title: "숏 B: $0.055 저항 페이드 (조건부)", priority: "2순위",
+    entry: "$0.053-0.057 (R1-R2 근접 실패 시)", sl: "$0.060 (+10% from entry)", tp1: "$0.040 (R:R ≈ 1:3.5)", tp2: "$0.0383 (ATL, R:R ≈ 1:4.8)",
+    signal: "**바이너리 트리거**: R1 $0.052 재시험 실패 + 30일 모멘텀 +26% 축소 (+15% 이하) + 거래량 감소. RWA 섹터 약세 전환 확인",
+    rationale: "entry_mid $0.055, SL $0.060, risk $0.005. TP1 $0.040 reward $0.015 = 1:3. TP2 $0.0383 reward $0.0167 = 1:3.3. 연 11% 인플레이션 지속 = 장기 매도 압력. 모멘텀 소진 시 평균 회귀",
+    risk: "**Kill switch**: Republic/BitGo/Paysafe 구체적 TVL 데이터 발표 시 즉시 숏 종료. 모멘텀 지속 시 $0.065+ 돌파 가능",
+    color: "#ef4444",
+  },
+];
+const POLYX_CATALYSTS = [
+  { date: "2024.03.31", event: "ATH $0.7488", impact: "과거 고점", done: true },
+  { date: "2024.02.29", event: "POLY→POLYX 마이그레이션 브리지 종료", impact: "완료", done: true },
+  { date: "2026.02.06", event: "ATL $0.0383 도달", impact: "바닥", done: true },
+  { date: "2026.Q1", event: "Polymath 합병 + Polymesh Association 흡수", impact: "거버넌스", done: true },
+  { date: "2026.03-04", event: "Republic, BitGo, Paysafe, GK8 파트너십", impact: "기관 통합", done: true },
+  { date: "2026.04", event: "Polymath FINRA 브로커-딜러 라이선스", impact: "규제 검증", done: true },
+  { date: "지속", event: "연 11% 인플레이션 (140M POLYX/년)", impact: "구조적 dilution", done: false },
+];
+
+// ============================================================
+// Generic Token Analysis Component
+// Accepts token data bundle and renders standardized analysis view
+// ============================================================
+function GenericTokenAnalysis({ data, levels, tokenomics, scenarios, catalysts, expandedScenario, setExpandedScenario, sectionStyle, sectionTitle, cardStyle }) {
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
+        <span style={{ fontSize: 24 }}>{data.icon}</span>
+        <span style={{ fontSize: 24, fontWeight: 800, color: "#f0f0f5" }}>{data.token}</span>
+        <span style={{ fontSize: 14, color: "#888" }}>{data.name} · {data.chain}</span>
+        <span style={{ fontSize: 11, color: data.verdictColor, background: `${data.verdictColor}15`, padding: "3px 8px", borderRadius: 4, border: `1px solid ${data.verdictColor}33`, fontWeight: 700 }}>{data.category}</span>
+      </div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: Binance/Bybit API (라이브) · CoinGecko · DexScreener · token-analysis skill</div>
+
+      {/* Verdict Banner */}
+      <div style={{ background: `linear-gradient(135deg, ${data.verdictColor}15 0%, #0e1018 100%)`, borderRadius: 10, border: `1px solid ${data.verdictColor}33`, padding: "20px 24px", marginBottom: 24 }}>
+        <div style={{ fontSize: 11, color: data.verdictColor, fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
+        <div style={{ fontSize: 20, fontWeight: 800, color: data.verdictColor }}>{data.verdict}</div>
+        <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>{data.change24h} / {data.change7d} / {data.change30d} (24h/7d/30d) · OI {data.oi} · 펀딩 {data.fundingRate}</div>
+      </div>
+
+      {/* Market Overview */}
+      <div style={sectionStyle}>
+        {sectionTitle("Market Overview")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+          {[
+            ["현재가", data.price, "#f0f0f5", true],
+            ["24h 변동", data.change24h, data.change24h.startsWith("+") ? "#34d399" : "#ef4444", false],
+            ["7d 변동", data.change7d, "#ccc", false],
+            ["30d 변동", data.change30d, "#ccc", false],
+            ["시가총액", data.mcap, "#ccc", false],
+            ["FDV", data.fdv, "#ccc", false],
+            ["유통량", data.circulating, "#ccc", false],
+            ["ATH Drop", data.athDrop, "#ef4444", false],
+            ["OI (Binance+Bybit)", data.oi, "#60a5fa", true],
+            ["OI / MCap", data.oiMcapRatio, "#60a5fa", false],
+            ["펀딩비", data.fundingRate, "#ef4444", false],
+            ["펀딩 해석", data.fundingAnnualized, "#ef4444", false],
+            ["24h 거래량", data.vol24h, "#ccc", false],
+            ["ATH", `${data.athPrice} (${data.athDate})`, "#888", false],
+            ["ATL", `${data.atlPrice} (${data.atlDate})`, "#888", false],
+            ["카테고리", data.category, "#888", false],
+            ["파생상품", data.futuresExchanges, "#888", false],
+            ["거래소", data.exchanges, "#888", false],
+          ].filter(row => row[1] && row[1] !== "N/A").map(([label, val, col, big]) => (
+            <div key={label} style={{ ...cardStyle, padding: "10px 14px" }}>
+              <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
+              <div style={{ fontSize: big ? 20 : 14, fontWeight: big ? 800 : 600, color: col, marginTop: 3 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* S/R Levels */}
+      <div style={sectionStyle}>
+        {sectionTitle("Support / Resistance Levels")}
+        <div style={cardStyle}>
+          {levels.map((lv, i) => {
+            const colors = { R: "#ef4444", NOW: "#34d399", S: "#3b82f6" };
+            const c = colors[lv.type];
+            return (
+              <div key={i} style={{
+                display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 4, borderRadius: 6,
+                background: lv.type === "NOW" ? "rgba(52,211,153,0.08)" : "transparent",
+                border: lv.type === "NOW" ? "1px solid rgba(52,211,153,0.2)" : "1px solid transparent",
+              }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: c, minWidth: 36 }}>{lv.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: lv.type === "NOW" ? "#34d399" : "#ccc", minWidth: 100 }}>{lv.price}</span>
+                <span style={{ fontSize: 11, color: "#666" }}>{lv.note}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Tokenomics */}
+      <div style={sectionStyle}>
+        {sectionTitle("Tokenomics & Vesting")}
+        <div style={cardStyle}>
+          <div style={{ display: "flex", height: 18, borderRadius: 4, overflow: "hidden", marginBottom: 12 }}>
+            {tokenomics.map((t, i) => (
+              <div key={i} style={{ width: t.pct, background: t.color, height: "100%" }} title={`${t.name}: ${t.pct}`} />
+            ))}
+          </div>
+          {tokenomics.map((t, i) => (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "1.5fr 0.7fr 2.5fr", gap: 8, padding: "6px 0", borderBottom: "1px solid #14161e" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: t.color }} />
+                <span style={{ fontSize: 12, color: "#ccc" }}>{t.name}</span>
+              </div>
+              <span style={{ fontSize: 12, color: "#888", fontWeight: 700 }}>{t.pct}</span>
+              <span style={{ fontSize: 11, color: "#666" }}>{t.schedule}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Red / Green Flags */}
+      <div style={sectionStyle}>
+        {sectionTitle("Red Flags & Green Flags")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div style={{ ...cardStyle, borderLeft: "3px solid #ef4444" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444", marginBottom: 8 }}>Red Flags</div>
+            {data.redFlags.map((f, i) => (
+              <div key={i} style={{ fontSize: 11, color: "#ef8888", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #2a1418", marginBottom: 4 }}>{f}</div>
+            ))}
+          </div>
+          <div style={{ ...cardStyle, borderLeft: "3px solid #34d399" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#34d399", marginBottom: 8 }}>Green Flags</div>
+            {data.greenFlags.map((f, i) => (
+              <div key={i} style={{ fontSize: 11, color: "#88ccaa", lineHeight: 1.6, paddingLeft: 10, borderLeft: "2px solid #1a3a25", marginBottom: 4 }}>{f}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Scenarios */}
+      <div style={sectionStyle}>
+        {sectionTitle("Entry Scenarios")}
+        <div style={{ display: "grid", gap: 12 }}>
+          {scenarios.map((sc) => {
+            const isOpen = expandedScenario === sc.id;
+            return (
+              <div key={sc.id} style={{ ...cardStyle, borderLeft: `3px solid ${sc.color}`, cursor: "pointer" }} onClick={() => setExpandedScenario(isOpen ? null : sc.id)}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: "#f0f0f5" }}>{sc.title}</span>
+                    <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 4, background: `${sc.color}15`, border: `1px solid ${sc.color}33`, color: sc.color, fontWeight: 600 }}>{sc.priority}</span>
+                  </div>
+                  <span style={{ fontSize: 16, color: "#444" }}>{isOpen ? "▾" : "▸"}</span>
+                </div>
+                {isOpen && (
+                  <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid #14161e" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 10, marginBottom: 12 }}>
+                      {[["진입", sc.entry, sc.color], ["손절", sc.sl, "#ef4444"], ["TP1", sc.tp1, "#34d399"], ["TP2", sc.tp2, "#34d399"]].map(([label, val, col]) => (
+                        <div key={label} style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e" }}>
+                          <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase" }}>{label}</div>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: col, marginTop: 2 }}>{val}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>시그널</div>
+                      <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.6 }}>{sc.signal}</div>
+                    </div>
+                    <div style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e", marginBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: "#888", fontWeight: 600, marginBottom: 4 }}>근거</div>
+                      <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6 }}>{sc.rationale}</div>
+                    </div>
+                    <div style={{ background: "#1a0a0e", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a1418" }}>
+                      <div style={{ fontSize: 11, color: "#ef4444", fontWeight: 600, marginBottom: 4 }}>리스크</div>
+                      <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>{sc.risk}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Catalysts */}
+      <div style={sectionStyle}>
+        {sectionTitle("Catalyst Timeline")}
+        <div style={cardStyle}>
+          {catalysts.map((cat, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "10px 0", borderBottom: i < catalysts.length - 1 ? "1px solid #14161e" : "none" }}>
+              <div style={{ minWidth: 100, fontSize: 12, fontWeight: 700, color: cat.done ? "#555" : "#f0f0f5" }}>{cat.date}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, color: cat.done ? "#888" : "#ccc", lineHeight: 1.5 }}>{cat.event}</div>
+              </div>
+              <div style={{ minWidth: 100, textAlign: "right" }}>
+                <span style={{
+                  fontSize: 10, padding: "2px 6px", borderRadius: 3, fontWeight: 600,
+                  background: cat.done ? "rgba(107,114,128,0.1)" : "rgba(239,68,68,0.1)",
+                  border: `1px solid ${cat.done ? "rgba(107,114,128,0.2)" : "rgba(239,68,68,0.2)"}`,
+                  color: cat.done ? "#6b7280" : "#ef4444",
+                }}>{cat.impact}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ fontSize: 11, color: "#444", lineHeight: 1.8, marginTop: 8 }}>
+        Sources: Binance Futures API (fapi.binance.com) · Bybit API v5 · CoinGecko · DexScreener · token-analysis skill playbook
       </div>
     </div>
   );
