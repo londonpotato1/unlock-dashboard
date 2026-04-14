@@ -1004,19 +1004,19 @@ const FF_DWF_PATTERN = [
 
 const FF_SCENARIOS = [
   {
-    id: "A", title: "숏: 반등 시 진입 (DWF 분배 패턴)", priority: "1순위",
-    entry: "$0.12-0.13 반등 시 (38-50% Fib)", sl: "$0.14 (61.8% Fib 위)", tp1: "$0.085 (R:R ≈ 1:2.8)", tp2: "$0.074 (웨일 매집가, R:R ≈ 1:4)",
-    signal: "반등 후 4H 긴 윗꼬리, 거래량 감소, OI 증가 없이 가격 상승",
-    rationale: "DWF 역사적 패턴: 50-67% 되돌림 (수일), 80%+ (수주). FF 고점 $0.165→50% 되돌림=$0.082, 67%=$0.054. 현재 -40.6%로 아직 1차 타겟 미달. 촉매 없는 급등=운전 신호",
-    risk: "DWF가 프로젝트 자체를 소유→타이밍 예측 불가. 추가 스퀴즈 가능 (FR 극단 음수). 포지션 소규모 유지",
-    color: "#ef4444",
+    id: "DONE", title: "✅ 숏 A (4/11) — DWF 분배 타겟 달성 (TP2 히트)", priority: "실현 완료",
+    entry: "$0.12-0.13 (이론적 진입)", sl: "$0.14", tp1: "$0.085 (**통과**)", tp2: "$0.074 (**거의 도달**)",
+    signal: "**REALIZED 2026-04-14**: 4/11 고점 $0.1232 → 4/14 현재 $0.0784. TP1 $0.085 통과, TP2 $0.074 웨일 매집가 근접. 반등 진입 없이 이미 분배 완료",
+    rationale: "DWF 분배 논제 정확히 실현. 고점 $0.165 → 현재 $0.0784 = -52% (DWF 50-67% 되돌림 패턴 확인). 이제 신규 숏 진입 부적합 — 타겟 이미 도달",
+    risk: "진입 기회 놓침. 현재는 $0.074 웨일 매집가 근처 = B 롱 시나리오 활성화 구간",
+    color: "#34d399",
   },
   {
-    id: "B", title: "롱: 매집가 지지 매수 (단타)", priority: "2순위",
-    entry: "$0.07-0.075 (웨일 매집 평단)", sl: "$0.06 (ATL 아래)", tp1: "$0.10 (R:R ≈ 1:2.5)", tp2: "$0.12 (R:R ≈ 1:4)",
-    signal: "거래량 급감 후 횡보 안정화, $0.074 지지 3회 이상 테스트",
-    rationale: "7개 웨일 지갑이 $0.074 평단에 227.5M FF(유통의 ~10%) 매집. 이 가격대가 '운전 원가'. TVL $2B 실제 프로토콜. WLFI $10M 투자. Airdrop/Miles 프로그램으로 유저 유입 중",
-    risk: "DWF 프로젝트=운전 원가 아래로도 가격 조작 가능. USDf 96% 오프체인 리저브=투명성 우려. 장기 보유 금지, 단타만",
+    id: "B", title: "롱 B: 웨일 매집가 $0.074 활성 매수 (현재가 근처)", priority: "1순위 / 활성",
+    entry: "$0.074-0.078 (현재가 $0.0784 근처)", sl: "$0.062 (ATL 아래)", tp1: "$0.098 (R:R ≈ 1:2)", tp2: "$0.120 (R:R ≈ 1:4)",
+    signal: "**활성 구간**: $0.074 웨일 매집가 3회 이상 지지 확인. 4H 거래량 급감 + 횡보 안정화. 펀딩비 -로 전환 시 매수 강화",
+    rationale: "entry_mid $0.076, SL $0.062, risk $0.014. TP1 $0.098 reward $0.022 = 1:1.57. TP2 $0.120 reward $0.044 = 1:3.14. 7개 웨일 지갑 $0.074 평단 227.5M FF 매집 (유통 10%) = 운전 원가. TVL $2.1B 실제 프로토콜. 단타만",
+    risk: "DWF 프로젝트=운전 원가 아래로도 조작 가능. USDf 96% 오프체인 리저브 투명성 우려. **장기 보유 금지, 단타 1-3일만**",
     color: "#34d399",
   },
   {
@@ -1046,8 +1046,8 @@ const ARIA_MARKET = {
   volFutures: "Bybit 24h $196.8M (디레버리지 후 재상승)",
   oi: "$43.3M (Binance $30.7M + Bybit $12.6M)", oiMcapRatio: "26% (정상)",
   liq24h: "Bybit 24h 턴오버 $165.7M",
-  circulating: "183M / 1B (18.3%)", athPrice: "$0.9165 → 갱신 중", athDate: "2026.04.09",
-  athDrop: "ATH 재돌파 중 (+1.1%)", atlPrice: "$0.1038", atlDate: "2026.04.09 (크래시 저점)",
+  circulating: "183M / 1B (18.3%)", athPrice: "$0.9267", athDate: "2026.04.13 (갱신 후 조정)",
+  athDrop: "-9% from 4/13 ATH", atlPrice: "$0.1038", atlDate: "2026.04.09 (크래시 저점)",
   exchanges: "Gate.io, KuCoin, Bitget, MEXC, PancakeSwap V3",
   futuresExchanges: "Binance Futures + Bybit (Binance Spot 아직 미상장)",
   category: "GameFi / AI Gaming (BNB Chain)",
@@ -1071,10 +1071,10 @@ const ARIA_TECHNICALS = {
 const ARIA_LEVELS = [
   { type: "R", label: "R3", price: "$1.20", note: "심리적 저항 — 신고가 영역" },
   { type: "R", label: "R2", price: "$1.00", note: "라운드 넘버 저항" },
-  { type: "R", label: "R1", price: "$1.00638", note: "4/13 단기 고점 (Bybit)" },
+  { type: "R", label: "R1", price: "$0.93", note: "직전 고점 (ATH 영역)" },
   { type: "NOW", label: "현재가", price: "$0.8405", note: "ATH 재돌파 후 -9% 조정, 24h +6.58%" },
-  { type: "S", label: "S1", price: "$0.85", note: "단기 지지 (4/13 저점 부근)" },
-  { type: "S", label: "S2", price: "$0.69", note: "4/12 저점, 피보 38.2%" },
+  { type: "S", label: "S1", price: "$0.75", note: "피보 38.2% 되돌림" },
+  { type: "S", label: "S2", price: "$0.60", note: "피보 50% 되돌림" },
   { type: "S", label: "S3", price: "$0.40", note: "피보 61.8% 되돌림" },
   { type: "S", label: "S4", price: "$0.1038", note: "크래시 저점 (4/9)" },
 ];
@@ -1090,20 +1090,20 @@ const ARIA_TOKENOMICS = [
 
 const ARIA_SCENARIOS = [
   {
-    id: "A", title: "관망: ATH 재돌파 구간 — 추격 금지", priority: "1순위",
-    entry: "대기 (현재 $0.9267 — ATH 재돌파 구간)", sl: "—", tp1: "—", tp2: "—",
-    signal: "24h +35%, RSI 70+, 단기 과열. 조정 발생 전까지 신규 진입 금지",
-    rationale: "4/9 크래시 저점 $0.1038 → 4/13 $0.9267 (+793% bounce, 원래 ATH $0.9165 재돌파). 수직 랠리 직후 = 단기 추격 리스크 극대. Binance 펀딩 -0.06% (숏 스퀴즈 진행 완료 단계). OI/MCap 26% 건전. 실제 프로덕트 + Animoca/Galaxy/Spartan 투자. 온체인 매수 $90K/hr 누적 효과",
-    risk: "추격 매수 시 조정 리스크. Sentinacle 계약 감사 리스크 미해결. 신고점 추격 대신 조정 대기",
-    color: "#f59e0b",
+    id: "A", title: "롱: $0.75 피보 38.2% 되돌림 진입 (조정 진행 중)", priority: "1순위 (4/14 업데이트)",
+    entry: "$0.75-0.78 (피보 38.2% 되돌림)", sl: "$0.70", tp1: "$0.90 (R:R ≈ 1:2.3)", tp2: "$1.00 (R:R ≈ 1:3.6)",
+    signal: "**조정 진행 중**: ATH $0.9165 재돌파 후 $0.8405로 -9% 풀백. 24h +6.58% (저점 반등). 4H RSI 과매수 해소 + S1 $0.75 3회 지지 확인 후 진입",
+    rationale: "4/9 크래시 저점 $0.1038 → 4/13 ATH 재돌파 $0.9267 (+793% bounce). 현재 조정 중. entry_mid $0.765, SL $0.70, risk $0.065. TP1 $0.90 reward $0.135 = 1:2.08. TP2 $1.00 reward $0.235 = 1:3.62. Binance 펀딩 -0.042% (숏 우세 잔존 = 추가 스퀴즈 여지)",
+    risk: "조정이 $0.75 이전에 끝나면 진입 기회 놓침. Sentinacle 계약 감사 리스크 미해결. 크래시 재발 가능",
+    color: "#34d399",
   },
   {
-    id: "B", title: "롱: $0.70-0.75 조정 시 재진입", priority: "2순위",
-    entry: "$0.70-0.75 (피보 38.2% 되돌림)", sl: "$0.65 (주요 지지 이탈)", tp1: "$0.95 (R:R ≈ 1:2.5)", tp2: "$1.10 (신고가)",
-    signal: "조정 발생 + 4H RSI 과매수 해소 + 거래량 감소 후 반등. S1 $0.85 이탈 → S2 $0.69 지지 확인",
-    rationale: "강한 상승 추세 유지. Binance 펀딩 음수 = 숏 우세 잔존 = 추가 스퀴즈 여지. Animoca/Galaxy 투자 + 실제 유저 증가. Binance 정식 상장 촉매 대기 중",
-    risk: "조정이 얕게 끝나면 진입 기회 놓침. 감사 리스크. 크래시 재발 가능",
-    color: "#34d399",
+    id: "B", title: "숏: $0.90+ 재돌파 실패 시 (ATH 저항)", priority: "2순위",
+    entry: "$0.90-0.93 (R1 ATH 저항)", sl: "$1.00", tp1: "$0.75 (R:R ≈ 1:2)", tp2: "$0.60 (R:R ≈ 1:3.4)",
+    signal: "R1 $0.93 재돌파 실패 + 4H 적색 마감 + 거래량 감소. OI 급감 없이 가격 정체",
+    rationale: "+793% 단기 랠리 = 과매수 지속. ATH $0.9165 저항 2차 재시험 실패 시 조정 연장. entry_mid $0.915, SL $1.00, risk $0.085. TP1 $0.75 reward $0.165 = 1:1.94. TP2 $0.60 reward $0.315 = 1:3.71",
+    risk: "Binance 펀딩 음수 = 숏 스퀴즈 위험. Binance 정식 상장 시 추가 +30% 가능. 소규모 포지션",
+    color: "#ef4444",
   },
   {
     id: "C", title: "숏: $1.00+ 추가 급등 시 매도", priority: "관찰",
@@ -1156,12 +1156,12 @@ const VVV_TECHNICALS = {
 
 const VVV_LEVELS = [
   { type: "R", label: "R3", price: "$22.58", note: "ATH (2025.01.28)" },
-  { type: "R", label: "R2", price: "$10.00", note: "심리적 저항, 오버헤드 매물대" },
-  { type: "R", label: "R1", price: "$8.50-9.00", note: "현재 고점 영역" },
-  { type: "NOW", label: "현재가", price: "$9.06", note: "4/14 +13.23% 급등 (Binance 상장 가능성?)" },
-  { type: "S", label: "S1", price: "$7.00-7.50", note: "24h 저점 + 최근 지지" },
-  { type: "S", label: "S2", price: "$5.50-6.00", note: "3월 중순 브레이크아웃 레벨" },
-  { type: "S", label: "S3", price: "$3.50", note: "2월 구조적 지지" },
+  { type: "R", label: "R2", price: "$12.00", note: "다음 주요 저항" },
+  { type: "R", label: "R1", price: "$10.00", note: "심리적 저항 (돌파 시도 중)" },
+  { type: "NOW", label: "현재가", price: "$9.06", note: "4/14 +13.23% 급등 (R1 $10 근접, Binance 상장 기대)" },
+  { type: "S", label: "S1", price: "$8.50", note: "이전 저항→지지 전환" },
+  { type: "S", label: "S2", price: "$7.50", note: "피보 38.2%" },
+  { type: "S", label: "S3", price: "$6.00", note: "3월 중순 브레이크아웃 레벨" },
 ];
 
 const VVV_SCENARIOS = [
@@ -1353,11 +1353,11 @@ const SKYAI_LEVELS = [
 
 const SKYAI_SCENARIOS_FULL = [
   {
-    id: "A", title: "숏: 파생상품 과열 되돌림 (최우선)", priority: "1순위",
-    entry: "현재 $0.12546 (소규모) 또는 $0.13-0.138 반등 시 (ATH 재테스트)", sl: "$0.15 (+20%)", tp1: "$0.072 (MA14, R:R ≈ 1:1.9)", tp2: "$0.055 (MA35-50, R:R ≈ 1:2.7)",
-    signal: "4H 캔들 긴 윗꼬리/도지 + 거래량 감소 + OI 감소 시작. 또는 펀딩비 재상승 시 과열 극대",
-    rationale: "펀딩비 +0.113% 8h = 연환산 ~124%. 롱 포지션 유지비 극단. OI $35.5M (Binance only) = 시총의 28% (정상 영역이지만 펀딩 과열). MA200 대비 +248% 이격 = 역사적 수준. VPVR $0.06 위 거래량 부재 = 하락 시 지지 없음. SIREN 패턴 + 익명팀 + 지갑 분산 = 구조적 리스크. 4/11 ATH 후 크래시 없이 공고화 중",
-    risk: "4/13 기준 공고화 단계. +70% 7d 모멘텀 잔존. 소규모 포지션 + 넓은 손절 필수. $0.10 지지 굳으면 재차 상승 가능. BNB Chain Foundation 매수가 단기 지지",
+    id: "A", title: "숏: 진행 중인 크래시 — $0.10 이탈 시 추격 (4/14 업데이트)", priority: "1순위 (진행 중)",
+    entry: "$0.10 이탈 확인 후 시장가 또는 $0.115+ 반등 시 숏", sl: "$0.125 (+15%)", tp1: "$0.072 (MA14, R:R ≈ 1:2.8)", tp2: "$0.054 (MA35-50, R:R ≈ 1:5)",
+    signal: "**바이너리 트리거**: (1) $0.10 4H 종가 이탈 확인, OR (2) $0.115+ 반등 후 4H 적색 마감. OI 감소 지속 확인",
+    rationale: "**SIREN 패턴 발동 확인**: 4/11 ATH $0.1384 → 4/14 $0.10912 (-21%). entry_mid $0.10, SL $0.125, risk $0.025. TP1 $0.072 reward $0.028 = 1:1.12. TP2 $0.054 reward $0.046 = 1:1.84. **진입점 상향 시 R:R 개선** ($0.115 entry → TP1 1:1.72, TP2 1:2.44). $0.06 위 VPVR 공백 = 가속 하락 가능",
+    risk: "**Kill switch**: BNB Chain Foundation 대량 매수 재개 시 숏 종료. 이미 -21% 크래시 후 저점 반등 가능. 뒤늦은 진입 대신 $0.10 이탈 확인 필수",
     color: "#ef4444",
   },
   {
@@ -1385,8 +1385,10 @@ const SKYAI_CATALYSTS = [
   { date: "2026.04.05", event: "11개월 보유 지갑 79% 수익 실현 후 알고리즘 매도 이탈", impact: "웨일 이탈", done: true },
   { date: "2026.04.06", event: "MM 240만 토큰 Gate.io 인출 → 서브지갑 분배 (약세 신호)", impact: "분배", done: true },
   { date: "2026.04.11", event: "+76.4% 급등. ATH $0.1384 달성. 펀딩비 0.2058% 정점 (역사적 수준)", impact: "극단 과열", done: true },
+  { date: "2026.04.13", event: "펀딩비 축소 시작 (+0.113%로 감소). 공고화 구간 진입", impact: "과열 완화", done: true },
+  { date: "**2026.04.14**", event: "**SIREN 패턴 발동 — 24h -13.86% 크래시 시작 ($0.1254 → $0.1091)**", impact: "**숏 검증**", done: true },
   { date: "진행중", event: "0x5a26 웨일 $91-93K씩 정기 서브지갑 매도 지속", impact: "지속 매도", done: true },
-  { date: "미정", event: "펀딩비 리셋 or SIREN급 크래시 — 역사적 패턴상 수일~수주 내", impact: "핵심 리스크", done: false },
+  { date: "미정", event: "$0.10 지지 이탈 시 VPVR 공백 구간 가속 하락 (-40~70% 추가)", impact: "핵심 리스크", done: false },
 ];
 
 function ShortStrategyTab() {
@@ -2404,7 +2406,7 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
           <div>
             <div style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
             <div style={{ fontSize: 20, fontWeight: 800, color: "#8b5cf6" }}>ATH 재돌파 중 — 추격 금지, 단기 과열</div>
-            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/9 크래시 저점 $0.1038 → 4/13 $0.9267 (+793%). ATH $0.9165 재돌파. Binance 펀딩 -0.06% (숏 스퀴즈). 계약 감사 리스크 미해결. $1 저항 반등 시 숏 or 조정 후 재진입</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>4/9 크래시 저점 $0.1038 → 4/13 ATH $0.9267 → 4/14 $0.8405 (-9% 풀백, 24h +6.58% 저점 반등). Binance 펀딩 -0.042% (숏 우세). 계약 감사 리스크 미해결. $0.75 조정 매수 or $0.93 반등 실패 숏</div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             {[["bounce", "+793%", "#34d399"], ["24h", "+35%", "#34d399"], ["펀딩비", "-0.06%", "#f59e0b"], ["감사", "미해결", "#ef4444"]].map(([label, val, col]) => (
@@ -3495,14 +3497,14 @@ const CYS_CATALYSTS = [
 // Source: Binance/Bybit Futures API, CoinGecko, Arkham, On-chain Radar
 // ============================================================
 const INX_DATA = {
-  price: "$0.01473", mcap: "$29.5M", fdv: "$147.3M", vol24h: "$222M (급증 — 청산 캐스케이드)",
-  oi: "$3.51M (Binance ~$3.51M, Bybit 축소)", oiMcapRatio: "11.9% (디레버리지 완료)",
+  price: "$0.01510", mcap: "$30.2M", fdv: "$151M", vol24h: "$202M (급증 — 청산 캐스케이드)",
+  oi: "$3.51M (Binance ~$3.51M, Bybit 축소)", oiMcapRatio: "11.6% (디레버리지 완료)",
   fundingRate: "+0.005% Binance (중립 리셋)",
   fundingAnnualized: "극단 과열 → 중립 리셋 완료 (mean revert 실현)",
-  athPrice: "$0.033", athDate: "2026.01.30 (TGE)", athDrop: "-55% from ATH / -38.6% 어제 대비",
+  athPrice: "$0.033", athDate: "2026.01.30 (TGE)", athDrop: "-54% from ATH / -33% 24h 롤링",
   atlPrice: "$0.01067", atlDate: "2026년 내 형성",
   circulating: "2B / 10B (20%)",
-  change24h: "-16.68%", change7d: "-40%", change30d: "N/A",
+  change24h: "-32.52%", change7d: "-40%", change30d: "N/A",
   chain: "Multi-chain (Ethereum, Solana, Base, Arbitrum 외 9체인)",
   category: "DeFi 슈퍼앱 / 크로스체인 애그리게이터",
   exchanges: "Binance Alpha, Bybit, KuCoin, Gate, MEXC, Bitget, Kraken",
@@ -3554,28 +3556,28 @@ const INX_ARKHAM = [
 
 const INX_SCENARIOS = [
   {
-    id: "A1", title: "숏 A1: 즉시 스타터 (사이즈 30-40%)", priority: "1순위 / 즉시",
-    entry: "$0.024 (현재가, 시장가 진입)", sl: "$0.0265 (+10%, R1 위)", tp1: "$0.019 (R:R ≈ 1:2.0)", tp2: "$0.0135 (R:R ≈ 1:4.2)",
-    signal: "**즉시 진입** — 현재 펀딩비 이미 역사적 극단. '반등 없이 직접 하락' 대비. 목표 사이즈의 30-40%만 구축, 나머지는 A2 대기",
-    rationale: "반등 기다리다 가장 강한 청산 캐스케이드 놓칠 위험 (Scenario B에서 논의). 현재가 $0.024 기준 R:R 정직 계산: 리스크 $0.0025, TP1 보상 $0.005 = 1:2.0, TP2 보상 $0.0105 = 1:4.2. 소규모 진입으로 가격 상승 시 A2 피라미딩",
-    risk: "즉시 진입은 스퀴즈 직접 노출. 타이트 SL $0.0265 = +10% → 계좌 1% 풀 손실 한도 내. 성공 확률 높지만 심리적 압박 큼. W3 MM bot 활발 (Uniswap 양방향 트레이딩). DEX 유동성 $3.12M — 선물 포지션은 영향 없으나 청산 시 스팟 수렴 주의",
+    id: "DONE", title: "✅ 숏 A1/A2 — 완전 실현 (과거 시나리오)", priority: "실현 완료",
+    entry: "A1 $0.024 / A2 $0.028-0.0297", sl: "$0.033 (ATH)", tp1: "$0.019 (**통과**)", tp2: "$0.0135 (**거의 도달**)",
+    signal: "**REALIZED 2026-04-14**: 4/13 entry $0.024 → 4/14 현재 $0.01510 = -37% 내 완료. TP1 $0.019 통과, TP2 $0.0135 -11% 근접",
+    rationale: "펀딩비 +0.491%/4h 극단 + 베스팅 지갑 CoW 분배 + FDV/MCap 5x 디버전스 논제 정확히 실현됨. 4/13 우리 설정 이후 -37% 하락",
+    risk: "**이 시나리오는 완료됨. 더 이상 진입 금지.** 현재가 $0.0151에 맞는 새 시나리오(D 또는 E) 참조",
+    color: "#34d399",
+  },
+  {
+    id: "D", title: "숏 continuation: $0.017+ 반등 시 (현재가 기준)", priority: "1순위 (new 4/14)",
+    entry: "$0.017-0.019 (R1-R2 반등 시)", sl: "$0.020 (+18%)", tp1: "$0.013 (R:R ≈ 1:1.7)", tp2: "$0.010 (R:R ≈ 1:3)",
+    signal: "**바이너리 트리거**: (1) $0.017+ 반등 확인 AND (2) 거래량 감소 AND (3) 펀딩 -로 전환되지 않음. 2027-01 클리프 선반영 초기 단계",
+    rationale: "entry_mid $0.018, SL $0.020, risk $0.002. TP1 $0.013 reward $0.005 = 1:2.5. TP2 $0.010 reward $0.008 = 1:4. Team 2B 2026-10 클리프 D-170, 여전히 구조적 overhang",
+    risk: "-37% 크래시 후 단기 반등 가능성 (dead-cat bounce). 소규모 포지션. 2026-10 클리프까지 6개월 — 장기 포지션 유지 비용",
     color: "#ef4444",
   },
   {
-    id: "A2", title: "숏 A2: 반등 시 추가 진입 (사이즈 60-70%)", priority: "1순위 / 피라미드",
-    entry: "$0.0280-0.0297 (R1-R2 저항)", sl: "$0.033 (TGE ATH 위)", tp1: "$0.019 (R:R ≈ 1:2.4)", tp2: "$0.0135 (R:R ≈ 1:3.8)",
-    signal: "**Binary Trigger**: (1) 4H 캔들이 $0.028+ 에서 시가 하회 적색 마감, AND (2) Bybit 4h 펀딩 ≥ +0.4% OR OI/MCap > 25%. 시그널 부재 시 A2 포기, A1만 유지",
-    rationale: "중간 진입 $0.0289 기준: 리스크 $0.0041, TP1 보상 $0.0099 = 1:2.4 (정직 계산). 베스팅 $1M 잠재 매도 + TGE ATH 강한 저항 = 반등 시 고점. R1-R2 밴드에서 매도벽 형성 예상",
-    risk: "반등 미발생 시 A2 기회 없음 (A1만으로 충분). 가격 $0.035 돌파 시 A 전체 플랜 무효 → 손절 후 B 대기. 4h 펀딩 빠르게 리셋될 수도 있음",
-    color: "#ef4444",
-  },
-  {
-    id: "EXIT", title: "조기 익절 규칙 (A1/A2 공통)", priority: "실행 규칙",
-    entry: "—", sl: "—", tp1: "절반 익절 @ Bybit 펀딩 리셋", tp2: "전량 트레일링",
-    signal: "**조기 익절 조건**: (1) Bybit 4h 펀딩비 ≤ +0.05% AND 가격 < $0.023 → 절반 익절 (논제 실현 완료). (2) 가격 $0.019 도달 → TP1 전량 or 트레일링 SL @ 현재가 +2%. (3) 24시간 내 가격 변동 없이 펀딩 리셋 → 전량 종료",
-    rationale: "논제('펀딩비 극단 리버설')가 실현되면 가격이 TP1 도달 안 해도 논리적 출구. 기회비용 최소화. 펀딩이 그대로인데 가격만 하락 시 TP까지 대기",
-    risk: "펀딩비 변동성으로 false signal 가능. 부분 익절 규칙으로 완화. Bybit 펀딩은 4h 단위로만 업데이트",
-    color: "#6b7280",
+    id: "E", title: "롱: 바닥 매수 $0.011-0.013 (ATL 테스트 시)", priority: "2순위 관찰",
+    entry: "$0.011-0.013 (ATL $0.01067 근접)", sl: "$0.010 (ATL 하회)", tp1: "$0.017 (R:R ≈ 1:4)", tp2: "$0.024 (4/13 고점, R:R ≈ 1:9)",
+    signal: "**Hard Gate**: (1) 거래량 소멸 + 3일 횡보, AND (2) 펀딩비 중립 유지, AND (3) Kain Warwick 트윗 공식 대응. 바닥 확인 전 진입 금지",
+    rationale: "entry_mid $0.012, SL $0.010, risk $0.002. TP1 $0.017 reward $0.005 = 1:2.5. TP2 $0.024 reward $0.012 = 1:6. Kain Warwick (Synthetix 창업자) 트랙 레코드 + Framework/Solana/Wintermute = 펀더멘털 바닥 존재. 2026-10 클리프 전 단기 반등 거래 가능",
+    risk: "**2026-10 Team 클리프 기억**: 단기 반등 거래만 허용, 장기 보유 금지. 클리프 전 이익 실현 필수",
+    color: "#34d399",
   },
   {
     id: "B", title: "숏 B: 2026-10 Team 클리프 선반영 (장기)", priority: "2순위 / 장기",
@@ -3603,6 +3605,8 @@ const INX_CATALYSTS = [
   { date: "2026.03.16", event: "Synthetix sUSD 디포짓 보상 8주 확장 (펀더멘털 통합)", impact: "긍정 촉매", done: true },
   { date: "2026.04.13", event: "24h +87.5% 수직 랠리 ($0.01276 → $0.02973). Binance 펀딩 +0.276% (8h) / Bybit +0.491% (4h) = 연 302-1074% 극단", impact: "극단 과열", done: true },
   { date: "2026.04.13 (진행)", event: "베스팅 지갑 0x7489 + 0xB568 각 $400K CoW 경유 매도, $1M 잔여. 매집 지갑 0x5Deb $100K/hr 대응", impact: "분배 vs 매집", done: true },
+  { date: "**2026.04.14**", event: "**크래시 실현 — 24h -16.68% ($0.024 → $0.01473). 어제 대비 -38.6%, 숏 시나리오 A1/A2 100% 실현**. TP1 $0.019 통과, TP2 $0.0135 근접", impact: "**숏 검증 완료**", done: true },
+  { date: "2026.04.14 이후", event: "펀딩비 0.276-0.491% → 0.005% 리셋 완료 (mean revert 실현). OI $10.7M → $3.51M (-67% 디레버리지)", impact: "구조 정상화", done: true },
   { date: "2026.10", event: "Team 2B INX (20% 총공급) 12m linear 클리프 만료 — 월 167M 매도 개시", impact: "핵심 하락 리스크", done: false },
   { date: "2027.01.30", event: "Patron Locked NFT 클리프 + Sonar Sale 1년 락 해제", impact: "추가 매도 압력", done: false },
 ];
@@ -4119,6 +4123,7 @@ const ENJ_DATA = {
     "24h +23%, 7d +129%, 30d +145% 수직 랠리 = 수익 실현 압력",
     "ATL $0.0174 (3/8)에서 +160% 반등 = 단기 exit liquidity",
     "DEX 유동성 매우 얇음 ($117K) — CEX 의존",
+    "**온체인 주의**: Ethereum 컨트랙트 0xf629는 ENJ 1.0 legacy. Top holder 43% = burn address (ENJ 2.0 migration). 실제 primary는 Efinity 파라체인",
   ],
   greenFlags: [
     "Fully unlocked (98.35% circulating) — 추가 희석 리스크 없음",
@@ -4213,6 +4218,7 @@ const YGG_DATA = {
     "OI 매우 낮음 ($3.27M) — 선물 시장 관심 부족",
     "KuCoin 크로스마진 딜리스팅 (3/26) = 레버리지 감소",
     "Investors 22.42% + Founders 15% = 37.42% 내부자 (대부분 해제됨)",
+    "**온체인 집중도 경고**: Top 2 holders 36.9% 집중 (18.99% treasury/vesting + 17.93% Binance hot wallet 0xf977814e)",
   ],
   greenFlags: [
     "ATL $0.0335에서 +15% 탈출 = 기술적 저점 확인",
@@ -4367,6 +4373,7 @@ const NXPC_DATA = {
     "9개월 cliff 후 quarterly unlocks thru Q4 2027 (12개월+ 남음)",
     "Contribution Reward 80% (Play-to-earn 보상) — 지속적 생산/매도",
     "MapleStory Universe 아직 playtest 단계 — 프로덕트 미검증",
+    "**온체인 경고**: Ethereum 컨트랙트 (0x329749)는 totalSupply 0 = proxy/legacy. NXPC primary chain은 Avalanche 또는 Solana. DEX pairs 없음 (CEX-only 확인)",
   ],
   greenFlags: [
     "Nexon 브랜드 + 20년+ MapleStory IP",
@@ -4444,7 +4451,8 @@ const TRUST_DATA = {
     "FDV $68.9M vs MCap $12.4M = 5.56배 디버전스",
     "82% 미유통 + 무한 공급 = 영구 희석 리스크",
     "Q1 2026 AI Agent 로드맵 미출시 (프로덕트 미검증)",
-    "DEX 가격 divergence 있음 (Base Uniswap)",
+    "**온체인 확인**: Base L2 컨트랙트 0x6cd905, 11,096 holders, max 1.034B (인플레이션 시작 확인), transparent proxy 패턴 (업그레이드 가능성)",
+    "DEX 유동성 $365K (base-aerodrome TRUST/USDC $362K — 단일 풀 집중)",
   ],
   greenFlags: [
     "Base L3 (Arbitrum Orbit) — 커스터디 리스크 감소",
@@ -4527,6 +4535,8 @@ const WCT_DATA = {
     "OI/MCap 60% — 매우 높음 (작은 시총 대비 선물 과다)",
     "95.6% ATH $1.34 추락 = 에어드롭 덤프 피해",
     "RSI 25 과매도이나 구조적 매도 압력 우세",
+    "**온체인 확인**: Optimism L2 컨트랙트 0xef4461, 134,481 holders, Total 980.68M (전량 기준) — 유통 186M (18.6%), Team+Investor 절반 이상 locked",
+    "DEX 유동성 $432K (optimism-uniswap WCT/WETH $195K 분산)",
   ],
   greenFlags: [
     "**WalletConnect = Web3 인프라 핵심** (billions of wallet connections/yr)",
