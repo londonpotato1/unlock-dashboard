@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // ============================================================
-// Token Unlock Data — Full fact-check 2026-04-08
+// Token Unlock Data — Full fact-check 2026-04-14
 // Sources: Tokenomist, CoinGecko, CoinMarketCap, Official Docs
 // ============================================================
 const unlocks = [
@@ -772,8 +772,8 @@ function UnlockCard({ u, expanded, onToggle }) {
 // Short Strategy Tab — WLFI Analysis (2026-04-11)
 // ============================================================
 const WLFI_MARKET = {
-  price: "$0.0802", mcap: "$2.58B", fdv: "$8.02B", vol24h: "$221M",
-  volFutures: "Bybit 24h $20.8M", oi: "$124.0M (Binance $91.4M + Bybit $32.6M)", oiMcapRatio: "4.8% (저레버리지)", oiRange30d: "$234-294M (CoinGlass 집계, 실측 대비 2배)",
+  price: "$0.0808", mcap: "$2.60B", fdv: "$8.08B", vol24h: "$46.2M",
+  volFutures: "Bybit 24h $20.8M", oi: "$91.6M (Binance 1.13B tokens × $0.0808)", oiMcapRatio: "3.5% (저레버리지)", oiRange30d: "$234-294M (CoinGlass 집계, 실측 대비 2배)",
   liq24h: "$3.99M", athPrice: "$0.3313", athDate: "2025.09.01", athDrop: "-75.8%",
   atlPrice: "$0.077", atlDate: "2026.04.11", circulating: "32.2B / 100B (32.2%)",
   exchanges: "Binance, Upbit, Bithumb, OKX, Bybit, Gate.io",
@@ -787,14 +787,14 @@ const WLFI_TECHNICALS = {
   supertrend: "Bearish (trailing $0.11)",
   ichimoku: "Red cloud, price below",
   rsi: "45.28 (중립)",
-  change24h: "+1.17%", change7d: "-18.4%", change30d: "-25%+",
+  change24h: "+2.80%", change7d: "-15%", change30d: "-22%",
 };
 
 const WLFI_LEVELS = [
   { type: "R", label: "R3", price: "$0.112", note: "EMA200, 강한 저항" },
   { type: "R", label: "R2", price: "$0.10-0.105", note: "EMA20/50 밀집대" },
   { type: "R", label: "R1", price: "$0.088-0.097", note: "이전 지지→저항 전환" },
-  { type: "NOW", label: "현재가", price: "$0.0802", note: "ATL $0.077 근접 (4/13)" },
+  { type: "NOW", label: "현재가", price: "$0.0808", note: "ATL $0.077에서 +4% 반등, 4/14 +2.80%" },
   { type: "S", label: "S1", price: "$0.07", note: "최후 방어선" },
   { type: "S", label: "S2", price: "$0.06", note: "채널 하단, 극단 약세 타겟" },
 ];
@@ -853,7 +853,7 @@ const WLFI_CATALYSTS = [
 // BABY (Babylon) Analysis Data — 2026-04-11
 // ============================================================
 const BABY_MARKET = {
-  price: "$0.01432", mcap: "$40.8M", fdv: "$153.6M", vol24h: "$14.2M",
+  price: "$0.01475", mcap: "$42.0M", fdv: "$158.3M", vol24h: "$2.4M",
   volFutures: "Binance $1.22M 일 / Bybit $1.23M 일", oi: "$5.3M (Binance $3.0M + Bybit $2.3M)", oiMcapRatio: "13% (정상 범위)", oiPeak: "$1B (3월 CoinGlass 주장)",
   liq24h: "낮음 (디레버리지 완료)", athPrice: "$0.166", athDate: "2025.04.12", athDrop: "-91.4%",
   atlPrice: "$0.0107", atlDate: "2026.03.07", circulating: "2.85B / 10.73B (26.6%)",
@@ -869,14 +869,14 @@ const BABY_TECHNICALS = {
   fundingRate: "+0.004% / -0.008% (중립)",
   oiChange: "Binance+Bybit 실시간 $5.3M = 시총의 13% (정상). CoinGlass 집계 $400M은 과장 가능성",
   volumePattern: "4/10 612.5M 언락 -1.4% 소화. 판매 압력 소멸",
-  change24h: "-0.46%", change7d: "+11.70%", change30d: "+2.6%",
+  change24h: "+4.46%", change7d: "+12%", change30d: "+8%",
 };
 
 const BABY_LEVELS = [
   { type: "R", label: "R3", price: "$0.035", note: "1월 고점, 강한 저항" },
   { type: "R", label: "R2", price: "$0.020", note: "12월 이후 저항대, 스퀴즈 타겟" },
   { type: "R", label: "R1", price: "$0.018", note: "최근 단기 고점 (4월)" },
-  { type: "NOW", label: "현재가", price: "$0.0145", note: "ATL +35%, 기저 형성 중" },
+  { type: "NOW", label: "현재가", price: "$0.01475", note: "ATL +38%, 24h +4.46% 점진 회복" },
   { type: "S", label: "S1", price: "$0.012", note: "최근 4개월 지지대" },
   { type: "S", label: "S2", price: "$0.0107", note: "ATL (2026.03.07)" },
 ];
@@ -932,7 +932,7 @@ const BABY_CATALYSTS = [
 // FF (Falcon Finance) Analysis Data — 2026-04-11
 // ============================================================
 const FF_MARKET = {
-  price: "$0.0800", mcap: "$187.2M", fdv: "$800M", vol24h: "$103M+",
+  price: "$0.0784", mcap: "$183.5M", fdv: "$784M", vol24h: "$44.1M",
   oi: "$33.2M (Binance $25.1M + Bybit $8.1M)", oiMcapRatio: "18% (중간 레버리지)",
   fundingRate: "-0.002% Binance / +0.001% Bybit (중립)",
   circulating: "2.34B / 10B (23.4%)", athPrice: "$0.77", athDate: "2025.09.29 (TGE)",
@@ -956,14 +956,14 @@ const FF_TECHNICALS = {
   bb: "BB 중립",
   atr: "변동성 고 (33% 풀백)",
   kimchi: "김치프리미엄 감소",
-  change24h: "-13.06%", change7d: "+59.8~78.9%", change30d: "+49.3~66.1%",
+  change24h: "+0.93%", change7d: "~+30%", change30d: "~+40%",
 };
 
 const FF_LEVELS = [
   { type: "R", label: "R3", price: "$0.1232", note: "4/10 고점 (ATH 이후 최고)" },
   { type: "R", label: "R2", price: "$0.11", note: "4/11 반등 고점" },
   { type: "R", label: "R1", price: "$0.098", note: "4/11 종가, 단기 저항" },
-  { type: "NOW", label: "현재가", price: "$0.0800", note: "4/13 추가 풀백 (-35% from $0.1232)" },
+  { type: "NOW", label: "현재가", price: "$0.0784", note: "DWF 분배 후 안정화, 24h +0.93%" },
   { type: "S", label: "S1", price: "$0.074", note: "웨일 매집 평단 (7개 지갑)" },
   { type: "S", label: "S2", price: "$0.062", note: "ATL (2025.10.10)" },
 ];
@@ -1042,7 +1042,7 @@ const FF_CATALYSTS = [
 // ARIA (AriaAI) Analysis Data — 2026-04-11
 // ============================================================
 const ARIA_MARKET = {
-  price: "$0.9267", mcap: "$169.6M", fdv: "$926.7M", vol24h: "$58M+",
+  price: "$0.8405", mcap: "$153.8M", fdv: "$840.5M", vol24h: "$300M",
   volFutures: "Bybit 24h $196.8M (디레버리지 후 재상승)",
   oi: "$43.3M (Binance $30.7M + Bybit $12.6M)", oiMcapRatio: "26% (정상)",
   liq24h: "Bybit 24h 턴오버 $165.7M",
@@ -1065,14 +1065,14 @@ const ARIA_TECHNICALS = {
   onchainSell: "프레시 지갑 매도 소진",
   contractRisk: "Sentinacle 경고 미해결 — 블랙박스 리스크 지속",
   rsi: "70+ (과열, ATH 재돌파)",
-  change24h: "+35.1%", change7d: "Strong Up", change30d: "+754%",
+  change24h: "+6.58%", change7d: "+55%", change30d: "+650%",
 };
 
 const ARIA_LEVELS = [
   { type: "R", label: "R3", price: "$1.20", note: "심리적 저항 — 신고가 영역" },
   { type: "R", label: "R2", price: "$1.00", note: "라운드 넘버 저항" },
   { type: "R", label: "R1", price: "$1.00638", note: "4/13 단기 고점 (Bybit)" },
-  { type: "NOW", label: "현재가", price: "$0.9267", note: "ATH $0.9165 재돌파 중 (+793% from $0.1038)" },
+  { type: "NOW", label: "현재가", price: "$0.8405", note: "ATH 재돌파 후 -9% 조정, 24h +6.58%" },
   { type: "S", label: "S1", price: "$0.85", note: "단기 지지 (4/13 저점 부근)" },
   { type: "S", label: "S2", price: "$0.69", note: "4/12 저점, 피보 38.2%" },
   { type: "S", label: "S3", price: "$0.40", note: "피보 61.8% 되돌림" },
@@ -1128,7 +1128,7 @@ const ARIA_CATALYSTS = [
 // VVV (Venice Token) Analysis Data — 2026-04-11
 // ============================================================
 const VVV_MARKET = {
-  price: "$7.96", mcap: "$362M", fdv: "$632M", vol24h: "$15M+",
+  price: "$9.06", mcap: "$412M", fdv: "$720M", vol24h: "$45.8M",
   oi: "$28.1M (Binance $13.6M + Bybit $14.5M)", oiMcapRatio: "7.8% (중저 레버리지)",
   fundingRate: "+0.005% / +0.0053% (중립)",
   longShort: "중립 (펀딩 ~0)",
@@ -1139,7 +1139,7 @@ const VVV_MARKET = {
   notListed: "Binance 스팟 아직 미상장 (선물만) → 잠재 촉매",
   emissions: "6M VVV/년 (2026.2.10 25% 감축 완료)",
   stakingApy: "~65% APY, 7일 쿨다운",
-  change24h: "-6.95%", change7d: "+69~113%", change30d: "+49.7~152%", change60d: "+383%",
+  change24h: "+13.23%", change7d: "+80%", change30d: "+170%", change60d: "+450%",
 };
 
 const VVV_TECHNICALS = {
@@ -1158,7 +1158,7 @@ const VVV_LEVELS = [
   { type: "R", label: "R3", price: "$22.58", note: "ATH (2025.01.28)" },
   { type: "R", label: "R2", price: "$10.00", note: "심리적 저항, 오버헤드 매물대" },
   { type: "R", label: "R1", price: "$8.50-9.00", note: "현재 고점 영역" },
-  { type: "NOW", label: "현재가", price: "$7.96", note: "4/13 -6.95% 조정, 60일 +383%" },
+  { type: "NOW", label: "현재가", price: "$9.06", note: "4/14 +13.23% 급등 (Binance 상장 가능성?)" },
   { type: "S", label: "S1", price: "$7.00-7.50", note: "24h 저점 + 최근 지지" },
   { type: "S", label: "S2", price: "$5.50-6.00", note: "3월 중순 브레이크아웃 레벨" },
   { type: "S", label: "S3", price: "$3.50", note: "2월 구조적 지지" },
@@ -1206,7 +1206,7 @@ const VVV_CATALYSTS = [
 // GWEI (ETHGas) + SKYAI Analysis Data — 2026-04-11
 // ============================================================
 const GWEI_DATA = {
-  price: "$0.0642", mcap: "$112.4M", fdv: "$642M", vol24h: "$6.6~24M",
+  price: "$0.0655", mcap: "$114.6M", fdv: "$655M", vol24h: "$5.4M",
   oi: "$10.7M (Binance Futures only, Bybit 미상장)", oiMcapRatio: "9.5% (중저 레버리지)",
   liq24h: "$417.6K (24h, OI의 ~4%)",
   fundingRate: "+0.005% Binance 8h (중립)",
@@ -1260,7 +1260,7 @@ const SKYAI_DATA = {
 const GWEI_LEVELS = [
   { type: "R", label: "R3", price: "$0.0729", note: "ATH (4/11) — 재테스트 저항" },
   { type: "R", label: "R2", price: "$0.068", note: "4/12 고점" },
-  { type: "NOW", label: "현재가", price: "$0.0642", note: "ATH에서 -12%, 4/13 +13% 반등 중" },
+  { type: "NOW", label: "현재가", price: "$0.0655", note: "ATH에서 -10%, 4/19 Cliff D-5" },
   { type: "S", label: "S1", price: "$0.055", note: "단기 지지 + 이전 저항" },
   { type: "S", label: "S2", price: "$0.050", note: "심리적 지지 + Cliff 흡수 타겟" },
   { type: "S", label: "S3", price: "$0.040", note: "중기 지지대" },
@@ -1315,7 +1315,7 @@ const GWEI_CATALYSTS = [
 // Source: TradingView (Binance Futures SKYAIUSDT Daily), Velo, Arkham
 // ============================================================
 const SKYAI_MARKET = {
-  price: "$0.12546", mcap: "$125.5M", fdv: "$125.5M", vol24h: "$53.9M",
+  price: "$0.10912", mcap: "$109.1M", fdv: "$109.1M", vol24h: "$22.5M",
   oi: "$35.5M (Binance Futures, Bybit 미상장)", oiMcapRatio: "28% (정상 중상)",
   fundingRate: "+0.113% Binance 8h (연환산 ~124%)",
   liq24h: "Binance Futures only — Bybit/OKX 선물 미상장",
@@ -1324,7 +1324,7 @@ const SKYAI_MARKET = {
   circulating: "1B / 1B (100%)",
   exchanges: "Binance Futures, Gate.io, HTX, OrangeX, PancakeSwap",
   chain: "BNB Chain", volumeSma: "769.64M",
-  change24h: "-0.3%", change7d: "+70.9%", change30d: "+185~204%",
+  change24h: "-13.86%", change7d: "+50%", change30d: "+170%",
 };
 
 const SKYAI_TECHNICALS = {
@@ -1344,7 +1344,7 @@ const SKYAI_LEVELS = [
   { type: "R", label: "R3", price: "$0.15", note: "라운드 넘버, 심리적 저항" },
   { type: "R", label: "R2", price: "$0.1384", note: "ATH (4/11), 재테스트 저항" },
   { type: "R", label: "R1", price: "$0.13", note: "4/12 단기 고점" },
-  { type: "NOW", label: "현재가", price: "$0.12546", note: "ATH -9.4%, 공고화 지속" },
+  { type: "NOW", label: "현재가", price: "$0.10912", note: "**24h -13.86%** — SIREN 패턴 발동 시작 ($0.1384 ATH에서 -21%)" },
   { type: "S", label: "S1", price: "$0.10", note: "심리적 지지, $0.10 이탈 시 캐스케이드" },
   { type: "S", label: "S2", price: "$0.072", note: "MA14 추정 + VPVR 상단 (-42%)" },
   { type: "S", label: "S3", price: "$0.054-0.059", note: "MA35-50 + VPVR 고밀도대" },
@@ -1402,7 +1402,7 @@ function ShortStrategyTab() {
   const tokens = [
     { id: "WLFI", name: "World Liberty Financial", verdict: "STRONG SHORT", verdictColor: "#ef4444" },
     { id: "WCT", name: "WalletConnect", verdict: "TGE 1주년 Cliff D-1", verdictColor: "#ef4444" },
-    { id: "INX", name: "Infinex", verdict: "펀딩 극단 + 베스팅 분배", verdictColor: "#ef4444" },
+    { id: "INX", name: "Infinex", verdict: "✅ 숏 실현 -38.6%", verdictColor: "#34d399" },
     { id: "ENJ", name: "Enjin Coin", verdict: "숏 스퀴즈 극단 +23%", verdictColor: "#f59e0b" },
     { id: "YGG", name: "Yield Guild", verdict: "Cliff D-13 (4/27)", verdictColor: "#f59e0b" },
     { id: "OP", name: "Optimism", verdict: "Quarterly Cliff D-16", verdictColor: "#f59e0b" },
@@ -1410,7 +1410,7 @@ function ShortStrategyTab() {
     { id: "TRUST", name: "Intuition", verdict: "무한 공급 + Q4 Cliff", verdictColor: "#ef4444" },
     { id: "POLYX", name: "Polymesh", verdict: "RWA 모멘텀 (관찰)", verdictColor: "#06b6d4" },
     { id: "CYS", name: "Cysic", verdict: "Safe 완전 고갈 + 12월 Cliff", verdictColor: "#ef4444" },
-    { id: "SKYAI", name: "SkyAI", verdict: "SIREN + 파생상품 극단 과열", verdictColor: "#ef4444" },
+    { id: "SKYAI", name: "SkyAI", verdict: "SIREN 발동 -13.86% 진행", verdictColor: "#ef4444" },
     { id: "BABY", name: "Babylon", verdict: "LONG BIAS (과매도)", verdictColor: "#34d399" },
     { id: "FF", name: "Falcon Finance", verdict: "DWF 운전 — 분배 중", verdictColor: "#f59e0b" },
     { id: "ARIA", name: "AriaAI", verdict: "ATH 재돌파 — 관망", verdictColor: "#8b5cf6" },
@@ -1468,7 +1468,7 @@ function WLFIAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         <span style={{ fontSize: 14, color: "#888" }}>World Liberty Financial</span>
         <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>SHORT ANALYSIS</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: CoinGecko, CoinGlass, CoinDesk, CoinMarketCap</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: CoinGecko, CoinGlass, CoinDesk, CoinMarketCap</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
@@ -1842,7 +1842,7 @@ function BABYAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         <span style={{ fontSize: 14, color: "#888" }}>Babylon · BTC Staking</span>
         <span style={{ fontSize: 11, color: "#34d399", background: "#0d1f15", padding: "3px 8px", borderRadius: 4, border: "1px solid #1a3a25", fontWeight: 700 }}>LONG/SHORT ANALYSIS</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: TradingView, CoinGecko, CoinGlass, Tokenomist, Community</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: TradingView, CoinGecko, CoinGlass, Tokenomist, Community</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #0d1f15 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #1a3a25", padding: "20px 24px", marginBottom: 24 }}>
@@ -2083,7 +2083,7 @@ function FFAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, secti
         <span style={{ fontSize: 14, color: "#888" }}>Falcon Finance · DeFi/Synthetic Dollar</span>
         <span style={{ fontSize: 11, color: "#f59e0b", background: "#1a1508", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a2418", fontWeight: 700 }}>DWF LABS 운전</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: CoinGecko, CoinGlass, Blockchain Magazine, CoinDesk, On-chain data</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: CoinGecko, CoinGlass, Blockchain Magazine, CoinDesk, On-chain data</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a1508 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a2418", padding: "20px 24px", marginBottom: 24 }}>
@@ -2396,7 +2396,7 @@ function ARIAAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         <span style={{ fontSize: 14, color: "#888" }}>AriaAI · GameFi/AI Gaming · BNB Chain</span>
         <span style={{ fontSize: 11, color: "#8b5cf6", background: "#150d1f", padding: "3px 8px", borderRadius: 4, border: "1px solid #251a3a", fontWeight: 700 }}>CRASH RECOVERY</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: CoinGecko, CryptoTimes, Blockchain Magazine, On-chain Radar</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: CoinGecko, CryptoTimes, Blockchain Magazine, On-chain Radar</div>
 
       {/* Verdict */}
       <div style={{ background: "linear-gradient(135deg, #150d1f 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #251a3a", padding: "20px 24px", marginBottom: 24 }}>
@@ -2659,7 +2659,7 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
         <span style={{ fontSize: 14, color: "#888" }}>Venice AI · Privacy AI Inference · Base L2</span>
         <span style={{ fontSize: 11, color: "#06b6d4", background: "#0a1a1f", padding: "3px 8px", borderRadius: 4, border: "1px solid #153a45", fontWeight: 700 }}>WINTERMUTE 매수 주도</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: CoinGecko, Venice.ai, Bankless Times, On-chain Radar, Arkham</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: CoinGecko, Venice.ai, Bankless Times, On-chain Radar, Arkham</div>
 
       {/* Verdict */}
       <div style={{ background: "linear-gradient(135deg, #0a1a1f 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #153a45", padding: "20px 24px", marginBottom: 24 }}>
@@ -2916,7 +2916,7 @@ function SkyaiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
         <span style={{ fontSize: 14, color: "#888" }}>SkyAI · BNB Chain</span>
         <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>DERIVATIVES OVERHEATED</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: TradingView (Binance Futures), Velo, Arkham, CoinGecko</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: TradingView (Binance Futures), Velo, Arkham, CoinGecko</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
@@ -3179,7 +3179,7 @@ function GweiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
         <span style={{ fontSize: 14, color: "#888" }}>ETHGas · Ethereum</span>
         <span style={{ fontSize: 11, color: "#f59e0b", background: "rgba(245,158,11,0.08)", padding: "3px 8px", borderRadius: 4, border: "1px solid rgba(245,158,11,0.2)", fontWeight: 700 }}>INSIDER DUMP</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: Arkham, CoinGecko, Bubblemaps, On-chain Radar, CoinMarketCap</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: Arkham, CoinGecko, Bubblemaps, On-chain Radar, CoinMarketCap</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a1408 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a2418", padding: "20px 24px", marginBottom: 24 }}>
@@ -3384,10 +3384,10 @@ function GweiAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sec
 // Sources: BscScan, CoinGecko, Cysic Foundation Docs, @0xInChain Twitter, CryptoRank
 // ============================================================
 const CYS_DATA = {
-  price: "$0.2585", mcap: "$41.6M", fdv: "$258.5M", vol24h: "$30.4M",
+  price: "$0.2794", mcap: "$44.9M", fdv: "$279.4M", vol24h: "$14.0M",
   oi: "$16.6M (Binance $14.2M + Bybit $2.4M)", oiMcapRatio: "40% (높음 — 펀딩 과열)",
   fundingRate: "+0.125% Binance / +0.070% Bybit 8h (연환산 ~137% — 롱 과열)",
-  change24h: "+9.72%", change7d: "-1.8%",
+  change24h: "+4.02%", change7d: "+8%",
   circulating: "160.8M / 1B (16.08%)",
   athDrop: "ATH $0.75 (-65% / Bithumb 개장 $6.24 기준 -96%)",
   chain: "BNB Chain (+ Base, Ethereum)",
@@ -3421,7 +3421,7 @@ const CYS_LEVELS = [
   { type: "R", label: "R3", price: "$0.40", note: "직전 박스권 고점 / 심리적 저항" },
   { type: "R", label: "R2", price: "$0.32", note: "50일 EMA 추정" },
   { type: "R", label: "R1", price: "$0.29", note: "최근 단기 고점" },
-  { type: "NOW", label: "현재가", price: "$0.2585", note: "+9.72% 24h 반등 중" },
+  { type: "NOW", label: "현재가", price: "$0.2794", note: "+4.02% 24h 지속 반등" },
   { type: "S", label: "S1", price: "$0.21", note: "4월 중간 지지" },
   { type: "S", label: "S2", price: "$0.13", note: "ATL $0.1332 (2026-01-30)" },
   { type: "S", label: "S3", price: "$0.08", note: "Cliff 선반영 시 타겟" },
@@ -3495,49 +3495,44 @@ const CYS_CATALYSTS = [
 // Source: Binance/Bybit Futures API, CoinGecko, Arkham, On-chain Radar
 // ============================================================
 const INX_DATA = {
-  price: "$0.0240", mcap: "$48M", fdv: "$240M", vol24h: "$28.5M",
-  oi: "$10.7M (Binance $7.65M + Bybit $3.02M)", oiMcapRatio: "22%",
-  fundingRate: "+0.276% Binance (8h) / +0.491% Bybit (4h)",
-  fundingAnnualized: "연환산 ~302% (Binance) ~ 1074% (Bybit) — 역사적 극단",
-  athPrice: "$0.033", athDate: "2026.01.30 (TGE)", athDrop: "-27% (ATH), +125% (ATL $0.0107에서)",
+  price: "$0.01473", mcap: "$29.5M", fdv: "$147.3M", vol24h: "$222M (급증 — 청산 캐스케이드)",
+  oi: "$3.51M (Binance ~$3.51M, Bybit 축소)", oiMcapRatio: "11.9% (디레버리지 완료)",
+  fundingRate: "+0.005% Binance (중립 리셋)",
+  fundingAnnualized: "극단 과열 → 중립 리셋 완료 (mean revert 실현)",
+  athPrice: "$0.033", athDate: "2026.01.30 (TGE)", athDrop: "-55% from ATH / -38.6% 어제 대비",
   atlPrice: "$0.01067", atlDate: "2026년 내 형성",
   circulating: "2B / 10B (20%)",
-  change24h: "+87.5%", change7d: "~+100%", change30d: "N/A",
+  change24h: "-16.68%", change7d: "-40%", change30d: "N/A",
   chain: "Multi-chain (Ethereum, Solana, Base, Arbitrum 외 9체인)",
   category: "DeFi 슈퍼앱 / 크로스체인 애그리게이터",
   exchanges: "Binance Alpha, Bybit, KuCoin, Gate, MEXC, Bitget, Kraken",
-  futuresExchanges: "Binance Futures + Bybit Futures (4h 펀딩)",
+  futuresExchanges: "Binance Futures + Bybit Futures",
   founder: "Kain Warwick (Synthetix 창업자)",
   investors: "Framework Ventures, Solana Ventures, Wintermute, Bankless, Eden Block",
-  verdict: "베스팅 분배 + 펀딩비 역사적 극단 — 숏 최우선",
-  verdictColor: "#ef4444",
+  verdict: "**✅ 숏 시나리오 A/A1 완전 실현** — $0.024 → $0.0147 (-38.6%). TP1 돌파, TP2 근접",
+  verdictColor: "#34d399",
   redFlags: [
-    "**펀딩비 Binance +0.276% (8h, 연 302%) / Bybit +0.491% (4h, 연 1074%)** — 역사적 극단 영역",
-    "베스팅 지갑 2개 (0x7489..., 0xB568...) $400K 매도 완료 + 약 $1M 잠재 매도 잔여",
-    "베스팅 지갑 CoW Protocol (MEV 보호 라우팅) 경유 = 조직적·전략적 분배 패턴",
-    "24h +87.5% 수직 랠리 ($0.01276 → $0.02973) 후 조정 불가피",
-    "TGE ATH $0.033 강력 저항 — 미도달 상태",
-    "2026-10 Team 2B INX (유통 100%) 12개월 linear 언락 개시",
-    "2027-01-30 Patron Locked NFT 클리프 + Sonar Sale 언락 추가",
-    "**선물/스팟 26% 프리미엄** (Binance Futures $0.024 vs DEX spot $0.01775) — 극단적 콘탱고, mean-revert 임박",
-    "DEX 유동성 $3.12M (Uniswap INX/USDC 96% 집중). 큰 포지션 슬리피지 주의",
+    "**2026-10 Team 2B INX (유통 100%) 12개월 linear 언락 D-175** — 구조적 overhang 지속",
+    "2027-01-30 Patron Locked NFT 클리프 + Sonar Sale 언락 (장기 매도 압력)",
+    "FDV $147M vs MCap $29.5M = 5x 디버전스 (잠금 물량이 시총의 5배)",
+    "크래시 후 바닥 매수 리스크 — 기술적 반등 짧을 가능성",
   ],
   greenFlags: [
-    "Kain Warwick (Synthetix 창업자) 검증된 트랙 레코드",
-    "Framework Ventures, Solana Ventures, Wintermute 기관 투자",
-    "실제 프로덕트 (Multi-chain DeFi 슈퍼앱) + Synthetix sUSD 통합",
-    "Binance Alpha + Bybit 조기 상장 (유동성 확보)",
-    "매집 지갑 0x5Deb... 1시간 $100K 매수 = 분배 흡수 중",
+    "**숏 A1/A2 시나리오 100% 실현** — $0.024→$0.0147 -38.6% (TP1 $0.019 통과)",
+    "펀딩비 극단 과열 → 중립 리셋 완료 (논제 검증)",
+    "Kain Warwick (Synthetix 창업자) — 실제 프로덕트 기반 바닥 강함",
+    "Framework/Solana/Wintermute 기관 투자 지속",
+    "디레버리지 완료 (OI $10.7M → $3.51M, -67%)",
   ],
 };
 
 const INX_LEVELS = [
-  { type: "R", label: "R3", price: "$0.033", note: "TGE ATH (2026.01.30) — 강한 저항" },
-  { type: "R", label: "R2", price: "$0.0297", note: "4/13 24h 고점" },
-  { type: "R", label: "R1", price: "$0.0265", note: "4/13 직전 단기 고점" },
-  { type: "NOW", label: "현재가", price: "$0.0240", note: "24h +87.5% — 펀딩비 극단 과열" },
-  { type: "S", label: "S1", price: "$0.019", note: "피보 38.2% 되돌림" },
-  { type: "S", label: "S2", price: "$0.0135", note: "24h 저점 근방 / 피보 61.8%" },
+  { type: "R", label: "R3", price: "$0.033", note: "TGE ATH (2026.01.30)" },
+  { type: "R", label: "R2", price: "$0.024", note: "4/13 전고점 (숏 진입점)" },
+  { type: "R", label: "R1", price: "$0.018", note: "최근 반등 저항" },
+  { type: "NOW", label: "현재가", price: "$0.01473", note: "**24h -16.68% 크래시** — 숏 시나리오 A1/A2 100% 실현" },
+  { type: "S", label: "S1", price: "$0.0135", note: "TP2 타겟 (거의 도달)" },
+  { type: "S", label: "S2", price: "$0.012", note: "ATL 하회 타겟" },
   { type: "S", label: "S3", price: "$0.01067", note: "ATL 바닥" },
 ];
 
@@ -3624,7 +3619,7 @@ function CysicAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, se
         <span style={{ fontSize: 14, color: "#888" }}>Cysic · ZK Compute / ComputeFi</span>
         <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>WHALE DRAIN + CLIFF</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: BscScan, CoinGecko, Cysic Foundation Docs, @0xInChain, CryptoRank, CoinMarketCap</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: BscScan, CoinGecko, Cysic Foundation Docs, @0xInChain, CryptoRank, CoinMarketCap</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
@@ -3845,7 +3840,7 @@ function InxAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
         <span style={{ fontSize: 14, color: "#888" }}>Infinex · Multi-chain DeFi 슈퍼앱</span>
         <span style={{ fontSize: 11, color: "#ef4444", background: "#1a0a0e", padding: "3px 8px", borderRadius: 4, border: "1px solid #2a1418", fontWeight: 700 }}>FUNDING OVERHEATED</span>
       </div>
-      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-13 · Sources: Binance/Bybit API (라이브), CoinGecko, Arkham, On-chain Radar</div>
+      <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: Binance/Bybit API (라이브), CoinGecko, Arkham, On-chain Radar</div>
 
       {/* Verdict Banner */}
       <div style={{ background: "linear-gradient(135deg, #1a0a0e 0%, #0e1018 100%)", borderRadius: 10, border: "1px solid #2a1418", padding: "20px 24px", marginBottom: 24 }}>
