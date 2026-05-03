@@ -1080,7 +1080,7 @@ function BillionsTab() {
   };
 
   const sectionTitle = (txt) => (
-    <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: 12 }}>{txt}</div>
+    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 12 }}>{txt}</div>
   );
 
   const card = (children, extra = {}) => (
@@ -1108,13 +1108,13 @@ function BillionsTab() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20, flexWrap: "wrap" }}>
           <div style={{ flex: 1, minWidth: 280 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "3px 9px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>TGE EVENT</span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-tertiary)" }}>{data.identity.category}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>TGE EVENT</span>
+              <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-tertiary)" }}>{data.identity.category}</span>
             </div>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.5px", lineHeight: 1.2, margin: 0 }}>
               🔥 ${data.identity.ticker} TGE — 내일 5/4 09:00 CET
             </h2>
-            <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 10, lineHeight: 1.6, maxWidth: 720 }}>
+            <div style={{ fontSize: 16, color: "var(--text-secondary)", marginTop: 10, lineHeight: 1.6, maxWidth: 720 }}>
               <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>{data.identity.name}</span> · {data.identity.tagline}
             </div>
           </div>
@@ -1127,9 +1127,9 @@ function BillionsTab() {
             minWidth: 120,
             animation: "billGlow 2.4s ease-in-out infinite",
           }}>
-            <div style={{ fontSize: 11, fontWeight: 600, opacity: 0.9, textTransform: "uppercase", letterSpacing: "1px" }}>Countdown</div>
-            <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1, marginTop: 6, animation: "billPulse 1.6s ease-in-out infinite" }}>{dday}</div>
-            <div style={{ fontSize: 10, fontWeight: 600, marginTop: 6, opacity: 0.85 }}>{data.identity.tgeTime}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, opacity: 0.9, textTransform: "uppercase", letterSpacing: "1.2px" }}>Countdown</div>
+            <div style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, marginTop: 8, animation: "billPulse 1.6s ease-in-out infinite" }}>{dday}</div>
+            <div style={{ fontSize: 14, fontWeight: 600, marginTop: 8, opacity: 0.9 }}>{data.identity.tgeTime}</div>
           </div>
         </div>
       </div>
@@ -1147,8 +1147,8 @@ function BillionsTab() {
             ["TGE 가격", "TBD", "var(--text-tertiary)"],
           ].map(([label, val, col]) => (
             <div key={label} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px" }}>
-              <div style={{ fontSize: 11, color: "var(--text-tertiary)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
-              <div style={{ fontSize: 20, fontWeight: 700, color: col, marginTop: 4 }}>{val}</div>
+              <div style={{ fontSize: 14, color: "var(--text-tertiary)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.6px" }}>{label}</div>
+              <div style={{ fontSize: 26, fontWeight: 800, color: col, marginTop: 6, lineHeight: 1.2 }}>{val}</div>
             </div>
           ))}
         </div>
@@ -1169,10 +1169,10 @@ function BillionsTab() {
             {data.tokenomics.map((t) => (
               <div key={t.name} style={{ display: "grid", gridTemplateColumns: "auto 160px 70px 80px 1fr", gap: 12, alignItems: "center", padding: "10px 12px", background: "var(--bg-primary)", borderRadius: 6, border: "1px solid var(--border)" }}>
                 <span style={{ width: 10, height: 10, borderRadius: 2, background: t.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{t.name}</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: t.color }}>{t.pct}%</span>
-                <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>{t.amount}</span>
-                <span style={{ fontSize: 11, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{t.vesting}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)" }}>{t.name}</span>
+                <span style={{ fontSize: 17, fontWeight: 800, color: t.color }}>{t.pct}%</span>
+                <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-secondary)" }}>{t.amount}</span>
+                <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{t.vesting}</span>
               </div>
             ))}
           </div>
@@ -1183,7 +1183,7 @@ function BillionsTab() {
       <div style={{ marginBottom: 28 }}>
         {sectionTitle("CEX Listing Schedule")}
         <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.4fr 2fr 0.8fr", padding: "10px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.4fr 2fr 0.8fr", padding: "12px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
             <div>거래소</div>
             <div>페어</div>
             <div>시각</div>
@@ -1193,11 +1193,11 @@ function BillionsTab() {
             const statusColor = x.status === "확정" ? "#34d399" : x.status === "예정" ? "#f59e0b" : "#6b7280";
             return (
               <div key={x.exchange} style={{ display: "grid", gridTemplateColumns: "1.2fr 1.4fr 2fr 0.8fr", padding: "12px 16px", borderBottom: i < data.cexListings.length - 1 ? "1px solid var(--border)" : "none", alignItems: "center" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{x.exchange}</div>
-                <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>{x.pair}</div>
-                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{x.time}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>{x.exchange}</div>
+                <div style={{ fontSize: 15, color: "var(--text-secondary)" }}>{x.pair}</div>
+                <div style={{ fontSize: 15, color: "var(--text-tertiary)" }}>{x.time}</div>
                 <div style={{ textAlign: "right" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: statusColor, background: `${statusColor}1a`, border: `1px solid ${statusColor}40`, padding: "3px 10px", borderRadius: 4 }}>{x.status}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: statusColor, background: `${statusColor}1a`, border: `1px solid ${statusColor}40`, padding: "4px 11px", borderRadius: 4 }}>{x.status}</span>
                 </div>
               </div>
             );
@@ -1208,26 +1208,26 @@ function BillionsTab() {
 
       <div style={{ marginBottom: 28 }}>
         <div onClick={() => setContractsOpen(!contractsOpen)} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.2px" }}>Multichain Contracts</span>
-          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{contractsOpen ? "▾" : "▸"}</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px" }}>Multichain Contracts</span>
+          <span style={{ fontSize: 14, color: "var(--text-muted)" }}>{contractsOpen ? "▾" : "▸"}</span>
         </div>
         {contractsOpen && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
             {data.contracts.map((c) => (
               <div key={c.chain + c.address} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 8, padding: "12px 16px", display: "grid", gridTemplateColumns: "180px 1fr auto auto", gap: 12, alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{c.chain}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: c.verified ? "#34d399" : "#f59e0b", background: c.verified ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)", border: `1px solid ${c.verified ? "rgba(52,211,153,0.3)" : "rgba(245,158,11,0.3)"}`, padding: "2px 6px", borderRadius: 3 }}>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>{c.chain}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: c.verified ? "#34d399" : "#f59e0b", background: c.verified ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)", border: `1px solid ${c.verified ? "rgba(52,211,153,0.3)" : "rgba(245,158,11,0.3)"}`, padding: "3px 8px", borderRadius: 3 }}>
                     {c.verified ? "✓ verified" : "⚠ unverified"}
                   </span>
                 </div>
-                <code style={{ fontSize: 11, color: "var(--text-secondary)", fontFamily: "ui-monospace, Consolas, monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.address}</code>
-                <button onClick={() => copyAddr(c.address)} style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 5, padding: "4px 10px", fontSize: 11, fontWeight: 600, color: copiedAddr === c.address ? "#34d399" : "var(--text-secondary)", cursor: "pointer", fontFamily: "inherit", transition: "color 0.15s" }}>
+                <code style={{ fontSize: 13, color: "var(--text-secondary)", fontFamily: "ui-monospace, Consolas, monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.address}</code>
+                <button onClick={() => copyAddr(c.address)} style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 5, padding: "5px 12px", fontSize: 13, fontWeight: 600, color: copiedAddr === c.address ? "#34d399" : "var(--text-secondary)", cursor: "pointer", fontFamily: "inherit", transition: "color 0.15s" }}>
                   {copiedAddr === c.address ? "✓ Copied" : "📋 Copy"}
                 </button>
                 {c.explorer ? (
-                  <a href={c.explorer + c.address} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none", padding: "4px 10px", border: "1px solid var(--border)", borderRadius: 5, background: "var(--bg-primary)", fontWeight: 600 }}>↗ Explorer</a>
-                ) : <span style={{ fontSize: 11, color: "var(--text-muted)", padding: "4px 10px" }}>—</span>}
+                  <a href={c.explorer + c.address} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "#3b82f6", textDecoration: "none", padding: "5px 12px", border: "1px solid var(--border)", borderRadius: 5, background: "var(--bg-primary)", fontWeight: 600 }}>↗ Explorer</a>
+                ) : <span style={{ fontSize: 13, color: "var(--text-muted)", padding: "5px 12px" }}>—</span>}
               </div>
             ))}
           </div>
@@ -1244,11 +1244,11 @@ function BillionsTab() {
               <div key={i} style={{ position: "relative", marginBottom: i < data.timeline.length - 1 ? 14 : 0, paddingBottom: i < data.timeline.length - 1 ? 14 : 0, borderBottom: i < data.timeline.length - 1 ? "1px solid var(--border)" : "none" }}>
                 <div style={{ position: "absolute", left: -19, top: 4, width: 12, height: 12, borderRadius: "50%", background: ev.future ? "var(--accent-red)" : "var(--bg-primary)", border: `2px solid ${ev.future ? "var(--accent-red)" : "var(--text-tertiary)"}`, animation: ev.future ? "billPulse 1.8s ease-in-out infinite" : "none" }} />
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)", minWidth: 100 }}>{ev.date}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)" }}>{ev.title}</span>
-                  {ev.future && <span style={{ fontSize: 10, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "2px 7px", borderRadius: 3, fontWeight: 700 }}>UPCOMING</span>}
+                  <span style={{ fontSize: 13, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)", minWidth: 110 }}>{ev.date}</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)" }}>{ev.title}</span>
+                  {ev.future && <span style={{ fontSize: 12, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "3px 9px", borderRadius: 3, fontWeight: 700 }}>UPCOMING</span>}
                 </div>
-                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, marginLeft: 110 }}>{ev.desc}</div>
+                <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, marginLeft: 120 }}>{ev.desc}</div>
               </div>
             ))}
           </div>
@@ -1261,9 +1261,9 @@ function BillionsTab() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
           {data.utility.map((u) => (
             <div key={u.title} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
-              <div style={{ fontSize: 22, marginBottom: 8 }}>{u.icon}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{u.title}</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{u.desc}</div>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>{u.icon}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 6 }}>{u.title}</div>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{u.desc}</div>
             </div>
           ))}
         </div>
@@ -1282,19 +1282,19 @@ function BillionsTab() {
               padding: "16px 18px",
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: p.current ? "var(--accent-red)" : "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>{p.phase}</span>
-                {p.current && <span style={{ fontSize: 10, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "2px 7px", borderRadius: 3 }}>NOW</span>}
+                <span style={{ fontSize: 14, fontWeight: 700, color: p.current ? "var(--accent-red)" : "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px" }}>{p.phase}</span>
+                {p.current && <span style={{ fontSize: 12, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "3px 9px", borderRadius: 3 }}>NOW</span>}
               </div>
-              <div style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", marginBottom: 6 }}>{p.title}</div>
-              <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>{p.desc}</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)", marginBottom: 8 }}>{p.title}</div>
+              <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.desc}</div>
             </div>
           ))}
         </div>
         <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 18px" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 8 }}>단기 (Q2-Q3 2026)</div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>단기 (Q2-Q3 2026)</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {data.shortTerm.map((s) => (
-              <span key={s} style={{ fontSize: 12, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "5px 10px", borderRadius: 5 }}>{s}</span>
+              <span key={s} style={{ fontSize: 14, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "6px 12px", borderRadius: 5 }}>{s}</span>
             ))}
           </div>
         </div>
@@ -1307,10 +1307,10 @@ function BillionsTab() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
             {data.team.map((t) => (
               <div key={t.name} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", marginBottom: 3 }}>{t.name}</div>
-                <div style={{ fontSize: 12, color: "#3b82f6", fontWeight: 600, marginBottom: 6 }}>{t.role}</div>
-                <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginBottom: t.link ? 8 : 0 }}>{t.bg}</div>
-                {t.link && <a href={t.link} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none" }}>↗ X Profile</a>}
+                <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{t.name}</div>
+                <div style={{ fontSize: 13, color: "#3b82f6", fontWeight: 600, marginBottom: 8 }}>{t.role}</div>
+                <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: t.link ? 10 : 0 }}>{t.bg}</div>
+                {t.link && <a href={t.link} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "#3b82f6", textDecoration: "none", fontWeight: 600 }}>↗ X Profile</a>}
               </div>
             ))}
           </div>
@@ -1320,8 +1320,8 @@ function BillionsTab() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
             {data.backers.map((b) => (
               <div key={b} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 18px", textAlign: "center" }}>
-                <div style={{ fontSize: 22, marginBottom: 6 }}>💎</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{b}</div>
+                <div style={{ fontSize: 24, marginBottom: 8 }}>💎</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>{b}</div>
               </div>
             ))}
           </div>
@@ -1333,18 +1333,18 @@ function BillionsTab() {
         {sectionTitle("Partnerships & Integrations")}
         <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", marginBottom: 8 }}>Chains</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>Chains</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {data.partners.chains.map((c) => (
-                <span key={c} style={{ fontSize: 12, fontWeight: 600, color: "#3b82f6", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", padding: "5px 11px", borderRadius: 5 }}>{c}</span>
+                <span key={c} style={{ fontSize: 15, fontWeight: 600, color: "#3b82f6", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", padding: "6px 13px", borderRadius: 5 }}>{c}</span>
               ))}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", marginBottom: 8 }}>Apps</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>Apps</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {data.partners.apps.map((a) => (
-                <span key={a} style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "5px 11px", borderRadius: 5 }}>{a}</span>
+                <span key={a} style={{ fontSize: 15, fontWeight: 600, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "6px 13px", borderRadius: 5 }}>{a}</span>
               ))}
             </div>
           </div>
@@ -1355,16 +1355,16 @@ function BillionsTab() {
       <div style={{ marginBottom: 28 }}>
         {sectionTitle("Competitive — vs Worldcoin")}
         <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1.4fr", padding: "10px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1.4fr", padding: "12px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
             <div>구분</div>
             <div style={{ color: "var(--accent-red)" }}>Billions ($BILL)</div>
             <div>Worldcoin ($WLD)</div>
           </div>
           {data.competitive.map((c, i) => (
             <div key={c.feature} style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1.4fr", padding: "12px 16px", borderBottom: i < data.competitive.length - 1 ? "1px solid var(--border)" : "none", alignItems: "center" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-secondary)" }}>{c.feature}</div>
-              <div style={{ fontSize: 12, color: "var(--text-primary)", fontWeight: 600 }}>{c.billions}</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{c.worldcoin}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)" }}>{c.feature}</div>
+              <div style={{ fontSize: 15, color: "var(--text-primary)", fontWeight: 600, lineHeight: 1.5 }}>{c.billions}</div>
+              <div style={{ fontSize: 15, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{c.worldcoin}</div>
             </div>
           ))}
         </div>
@@ -1380,12 +1380,12 @@ function BillionsTab() {
             return (
               <div key={i} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: `3px solid ${tc}`, borderRadius: 8, padding: "12px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)" }}>{n.date}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: tc, background: `${tc}1a`, border: `1px solid ${tc}40`, padding: "2px 8px", borderRadius: 3 }}>{n.tag}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{n.title}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)" }}>{n.date}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: tc, background: `${tc}1a`, border: `1px solid ${tc}40`, padding: "3px 9px", borderRadius: 3 }}>{n.tag}</span>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.4 }}>{n.title}</span>
                 </div>
-                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: 6 }}>{n.desc}</div>
-                <a href={n.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none", wordBreak: "break-all" }}>↗ {n.url}</a>
+                <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 8 }}>{n.desc}</div>
+                <a href={n.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "#3b82f6", textDecoration: "none", wordBreak: "break-all", fontWeight: 500 }}>↗ {n.url}</a>
               </div>
             );
           })}
@@ -1399,8 +1399,8 @@ function BillionsTab() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10 }}>
             {data.risks.map((r, i) => (
               <div key={i} style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 8, padding: "12px 14px" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent-red)", marginBottom: 4 }}>{`#${i + 1} ${r.title}`}</div>
-                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>{r.desc}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--accent-red)", marginBottom: 6 }}>{`#${i + 1} ${r.title}`}</div>
+                <div style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.6 }}>{r.desc}</div>
               </div>
             ))}
           </div>
@@ -1423,10 +1423,10 @@ function BillionsTab() {
               gap: 10,
               transition: "transform 0.15s, border-color 0.15s",
             }}>
-              <span style={{ fontSize: 18 }}>{c.icon}</span>
+              <span style={{ fontSize: 22 }}>{c.icon}</span>
               <div style={{ minWidth: 0, flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
-                <div style={{ fontSize: 10, color: "var(--text-tertiary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.url.replace(/^https?:\/\//, "")}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginTop: 2 }}>{c.url.replace(/^https?:\/\//, "")}</div>
               </div>
             </a>
           ))}
@@ -1434,8 +1434,8 @@ function BillionsTab() {
       </div>
 
 
-      <div style={{ textAlign: "center", padding: "20px 0 0", borderTop: "1px solid var(--border)", marginTop: 8 }}>
-        <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.6 }}>
+      <div style={{ textAlign: "center", padding: "24px 0 0", borderTop: "1px solid var(--border)", marginTop: 8 }}>
+        <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.7 }}>
           데이터 출처: billions.network 공식 docs · GitHub · X · CoinGecko · 1차+2차 librarian 교차검증
           <br />
           본 정보는 투자 자문이 아니며, TGE 직전 변경 가능성 있음 (Last verified: 2026-05-03)
