@@ -1460,7 +1460,7 @@ const ETHENE_DATA = {
     hq: "Singapore (143 Cecil Street #16-01, GB Building)",
     size: "2-10 employees",
     services: ["Token Advisory", "Asia GTM"],
-    tagline: "Trusted by Industry Leaders — 18개 Tier-S 클라이언트",
+    tagline: "Trusted by Industry Leaders — 19개 Tier-S 클라이언트",
     sources: {
       website: "https://ethenelabs.xyz",
       x: "https://x.com/EtheneLabs",
@@ -1472,31 +1472,32 @@ const ETHENE_DATA = {
   },
   founder: {
     name: "Ben Wee",
-    role: "Founder / Director (공개 직함은 advisor·director가 우세)",
+    role: "Asia GTM @ethenelabs (X 본인 bio 기준). Founder/Director 직함은 공개 미확인",
     background: "前 Crypto.com Capital VP, 前 Citi Asia ECM Analyst, NUS BBA",
     x: "https://x.com/benhwx",
     linkedin: "https://sg.linkedin.com/in/ben-wee",
-    koreaActivity: "2022 KBW부터 Seoul에서 Crypto.com/Cronos 행사 주최. 한국 밋업마다 직접 방문",
+    koreaActivity: "2022 KBW부터 Seoul에서 Crypto.com/Cronos 행사 주최 (검색 스니펫 부분 근거). 최신 트윗 2026-05-01",
   },
   portfolio: [
-    { ticker: "ARB", name: "Arbitrum", category: "L2", price: "$0.117", mcap: "$722M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "KAITO", name: "Kaito", category: "AI/InfoFi", price: "$0.470", mcap: "$114M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "MOVE", name: "Movement", category: "L1", price: "$0.0177", mcap: "$64.9M", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "KAT", name: "Katana", category: "DeFi L2 (AggLayer)", price: "₩14", mcap: "—", krw: ["upbit","bithumb"], status: "listed", note: "TGE 2026-03-18, KRW 상장 2026-03-26", userInvolved: true },
-    { ticker: "OPEN", name: "OpenEden (TBILL)", category: "RWA/Treasuries", price: "—", mcap: "—", krw: ["upbit","bithumb","coinone"], status: "listed", note: "permissioned, 유동성 제한적" },
-    { ticker: "SEI", name: "Sei", category: "L1", price: "$0.0583", mcap: "$393M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "UNI", name: "Uniswap", category: "DEX", price: "$3.24", mcap: "$2.05B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "SENT", name: "Sentient", category: "AI/AGI", price: "—", mcap: "$123.8M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "Open-source AGI, FDV $588M" },
-    { ticker: "MNT", name: "Mantle", category: "L2", price: "$0.633", mcap: "$2.09B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "BLEND", name: "Fluent", category: "Blended L2 (EVM/WASM/SVM)", price: "₩175", mcap: "—", krw: ["upbit","bithumb"], status: "listed", note: "KRW 상장 2026-04-29, public testnet 상태", userInvolved: true },
-    { ticker: "PYTH", name: "Pyth Network", category: "Oracle", price: "$0.0490", mcap: "$282M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "NEAR", name: "Near Protocol", category: "L1", price: "$1.27", mcap: "$1.65B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "FRAX", name: "Frax", category: "Stablecoin/DeFi", price: "$0.993", mcap: "$274M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
-    { ticker: "RON", name: "Ronin", category: "Gaming Chain", price: "$0.0941", mcap: "$72.7M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
-    { ticker: "CRO", name: "Cronos", category: "Exchange Chain", price: "$0.0682", mcap: "$2.97B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "KAIA", name: "Kaia", category: "L1 (Klaytn 후신)", price: "$0.0453", mcap: "$266M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
-    { ticker: "CHR", name: "Chromia", category: "L1 (dApp infra)", price: "$0.0261", mcap: "$25.4M", krw: ["bithumb"], status: "listed", note: "빗썸만" },
-    { ticker: "SKY", name: "Sky (前 MakerDAO)", category: "DeFi 거버넌스", price: "$0.0804", mcap: "$1.87B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "ARB", name: "Arbitrum", category: "L2", price: "$0.118", mcap: "$725.1M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "KAITO", name: "Kaito", category: "AI/InfoFi", price: "$0.472", mcap: "$113.9M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "MOVE", name: "Movement", category: "Move 생태계 / Infrastructure", price: "$0.01767", mcap: "$65.1M", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "KAT", name: "Katana", category: "DeFi L2 (AggLayer)", price: "$0.009488 (₩13.97)", mcap: "$22.2M (₩32.7B)", krw: ["upbit","bithumb"], status: "listed", note: "TGE 2026-03-18, KRW 상장 2026-03-26, 유통량 2.342B / 총공급 10B", userInvolved: true },
+    { ticker: "OPEN", name: "OpenLedger", category: "AI/Open Data", price: "$0.224", mcap: "$48.3M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "주의: OpenEden 아님 — OpenLedger (별도 토큰)" },
+    { ticker: "EDEN", name: "OpenEden (TBILL)", category: "RWA/Treasuries", price: "—", mcap: "—", krw: ["bithumb","coinone"], status: "listed", note: "Bithumb/Coinone만, 업비트 X. permissioned, 유동성 제한적" },
+    { ticker: "SEI", name: "Sei", category: "L1", price: "$0.05826", mcap: "$392.2M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "UNI", name: "Uniswap", category: "DEX", price: "$3.24", mcap: "$2.052B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "SENT", name: "Sentient", category: "AI/AGI", price: "$0.01707", mcap: "$123.5M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "Open-source AGI, FDV $588M" },
+    { ticker: "MNT", name: "Mantle", category: "L2", price: "$0.6329", mcap: "$2.090B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "BLEND", name: "Fluent", category: "Blended L2 (EVM/WASM/SVM)", price: "$0.1173 (₩172)", mcap: "$23.45M (₩34.3B), FDV $171.5M", krw: ["upbit","bithumb"], status: "listed", note: "KRW 상장 2026-04-29, public testnet 상태, 유통 200M / 총공급 1B", userInvolved: true },
+    { ticker: "PYTH", name: "Pyth Network", category: "Oracle", price: "$0.04892", mcap: "$281.3M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "NEAR", name: "Near Protocol", category: "L1", price: "$1.27", mcap: "$1.647B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "FRAX", name: "Frax", category: "Stablecoin/DeFi", price: "$0.4658", mcap: "$44.4M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "RON", name: "Ronin", category: "Gaming Chain", price: "$0.09404", mcap: "$72.6M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "CRO", name: "Cronos", category: "Exchange Chain", price: "$0.06817", mcap: "$2.971B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "KAIA", name: "Kaia", category: "L1 (Klaytn 후신)", price: "$0.04539", mcap: "$265.8M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "CHR", name: "Chromia", category: "L1 (dApp infra)", price: "$0.02608", mcap: "$25.4M", krw: ["bithumb"], status: "listed", note: "빗썸만" },
+    { ticker: "SKY", name: "Sky (前 MakerDAO)", category: "DeFi 거버넌스", price: "$0.08071", mcap: "$1.873B", krw: ["upbit","bithumb","coinone"], status: "listed" },
     { ticker: "—", name: "Citrea", category: "BTC L2 zk-rollup", price: "N/A", mcap: "N/A", krw: [], status: "no-token", note: "🚨 토큰 미발행이지만 에어드랍 캠페인 마무리 단계. 포인트 시스템(상위 50등 컷 ~2,701점) + 뱃지(Beginner→Power User) → 막차 타이밍. Dashboard: app.citrea.xyz", userInvolved: true },
     { ticker: "—", name: "Flow Traders", category: "글로벌 마켓메이커 (토큰 아님)", price: "N/A", mcap: "N/A", krw: [], status: "non-token", note: "회사. KRW 상장 대상 아님" },
   ],
@@ -1505,6 +1506,7 @@ const ETHENE_DATA = {
     { date: "2026-01-27", event: "Fluent Korea Community Event (Hashed Lounge, Seoul)", attendees: "120+" },
     { date: "2026-02-02", event: "Katana Korea Community Hangout (Hashed Lounge, Seoul)", attendees: "140+" },
     { date: "2026-03-09", event: "Citrea Korea Community Kickoff (Gangnam, Seoul)", attendees: "140+" },
+    { date: "2026-04-16", event: "Citrea 2차 Korea Community Event (Seoul)", attendees: "200+ 신청 / 80+ 참석" },
   ],
   userProjects: [
     {
@@ -1512,7 +1514,7 @@ const ETHENE_DATA = {
       status: "✅ 업비트 상장 완료",
       tge: "2026-03-18 → KRW 상장 2026-03-26",
       tokenomics: "10B 총공급, VC 프리세일 없음, User Liquidity Mining 20%, Community Airdrop 15%, Core Contributors 15.65%, Treasury/Community 48.35%, Public Sale 1%",
-      verdict: "이미 상장 완료. 추가 매수 타이밍보다는 하방 리스크 모니터링",
+      verdict: "✅ 상장 완료 + KAT pre-staking·Perps Points Program Season 1 진행 중. 보상 캠페인 활용 가능",
       backers: "Polygon Labs, GSR",
       website: "https://katana.network",
       x: "https://x.com/katana",
@@ -1520,13 +1522,19 @@ const ETHENE_DATA = {
       tgeAnnounce: "https://katana.network/blog/the-wait-is-over-katana-tge-is-here",
       upbitNotice: "https://www.upbit.com/service_center/notice?id=6097",
       bithumbNotice: "https://feed.bithumb.com/notice/1652436",
+      campaigns: [
+        { name: "KAT Pre-staking", url: "https://app.katana.network/stake" },
+        { name: "Krate Liquidity Mining", url: "https://app.katana.network/earn" },
+        { name: "Perps Points Program S1", url: "https://katana.network/blog/katana-perps-points-program-season-1-the-forge" },
+        { name: "Perps Trading", url: "https://perps.katana.network/" },
+      ],
     },
     {
       ticker: "BLEND", name: "Fluent",
       status: "✅ 업비트/빗썸 KRW 상장 완료",
       tge: "공식 TGE 공지 미확인 / KRW 상장 2026-04-29",
       tokenomics: "공식 토크노믹스/베스팅 문서 미공개 ⚠️ — 분배표/락업 verification needed",
-      verdict: "Public testnet 상태에서 KRW 상장 — 토크노믹스 비공개는 리스크. 모니터링 필수",
+      verdict: "Public testnet 상태에서 KRW 상장. CoinGecko 기준 유통 200M/총공급 1B/FDV ₩171B. 공식 분배표·베스팅표 미공개는 여전한 리스크. Connect/Prints/Fluentscan 시스템 외 명확한 에어드랍 캠페인 미확인",
       backers: "공개 미확인",
       website: "https://fluent.xyz",
       x: "https://x.com/fluentxyz",
@@ -1581,7 +1589,7 @@ const ETHENE_DATA = {
       "LinkedIn/X/웹사이트 일관됨",
       "Asia GTM 실무 흔적 다수 (3건 한국 이벤트 검증)",
       "Ben Wee 개인 X/LinkedIn 활동 활발",
-      "주요 클라이언트(Katana/Fluent/Citrea)와의 협업 증거",
+      "주요 클라이언트(Katana/Fluent/Citrea)와의 협업 증거 + 2026-04 Citrea 2차 이벤트로 활동 지속성 확인",
     ],
     negative: [
       "회사 매우 젊음 (2년차)",
@@ -1591,7 +1599,7 @@ const ETHENE_DATA = {
     ],
     truthCheck: {
       claim: "맡은 프로젝트 죄다 업비트 갔다",
-      reality: "검증 가능한 KRW 상장은 17개 (18개 토큰 중 Citrea 제외). 다만 '에이전시 기여로 상장됐다'는 직접 증거는 ARB/KAITO/PYTH/SEI 4개만 부분 확인. 나머지는 자체 마케팅 문구",
+      reality: "검증 가능한 KRW 상장은 17개 (19개 토큰 중 Citrea/Flow Traders 제외, OpenLedger·OpenEden 별도 분리 후). 다만 '에이전시 기여로 상장됐다'는 직접 증거는 ARB/KAITO/PYTH/SEI 4개만 부분 확인. 나머지는 자체 마케팅 문구. 사이트 자체는 'clients have TGE'd across Binance, Coinbase, OKX, Bybit, Upbit, Bithumb' 주장만 있음",
       verdict: "⚠️ 과장 가능성 — 옥석 가리는 시각으로 활용은 OK, '에이전시가 상장 보장한다'는 해석은 위험",
     },
   },
@@ -1660,6 +1668,7 @@ function EtheneTab() {
         .citrea-guide-card:hover { transform: translateY(-2px); border-color: #ef4444 !important; background: rgba(239,68,68,0.08) !important; }
         .citrea-alert { animation: citreaBannerPulse 2.4s ease-in-out infinite; cursor: pointer; transition: transform .15s; }
         .citrea-alert:hover { transform: translateY(-1px); }
+        .kat-camp-card:hover { border-color: #34d399 !important; background: rgba(52,211,153,0.07) !important; transform: translateY(-1px); }
       `}</style>
 
       <a
@@ -1766,7 +1775,7 @@ function EtheneTab() {
             animation: "ethGlow 2.4s ease-in-out infinite",
           }}>
             <div style={{ fontSize: 12, fontWeight: 700, opacity: 0.85, textTransform: "uppercase", letterSpacing: "1.2px" }}>Portfolio</div>
-            <div style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, marginTop: 8 }}>{data.portfolio.length}</div>
+            <div style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, marginTop: 8 }}>{listedTokens.length}</div>
             <div style={{ fontSize: 14, fontWeight: 700, marginTop: 8, opacity: 0.85 }}>Tier-S 클라이언트</div>
           </div>
         </div>
@@ -1992,6 +2001,54 @@ function EtheneTab() {
                   <div style={{ fontSize: 12, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>Verdict</div>
                   <div style={{ fontSize: 14, color: "var(--text-primary)", lineHeight: 1.6, fontWeight: 600 }}>{p.verdict}</div>
                 </div>
+
+                {p.name === "Katana" && p.campaigns && (
+                  <div style={{ marginBottom: 14, paddingTop: 4 }}>
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontSize: 12,
+                      fontWeight: 800,
+                      color: "#34d399",
+                      textTransform: "uppercase",
+                      letterSpacing: "1px",
+                      marginBottom: 10,
+                    }}>
+                      <span>📊</span><span>진행 중인 캠페인</span>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}>
+                      {p.campaigns.map((c) => (
+                        <a
+                          key={c.name}
+                          href={c.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="kat-camp-card"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 6,
+                            padding: "9px 11px",
+                            background: "var(--bg-primary)",
+                            border: "1px solid var(--border)",
+                            borderRadius: 6,
+                            textDecoration: "none",
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: "var(--text-primary)",
+                            transition: "border-color .15s, background .15s, transform .15s",
+                            minWidth: 0,
+                          }}
+                        >
+                          <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                          <span style={{ color: "#34d399", fontSize: 13, flexShrink: 0 }}>↗</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {isCitrea && camp && (
                   <div style={{ marginBottom: 14, paddingTop: 4 }}>
@@ -2275,13 +2332,12 @@ function EtheneTab() {
         {sectionTitle("Quick Stats")}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
           {[
-            ["총 클라이언트", `${data.portfolio.length}개`, "var(--text-primary)"],
-            ["KRW 상장 완료", `${listedTokens.length}/${data.portfolio.length} (${Math.round(listedTokens.length / data.portfolio.length * 100)}%)`, "#34d399"],
+            ["총 클라이언트", `${listedTokens.length}개`, "var(--text-primary)"],
+            ["KRW 상장 완료", `17/${listedTokens.length} (89%)`, "#34d399"],
             ["업비트 KRW", `${upbitCount}개`, "#3b82f6"],
             ["빗썸 KRW", `${bithumbCount}개`, "#f59e0b"],
             ["코인원 KRW", `${coinoneCount}개`, "#8b5cf6"],
-            ["토큰 미발행", `${noTokenCount}개`, "var(--accent-red)"],
-            ["회사형", `${nonTokenCount}개`, "#6b7280"],
+            ["토큰 미발행/회사", `${noTokenCount + nonTokenCount}개`, "var(--accent-red)"],
             ["사용자 진행", `${data.userProjects.length}개`, "#f59e0b"],
           ].map(([label, val, col]) => (
             <div key={label} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px" }}>
