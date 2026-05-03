@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 
 const THEME_STORAGE_KEY = "unlock-dashboard-theme";
 
@@ -1450,6 +1450,8 @@ function BillionsTab() {
 // ============================================================
 // Ethene Picks Tab — Ethene Labs 18개 포트폴리오 KRW 상장 분석
 // ============================================================
+const CITREA_GUIDE_BASE = "https://x.com/" + "CitreaKorea/status/";
+
 const ETHENE_DATA = {
   identity: {
     name: "Ethene Labs",
@@ -1495,7 +1497,7 @@ const ETHENE_DATA = {
     { ticker: "KAIA", name: "Kaia", category: "L1 (Klaytn 후신)", price: "$0.0453", mcap: "$266M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
     { ticker: "CHR", name: "Chromia", category: "L1 (dApp infra)", price: "$0.0261", mcap: "$25.4M", krw: ["bithumb"], status: "listed", note: "빗썸만" },
     { ticker: "SKY", name: "Sky (前 MakerDAO)", category: "DeFi 거버넌스", price: "$0.0804", mcap: "$1.87B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "—", name: "Citrea", category: "BTC L2 zk-rollup", price: "N/A", mcap: "N/A", krw: [], status: "no-token", note: "❌ 네이티브 토큰 자체 없음 (cBTC만 사용). 메인넷 2026-01-27 라이브. Chainway Labs", userInvolved: true },
+    { ticker: "—", name: "Citrea", category: "BTC L2 zk-rollup", price: "N/A", mcap: "N/A", krw: [], status: "no-token", note: "🚨 토큰 미발행이지만 에어드랍 캠페인 마무리 단계. 포인트 시스템(상위 50등 컷 ~2,701점) + 뱃지(Beginner→Power User) → 막차 타이밍. Dashboard: app.citrea.xyz", userInvolved: true },
     { ticker: "—", name: "Flow Traders", category: "글로벌 마켓메이커 (토큰 아님)", price: "N/A", mcap: "N/A", krw: [], status: "non-token", note: "회사. KRW 상장 대상 아님" },
   ],
   koreaEvents: [
@@ -1534,10 +1536,10 @@ const ETHENE_DATA = {
     },
     {
       ticker: "—", name: "Citrea",
-      status: "❌ 네이티브 토큰 없음 (cBTC만)",
-      tge: "토큰 발행 자체 없음 / 메인넷 2026-01-27 라이브",
-      tokenomics: "공식 문서: 'Citrea has no native token, no published tokenomics'. 가스/전송용 cBTC가 네이티브",
-      verdict: "💡 예치작 X — 토큰 자체가 없으므로 매수/예치 자체가 불가능. 생태계 참여(빌더/dApp)로 접근하는 게 맞음",
+      status: "🚨 메인넷 에어드랍 캠페인 진행 중 (마무리 단계)",
+      tge: "토큰 미발행 / 메인넷 2026-01-27 라이브 / 에어드랍 막차",
+      tokenomics: "포인트 시스템 기반 리더보드 운영 — 상위 50등 컷 약 2,701점. 6개 활동(브릿지/LP/스왑/렌딩/볼트/앱사용) 적립. 뱃지 등급(Beginner → Power User). 향후 에어드랍에서 가장 중요한 요소",
+      verdict: "🔥 예치작 권장 — 공식 트윗에서 애드작 마무리 단계 힌트. 지금이 마지막 기회. Dashboard에서 활동 체크 가능",
       backers: "Founders Fund, Maven11, Mirana, dao5, Erik Voorhees, Balaji Srinivasan, Jameson Lopp 등 ($16.7M raised, Series A $14M)",
       website: "https://citrea.xyz",
       x: "https://x.com/citrea_xyz",
@@ -1545,6 +1547,32 @@ const ETHENE_DATA = {
       blog: "https://www.blog.citrea.xyz/",
       mainnetAnnounce: "https://www.blog.citrea.xyz/citrea-mainnet-is-live/",
       seriesA: "https://www.blog.citrea.xyz/announcing-citrea-series-a-round/",
+      campaignDashboard: "https://app.citrea.xyz",
+      campaignAnnounce: "https://fixvx.com/citrea_xyz/status/2044400892791968062",
+      airdropCampaign: {
+        topCutoff: 2701,
+        topCutoffRank: 50,
+        activities: [
+          { name: "브릿지", color: "#3b82f6" },
+          { name: "LP 공급", color: "#f59e0b" },
+          { name: "스왑", color: "#8b5cf6" },
+          { name: "렌딩", color: "#ef4444" },
+          { name: "볼트", color: "#6b7280" },
+          { name: "앱 사용", color: "#34d399" },
+        ],
+        badges: [
+          { name: "Beginner", color: "#6b7280" },
+          { name: "Active", color: "#3b82f6" },
+          { name: "Advanced", color: "#f59e0b" },
+          { name: "Power User", color: "#ef4444" },
+        ],
+      },
+      airdropGuides: [
+        { type: "브릿지", url: CITREA_GUIDE_BASE + "2037509197332623617" },
+        { type: "렌딩", url: CITREA_GUIDE_BASE + "2037719468647108664" },
+        { type: "유동성 공급", url: CITREA_GUIDE_BASE + "2041059226995626189" },
+        { type: "예측시장", url: CITREA_GUIDE_BASE + "2041861811767799861" },
+      ],
     },
   ],
   credibility: {
@@ -1619,9 +1647,76 @@ function EtheneTab() {
     <div>
       <style>{`
         @keyframes ethGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); } 50% { box-shadow: 0 0 0 10px rgba(245,158,11,0); } }
+        @keyframes citreaPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.55), 0 0 22px 0 rgba(239,68,68,0.25); } 50% { box-shadow: 0 0 0 14px rgba(239,68,68,0), 0 0 38px 4px rgba(245,158,11,0.18); } }
+        @keyframes citreaBadgePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.78; transform: scale(1.04); } }
+        @keyframes citreaBannerPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.45); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
         .eth-card-hover:hover { transform: translateY(-2px); border-color: var(--text-tertiary) !important; }
         .eth-link-hover:hover { text-decoration: underline; }
+        .citrea-card { animation: citreaPulse 2.6s ease-in-out infinite; }
+        .citrea-card:hover { transform: translateY(-3px); transition: transform .15s; }
+        .citrea-cta { transition: transform .15s, box-shadow .15s, background .15s; cursor: pointer; }
+        .citrea-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -6px rgba(239,68,68,0.55); }
+        .citrea-guide-card { transition: transform .15s, border-color .15s, background .15s; cursor: pointer; }
+        .citrea-guide-card:hover { transform: translateY(-2px); border-color: #ef4444 !important; background: rgba(239,68,68,0.08) !important; }
+        .citrea-alert { animation: citreaBannerPulse 2.4s ease-in-out infinite; cursor: pointer; transition: transform .15s; }
+        .citrea-alert:hover { transform: translateY(-1px); }
       `}</style>
+
+      <a
+        href="https://app.citrea.xyz"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="citrea-alert"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          background: "linear-gradient(90deg, rgba(239,68,68,0.18) 0%, rgba(245,158,11,0.16) 50%, rgba(239,68,68,0.18) 100%)",
+          border: "1px solid rgba(239,68,68,0.55)",
+          borderRadius: 12,
+          padding: "14px 20px",
+          marginBottom: 16,
+          textDecoration: "none",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14, flex: 1, minWidth: 280 }}>
+          <span style={{
+            fontSize: 11,
+            fontWeight: 800,
+            color: "#fff",
+            background: "#ef4444",
+            padding: "5px 11px",
+            borderRadius: 4,
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            animation: "citreaBadgePulse 1.6s ease-in-out infinite",
+            whiteSpace: "nowrap",
+          }}>
+            🚨 LIVE
+          </span>
+          <div>
+            <div style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.2px", lineHeight: 1.3 }}>
+              Citrea 에어드랍 캠페인 — <span style={{ color: "#ef4444" }}>마무리 단계</span> · 막차 타이밍
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 2, lineHeight: 1.4 }}>
+              메인넷 포인트 시스템 · 상위 50등 컷 ~2,701점 · 6개 활동 적립 → 향후 에어드랍 가중치
+            </div>
+          </div>
+        </div>
+        <div style={{
+          fontSize: 13,
+          fontWeight: 800,
+          color: "#fff",
+          background: "#ef4444",
+          padding: "9px 16px",
+          borderRadius: 7,
+          whiteSpace: "nowrap",
+        }}>
+          Dashboard 열기 →
+        </div>
+      </a>
 
       <div style={{
         background: "var(--featured-bg)",
@@ -1817,15 +1912,39 @@ function EtheneTab() {
           {data.userProjects.map((p, i) => {
             const isOk = p.status.startsWith("✅");
             const isWarn = p.status.startsWith("❌");
-            const accent = isOk && i === 0 ? "#34d399" : isOk ? "#f59e0b" : "var(--accent-red)";
+            const isCitrea = p.name === "Citrea";
+            const accent = isCitrea ? "#ef4444" : isOk && i === 0 ? "#34d399" : isOk ? "#f59e0b" : "var(--accent-red)";
+            const camp = p.airdropCampaign;
             return (
-              <div key={p.name} style={{
-                background: "var(--featured-bg)",
-                border: "1px solid var(--featured-border)",
+              <div key={p.name} className={isCitrea ? "citrea-card" : ""} style={{
+                background: isCitrea
+                  ? "linear-gradient(180deg, rgba(239,68,68,0.10) 0%, rgba(245,158,11,0.06) 100%), var(--featured-bg)"
+                  : "var(--featured-bg)",
+                border: isCitrea ? "1px solid rgba(239,68,68,0.55)" : "1px solid var(--featured-border)",
                 borderLeft: `4px solid ${accent}`,
                 borderRadius: 12,
                 padding: "18px 20px",
+                position: "relative",
+                overflow: "hidden",
               }}>
+                {isCitrea && (
+                  <div style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    background: "#ef4444",
+                    color: "#fff",
+                    padding: "4px 12px",
+                    fontSize: 10,
+                    fontWeight: 800,
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    borderBottomLeftRadius: 8,
+                    animation: "citreaBadgePulse 1.6s ease-in-out infinite",
+                  }}>
+                    🚨 LIVE 막차
+                  </div>
+                )}
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 22, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.3px" }}>{p.name}</span>
                   {p.ticker !== "—" && (
@@ -1837,7 +1956,7 @@ function EtheneTab() {
                   fontSize: 13,
                   fontWeight: 700,
                   color: accent,
-                  background: isWarn ? "rgba(239,68,68,0.1)" : isOk && i === 0 ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)",
+                  background: isCitrea ? "rgba(239,68,68,0.14)" : isWarn ? "rgba(239,68,68,0.1)" : isOk && i === 0 ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)",
                   border: `1px solid ${accent}40`,
                   padding: "6px 12px",
                   borderRadius: 5,
@@ -1874,6 +1993,147 @@ function EtheneTab() {
                   <div style={{ fontSize: 14, color: "var(--text-primary)", lineHeight: 1.6, fontWeight: 600 }}>{p.verdict}</div>
                 </div>
 
+                {isCitrea && camp && (
+                  <div style={{ marginBottom: 14, paddingTop: 4 }}>
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontSize: 12,
+                      fontWeight: 800,
+                      color: "#ef4444",
+                      textTransform: "uppercase",
+                      letterSpacing: "1px",
+                      marginBottom: 10,
+                    }}>
+                      <span>🔥</span><span>에어드랍 캠페인</span>
+                    </div>
+
+                    <div style={{
+                      background: "linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(245,158,11,0.10) 100%)",
+                      border: "1px solid rgba(239,68,68,0.35)",
+                      borderRadius: 10,
+                      padding: "14px 16px",
+                      marginBottom: 12,
+                    }}>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
+                          상위 {camp.topCutoffRank}등 컷
+                        </span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                        <span style={{ fontSize: 32, fontWeight: 800, color: "#ef4444", letterSpacing: "-1px", lineHeight: 1, fontFamily: "ui-monospace, Consolas, monospace" }}>
+                          {camp.topCutoff.toLocaleString()}
+                        </span>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-secondary)" }}>점</span>
+                        <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 6, fontStyle: "italic" }}>난이도 가늠자</span>
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 12 }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>6개 활동 (포인트 적립)</div>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                        {camp.activities.map((act) => (
+                          <span key={act.name} style={{
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: act.color,
+                            background: `${act.color}1A`,
+                            border: `1px solid ${act.color}55`,
+                            padding: "4px 10px",
+                            borderRadius: 5,
+                          }}>
+                            {act.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div style={{ marginBottom: 12 }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>뱃지 등급</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 0, background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 6, padding: "6px 8px", overflow: "hidden" }}>
+                        {camp.badges.map((b, idx) => (
+                          <Fragment key={b.name}>
+                            <span style={{
+                              fontSize: 11,
+                              fontWeight: 700,
+                              color: b.color,
+                              background: `${b.color}1A`,
+                              border: `1px solid ${b.color}55`,
+                              padding: "3px 9px",
+                              borderRadius: 4,
+                              whiteSpace: "nowrap",
+                            }}>
+                              {b.name}
+                            </span>
+                            {idx < camp.badges.length - 1 && (
+                              <span style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 6px" }}>→</span>
+                            )}
+                          </Fragment>
+                        ))}
+                      </div>
+                    </div>
+
+                    {p.airdropGuides && (
+                      <div style={{ marginBottom: 14 }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>🇰🇷 한국어 가이드</div>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 6 }}>
+                          {p.airdropGuides.map((g) => (
+                            <a
+                              key={g.type}
+                              href={g.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="citrea-guide-card"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: 6,
+                                padding: "8px 10px",
+                                background: "var(--bg-primary)",
+                                border: "1px solid var(--border)",
+                                borderRadius: 6,
+                                textDecoration: "none",
+                                fontSize: 12,
+                                fontWeight: 700,
+                                color: "var(--text-primary)",
+                              }}
+                            >
+                              <span>{g.type}</span>
+                              <span style={{ color: "#ef4444", fontSize: 13 }}>↗</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {p.campaignDashboard && (
+                      <a
+                        href={p.campaignDashboard}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="citrea-cta"
+                        style={{
+                          display: "block",
+                          textAlign: "center",
+                          background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
+                          color: "#fff",
+                          padding: "12px 16px",
+                          borderRadius: 8,
+                          fontSize: 14,
+                          fontWeight: 800,
+                          textDecoration: "none",
+                          letterSpacing: "0.3px",
+                          boxShadow: "0 4px 14px -4px rgba(239,68,68,0.5)",
+                        }}
+                      >
+                        Dashboard 열기 → app.citrea.xyz
+                      </a>
+                    )}
+                  </div>
+                )}
+
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 10, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
                   {p.website && extLink(p.website, "Website")}
                   {p.x && extLink(p.x, "X")}
@@ -1884,6 +2144,7 @@ function EtheneTab() {
                   {p.mainnetAnnounce && extLink(p.mainnetAnnounce, "Mainnet")}
                   {p.seriesA && extLink(p.seriesA, "Series A")}
                   {p.blog && extLink(p.blog, "Blog")}
+                  {p.campaignAnnounce && extLink(p.campaignAnnounce, "캠페인 공지")}
                 </div>
               </div>
             );
@@ -1952,22 +2213,58 @@ function EtheneTab() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 12 }}>
           {data.portfolio.filter((p) => p.status === "no-token" || p.status === "non-token").map((p) => {
             const isNoToken = p.status === "no-token";
+            const isCitrea = p.name === "Citrea";
+            const accentCol = isCitrea ? "#ef4444" : isNoToken ? "var(--accent-red)" : "#6b7280";
             return (
               <div key={p.name} style={{
-                background: "var(--bg-secondary)",
-                border: "1px solid var(--border)",
-                borderLeft: `3px solid ${isNoToken ? "var(--accent-red)" : "#6b7280"}`,
+                background: isCitrea
+                  ? "linear-gradient(180deg, rgba(239,68,68,0.08) 0%, rgba(245,158,11,0.04) 100%), var(--bg-secondary)"
+                  : "var(--bg-secondary)",
+                border: isCitrea ? "1px solid rgba(239,68,68,0.4)" : "1px solid var(--border)",
+                borderLeft: `3px solid ${accentCol}`,
                 borderRadius: 10,
                 padding: "16px 18px",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)" }}>{p.name}</span>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: isNoToken ? "var(--accent-red)" : "#6b7280", background: isNoToken ? "rgba(239,68,68,0.1)" : "rgba(107,114,128,0.1)", border: `1px solid ${isNoToken ? "rgba(239,68,68,0.3)" : "rgba(107,114,128,0.3)"}`, padding: "3px 8px", borderRadius: 3, textTransform: "uppercase", letterSpacing: "0.6px" }}>
-                    {isNoToken ? "❌ 토큰 없음" : "회사 (토큰 X)"}
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: isCitrea ? "#fff" : isNoToken ? "var(--accent-red)" : "#6b7280",
+                    background: isCitrea ? "#ef4444" : isNoToken ? "rgba(239,68,68,0.1)" : "rgba(107,114,128,0.1)",
+                    border: `1px solid ${isCitrea ? "#ef4444" : isNoToken ? "rgba(239,68,68,0.3)" : "rgba(107,114,128,0.3)"}`,
+                    padding: "3px 8px",
+                    borderRadius: 3,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                  }}>
+                    {isCitrea ? "🚨 에어드랍 막차" : isNoToken ? "❌ 토큰 없음" : "회사 (토큰 X)"}
                   </span>
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginBottom: 10 }}>{p.category}</div>
                 <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.note}</div>
+                {isCitrea && (
+                  <a
+                    href="https://app.citrea.xyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="citrea-cta"
+                    style={{
+                      display: "inline-block",
+                      marginTop: 10,
+                      padding: "7px 14px",
+                      background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
+                      color: "#fff",
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: 800,
+                      textDecoration: "none",
+                      letterSpacing: "0.3px",
+                    }}
+                  >
+                    Dashboard 열기 →
+                  </a>
+                )}
               </div>
             );
           })}
