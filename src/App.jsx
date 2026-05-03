@@ -397,9 +397,84 @@ const unlocks = [
     ],
   },
   {
+    date: "2026-05-08", token: "STABLE", name: "Stable", cat: "L1/Payment",
+    unlockPct: 4.0, unlockVal: 29.5, recipient: "Ecosystem & Community (3년 월간 선형)",
+    circulating: "22.34B", totalSupply: "100B", maxSupply: "100B",
+    allocation: [
+      { name: "Ecosystem & Community", pct: 40.0 },
+      { name: "Team", pct: 25.0 },
+      { name: "Investors & Advisors", pct: 25.0 },
+      { name: "Genesis Distribution", pct: 10.0 },
+    ],
+    market: { price: "$0.0332", mcap: "$742M", fdv: "$3.32B", vol24h: "$17.7M", athDrop: "-20.8%", exchanges: "Gate, Bybit, LBank, HTX, PancakeSwap, Bitget, MEXC, Kraken" },
+    vesting: "TGE 2025-12-08 · USDT-native 결제 특화 L1 (Stable Mainnet + BSC). Genesis 100% TGE / Ecosystem TGE 8% + 32% 3년 월간 선형 / Team & Investors 1년 cliff + 48개월 선형. 월 ~888.8M (32B/36mo). 2029-12-08까지 49회 unlock. CryptoRank 스샷의 $596M mcap은 런치 직후값",
+  },
+  {
+    date: "2026-05-09", token: "ADI", name: "ADI Chain", cat: "L2/Infra",
+    unlockPct: 6.78, unlockVal: 28.4, recipient: "Community Fund + Treasury Reserves (월간)",
+    circulating: "104M", totalSupply: "1B", maxSupply: "1B",
+    allocation: [
+      { name: "Community Fund", pct: 35.0 },
+      { name: "Treasury Reserves", pct: 25.0 },
+      { name: "Private Investors", pct: 12.0 },
+      { name: "Partnerships", pct: 10.0 },
+      { name: "Team", pct: 10.0 },
+      { name: "Token Incentivization", pct: 4.0 },
+      { name: "Liquidity", pct: 4.0 },
+    ],
+    market: { price: "$4.04", mcap: "$419M", fdv: "$4.03B", vol24h: "$489K", athDrop: "-11.2%", exchanges: "MEXC, KuCoin, Uniswap V3, Kraken, BYDFi, Crypto.com" },
+    vesting: "TGE 2025-12-09 · Ethereum L2 zkRollup. ADI Foundation (Abu Dhabi 비영리, IHC/Sirius/Chainlink/M-Pesa 파트너십). Community Fund 72m / Treasury 108m 월간 분할. Private/Team/Partnerships 12m cliff + 72m",
+    strategy: [
+      { type: "caution", title: "🚩 유동성 RED FLAG", desc: "시총 $419M 대비 24h vol $489K = 0.12% (정상 토큰의 1/100). DEX 풀 합계 $2M 미만. Tokenomist에 등록 안됨. Binance/Coinbase/Upbit 미상장", risk: "얇은 유동성 = 가격 조작 가능. 5/9 unlock 시 슬리피지 극심. 매도 채널 제한적" },
+    ],
+  },
+  {
+    date: "2026-05-10", token: "RAIN", name: "Rain Protocol", cat: "Prediction Markets/DeFi",
+    unlockPct: 10.5, unlockVal: 380, recipient: "Linear vesting buckets (월간 정기 배출)",
+    circulating: "478.4B", totalSupply: "1.15T", maxSupply: "1.15T",
+    featured: true,
+    allocation: [
+      { name: "Marketing & Development", pct: 20.0 },
+      { name: "Reserve & Treasury", pct: 20.0 },
+      { name: "Launchpad/Exchanges/LP", pct: 15.0 },
+      { name: "Ecosystem Growth & Staking", pct: 15.0 },
+      { name: "Team", pct: 10.0 },
+      { name: "Contributors/Advisors/Partners", pct: 10.0 },
+      { name: "Strategic Sale", pct: 9.0 },
+      { name: "Presale", pct: 1.0 },
+    ],
+    market: { price: "$0.00756", mcap: "$3.62B", fdv: "$8.69B", vol24h: "$11M", athDrop: "-30.6%", exchanges: "KuCoin, Kraken, BingX, MEXC, Uniswap V3 (Arbitrum), BitMart" },
+    vesting: "Arbitrum One. Team 1m cliff + 24m linear / Contributors 18m / Strategic Sale 8m / Presale 18m non-linear / Marketing 19m / Reserve 18m cliff + 6m linear / Ecosystem 12m linear. 50.28B = 4.37% of max supply. CryptoRank 스샷 $397M은 가격 $0.00791 시점, 현가 기준 $380M",
+    strategy: [
+      { type: "short", title: "월 최대 규모 unlock ($380M+)", desc: "5월 unlock 1위. ATH 대비 -30%로 추가 하방 여지. Binance/Coinbase 미상장 = 출구 좁아 매도 시 가격 충격 큼", risk: "Tokenomist 'fully unlocked' 표기는 모순 (실제 41.6%만 unlock). 데이터 신뢰도 주의" },
+    ],
+  },
+  {
+    date: "2026-05-14", token: "PIEVERSE", name: "Pieverse", cat: "AI/Web3 Payment",
+    unlockPct: 17.3, unlockVal: 28.0, recipient: "Community Growth + Ecosystem & Marketing (월간 합산)",
+    circulating: "230M", totalSupply: "1B", maxSupply: "1B",
+    featured: true,
+    allocation: [
+      { name: "Community Growth", pct: 27.6 },
+      { name: "Ecosystem & Marketing", pct: 27.4 },
+      { name: "Team & Advisors", pct: 20.0 },
+      { name: "Investors", pct: 15.0 },
+      { name: "Foundation Reserve", pct: 10.0 },
+    ],
+    unlockBreakdown: [
+      { name: "Community Growth", amount: "20.0M", pct: 50.3, color: "#3b82f6" },
+      { name: "Ecosystem & Marketing", amount: "19.7M", pct: 49.7, color: "#f59e0b" },
+    ],
+    market: { price: "$0.706", mcap: "$162M", fdv: "$706M", vol24h: "$14M", athDrop: "-57.4%", exchanges: "Gate, Bybit, LBank, BingX, MEXC, Upbit, Bithumb, PancakeSwap, Uniswap" },
+    vesting: "TGE 2025 Q4 · agent-native 결제/컴플라이언스 인프라 (Meme/SocialFi 아님). Community Growth(276M)와 Ecosystem & Marketing(274M) 두 카테고리가 동시 월간 분할 unlock. 각 21개월 선형. CryptoRank 공개 API는 Community Growth 단독값 20M만 노출 (Ecosystem & Marketing은 paid wall)",
+    strategy: [
+      { type: "short", title: "유통 대비 17.3% 대형 unlock", desc: "유통 230M에 39.74M 추가 = 17.3% mcap. 두 카테고리 동시 배출로 시장 흡수 부담 큼. Upbit/Bithumb 상장으로 한국 매도 채널 활성", risk: "ATH $1.66 대비 -57%로 이미 약세. 추가 하방은 기술적 지지선 확인 필요" },
+    ],
+  },
+  {
     date: "2026-05-19", token: "PYTH", name: "Pyth Network", cat: "Oracle",
-    unlockPct: 36.96, unlockVal: 97.15, recipient: "Ecosystem + Publishers + Protocol Dev + Private Sale",
-    circulating: "5.76B", totalSupply: "10B", maxSupply: "10B",
+    unlockPct: 36.96, unlockVal: 100.16, recipient: "Ecosystem + Publishers + Protocol Dev + Private Sale",
+    circulating: "5.75B", totalSupply: "10B", maxSupply: "10B",
     featured: true,
     allocation: [
       { name: "Publisher Rewards", pct: 24.4 },
@@ -409,17 +484,62 @@ const unlocks = [
       { name: "Community & Launch", pct: 7.7 },
     ],
     unlockBreakdown: [
-      { name: "Private Sale", amount: "532M", pct: 25, color: "#ef4444" },
-      { name: "Ecosystem Growth", amount: "460M", pct: 21.6, color: "#3b82f6" },
-      { name: "Publisher Rewards", amount: "520M", pct: 24.4, color: "#f59e0b" },
-      { name: "Protocol Dev", amount: "454M", pct: 21.3, color: "#8b5cf6" },
+      { name: "Ecosystem Growth", amount: "1.13B", pct: 53.0, color: "#3b82f6" },
+      { name: "Publisher Rewards", amount: "537.5M", pct: 25.3, color: "#f59e0b" },
+      { name: "Private Sale", amount: "250M", pct: 11.8, color: "#ef4444" },
+      { name: "Protocol Dev", amount: "212.5M", pct: 10.0, color: "#8b5cf6" },
     ],
-    market: { price: "$0.046", mcap: "$265M", fdv: "$460M", vol24h: "$25M+", athDrop: "-94%+", exchanges: "Binance, Coinbase, OKX, Bybit, Kraken" },
-    vesting: "2.13B PYTH 동시 언락 — 유통 대비 36.96%. DAO에서 6개월 연기 제안 투표 중 (미승인). Private Sale 투자자 물량 25% 포함. 역대급 단일 언락 이벤트",
+    market: { price: "$0.0489", mcap: "$281M", fdv: "$489M", vol24h: "$14M", athDrop: "-95.9%", exchanges: "Binance, Coinbase, OKX, Bybit, Kraken, Bitget, Gate, MEXC, KuCoin" },
+    vesting: "공식 TGE 2023-11-19 14:00 UTC + 6/18/30/42개월 cliff. 30개월째 = 2026-05-19 14:00 UTC (Tokenomist 동일 / Ideas Bank 토론글의 5/20은 비공식 표기). 2.13B = Ecosystem 1.13B + Publishers 537.5M + Private Sale 250M + Protocol Dev 212.5M. DAO 6개월 연기안은 Ideas Bank 토론뿐 (formal proposal 아님, 미통과)",
     strategy: [
-      { type: "short", title: "역대급 숏 기회", desc: "유통 대비 36.96% (2.13B PYTH). Private Sale 25% 매도 확정적. $97M 규모 vs 24h vol $25M = 거래량 4배. 시장 소화 불가", risk: "DAO 6개월 연기 투표 결과에 따라 무산 가능. 투표 결과 반드시 확인" },
-      { type: "timing", title: "5/12~18 진입", desc: "1주 전부터 선반영 시작. 연기 투표 미승인 확인 후 진입. RSI/OBV 확인", risk: "연기 확정 시 숏 스퀴즈 위험. 소규모 포지션으로 시작" },
-      { type: "caution", title: "연기 투표 모니터링 필수", desc: "DAO 제안: 6개월 연기하여 토크노믹스 재검토. 미승인 상태. 투표 결과가 전략 전체를 결정", risk: "연기 확정 시 불확실성 해소 → 반등 가능. 연기 부결 시 폭락 가능" },
+      { type: "short", title: "역대급 숏 기회 — 미통과 확정시", desc: "유통 대비 36.96% (2.13B PYTH). Private Sale 25% 매도 확정적. $100M 규모 vs 24h vol $14M = 거래량 7배. 시장 소화 불가", risk: "DAO Ideas Bank에 6개월 연기 토론 있으나 formal proposal 아님. 5/19 직전까지 모니터링 필수" },
+      { type: "timing", title: "5/12~17 진입", desc: "1주 전부터 선반영. RSI/OBV 확인 후 진입. 14:00 UTC unlock 시점 직전 청산 권장", risk: "갑작스런 연기 발표 시 숏 스퀴즈" },
+      { type: "caution", title: "Ideas Bank 모니터링", desc: "https://forum.pyth.network 의 unlock-delay 토론은 비공식. Realms 정식 proposal 발의 시 즉시 포지션 재평가", risk: "토론 → proposal 전환 시 변동성 폭증" },
+    ],
+  },
+  {
+    date: "2026-05-20", token: "ZRO", name: "LayerZero", cat: "인터옵",
+    unlockPct: 10.2, unlockVal: 35.7, recipient: "Strategic Partners + Core Contributors + Tokens Repurchased (월간 12회차)",
+    circulating: "252.33M", totalSupply: "1B", maxSupply: "1B",
+    allocation: [
+      { name: "Community", pct: 38.3 },
+      { name: "Strategic Partners", pct: 32.2 },
+      { name: "Core Contributors", pct: 25.5 },
+      { name: "Tokens Repurchased", pct: 4.0 },
+    ],
+    unlockBreakdown: [
+      { name: "Strategic Partners", amount: "13.42M", pct: 52.2, color: "#3b82f6" },
+      { name: "Core Contributors", amount: "10.63M", pct: 41.4, color: "#ef4444" },
+      { name: "Tokens Repurchased", amount: "1.67M", pct: 6.5, color: "#8b5cf6" },
+    ],
+    market: { price: "$1.39", mcap: "$351M", fdv: "$1.39B", vol24h: "$20M", athDrop: "-81.5%", exchanges: "Binance, Coinbase, Bybit, OKX, Kraken, KuCoin, Gate, Bitget, MEXC" },
+    vesting: "TGE 2024-06-20 + 1년 cliff + 24개월 월간 선형. 5/20 = 12회차 (12/24). 4월 cliff 진입 후 가격 -33% (2.08→1.39). CMC는 320M 유통 표시 (방법론 차이로 mcap $445M), CoinGecko 252M 기준 채택",
+    strategy: [
+      { type: "short", title: "월간 패턴 + 가격 약세", desc: "유통 대비 10.2%. 4월 cliff 진입 후 월간 매도 압력 누적. ATH $7.53 대비 -81%", risk: "ATL 근처라 추가 하방은 기술적 지지선 의존" },
+    ],
+  },
+  {
+    date: "2026-05-25", token: "H", name: "Humanity Protocol", cat: "Identity/DePIN",
+    unlockPct: 3.86, unlockVal: 20.3, recipient: "Ecosystem Fund + Foundation Treasury + Identity Verification Rewards (월간)",
+    circulating: "2.73B", totalSupply: "10B", maxSupply: "10B",
+    allocation: [
+      { name: "Ecosystem Fund", pct: 24.0 },
+      { name: "Early Contributors (Team)", pct: 19.0 },
+      { name: "Identity Verification Rewards", pct: 18.0 },
+      { name: "Foundation Operations Treasury", pct: 12.0 },
+      { name: "Community Incentives", pct: 12.0 },
+      { name: "Investors", pct: 10.0 },
+      { name: "Human Institute Strategic Reserve", pct: 5.0 },
+    ],
+    unlockBreakdown: [
+      { name: "Ecosystem Fund", amount: "50M", pct: 47.5, color: "#3b82f6" },
+      { name: "Identity Rewards", amount: "42.86M", pct: 40.7, color: "#f59e0b" },
+      { name: "Foundation Treasury", amount: "12.5M", pct: 11.9, color: "#8b5cf6" },
+    ],
+    market: { price: "$0.193", mcap: "$525M", fdv: "$1.93B", vol24h: "$25M", athDrop: "-50.3%", exchanges: "Bybit, Gate, Bitget, KuCoin, Bithumb, Coinone, Binance Futures (HUSDT, spot 미상장)" },
+    vesting: "TGE 2025-06-25 (Worldcoin 경쟁자 — palm-scan biometric, ZK proof of humanity). 월간 105.36M 지속 unlock. Binance spot 미상장 / futures만 / Upbit 미상장 (404) / Bithumb KRW 활성. 백커: Animoca, Polygon Labs, Hashed, Pantera, Jump Crypto",
+    strategy: [
+      { type: "caution", title: "월간 1.05% 지속 매도 압력", desc: "매월 105.36M = 총공급 1.05%. ATH $0.388 대비 -50%이지만 Identity Rewards가 액티브 유저 보상이라 즉시 시장 매도 가능", risk: "Binance spot 미상장 / Upbit 미상장으로 한국 채널 Bithumb만. 유동성 제한적" },
     ],
   },
   {
@@ -1128,40 +1248,42 @@ const ARIA_CATALYSTS = [
 // VVV (Venice Token) Analysis Data — 2026-04-11
 // ============================================================
 const VVV_MARKET = {
-  price: "$9.06", mcap: "$412M", fdv: "$720M", vol24h: "$45.8M",
+  price: "$8.96", mcap: "$408M", fdv: "$712M", vol24h: "$28.3M",
   oi: "$28.1M (Binance $13.6M + Bybit $14.5M)", oiMcapRatio: "7.8% (중저 레버리지)",
   fundingRate: "+0.005% / +0.0053% (중립)",
   longShort: "중립 (펀딩 ~0)",
-  circulating: "45.47M / 79.45M (57.2%)", burned: "33.7M+ 소각 (원래 100M의 42.3%)",
-  athPrice: "$22.58", athDate: "2025.01.28", athDrop: "-64.7%",
+  circulating: "45.57M / 79.52M (57.3%)", burned: "33.7M+ 소각 (원래 100M의 42.3%)",
+  athPrice: "$22.58", athDate: "2025.01.28", athDrop: "-60.2%",
   atlPrice: "$0.92", atlDate: "2025.12.01", category: "AI / Privacy AI (Base L2)",
   exchanges: "Coinbase, Bybit, Bithumb, Kraken, KuCoin, Gate",
   notListed: "Binance 스팟 아직 미상장 (선물만) → 잠재 촉매",
-  emissions: "6M VVV/년 (2026.2.10 25% 감축 완료)",
-  stakingApy: "~65% APY, 7일 쿨다운",
-  change24h: "+13.23%", change7d: "+80%", change30d: "+170%", change60d: "+450%",
+  emissions: "6M VVV/년 (2026.2.10 25% 감축 완료) + mutable contract",
+  stakingApy: "~65% APY, 7일 쿨다운 · 32.45M VVV (71%) 스테이킹 중",
+  change24h: "-8.15%", change7d: "+24.7%", change30d: "+44.7%", change60d: "+208.7%",
 };
 
 const VVV_TECHNICALS = {
-  trend: "Breakout Phase — $8.50 저항 돌파 시도",
-  rsi: "64-66 (중립-강세, 과매수 미진입)",
-  wintermute: "현재 홀드/매수 중 (분배 감지 없음)",
-  staking: "7일 쿨다운 → 대량 언스테이크 시 7일 후 매도 예측 가능",
+  trend: "조정 중 — 7일 +24% 후 오늘 -8% 차익실현",
+  rsi: "중립 (과매수에서 조정)",
+  wintermute: "⚠️ 라벨된 Wintermute 지갑(0xdbf5...)은 VVV 0 보유 · 0x51c7은 MEV bot (라벨 없음)",
+  staking: "71% 스테이킹 (32.45M VVV) · free float 13M VVV만 거래 중 · 매우 얇은 유동성",
   diem: "sVVV 락업→DIEM 발행. 유통 제거 효과",
   burnRate: "월 $115-123K 바이백&번. 42.3% 이미 소각",
-  goplus: "GoPlus 경고: 컨트랙트 소유자가 매도 비활성화/수수료 변경/민팅 가능",
+  goplus: "⚠️ GoPlus CRITICAL: 컨트랙트 mutable — 매도 비활성화/수수료 변경/민팅 가능 (rug vector)",
   founder: "Erik Voorhees (ShapeShift 창업자). 1인 프로젝트 리스크",
   keyCatalyst: "Binance 스팟 상장 대기 (발생 시 +20-30% 예상)",
+  freshBuyer: "신규 지갑 0x1afE...가 49,648 sVVV ($444K) 2시간 이내 매수 후 즉시 스테이킹 (2026-04-15)",
+  historicalDump: "2025.1 Wintermute $1.4M DEX 덤프 + Venice 팀 멀티시그 $10.2M 덤프 → 2주간 -63%",
 };
 
 const VVV_LEVELS = [
-  { type: "R", label: "R3", price: "$22.58", note: "ATH (2025.01.28)" },
+  { type: "R", label: "R3", price: "$22.58", note: "ATH (2025.01.28) · -60% 거리" },
   { type: "R", label: "R2", price: "$12.00", note: "다음 주요 저항" },
-  { type: "R", label: "R1", price: "$10.00", note: "심리적 저항 (돌파 시도 중)" },
-  { type: "NOW", label: "현재가", price: "$9.06", note: "4/14 +13.23% 급등 (R1 $10 근접, Binance 상장 기대)" },
-  { type: "S", label: "S1", price: "$8.50", note: "이전 저항→지지 전환" },
+  { type: "R", label: "R1", price: "$9.90", note: "24h 고점 (조정 시작)" },
+  { type: "NOW", label: "현재가", price: "$8.96", note: "4/15 -8.15% 조정 · 7일 +24.7% 러리 후" },
+  { type: "S", label: "S1", price: "$8.50", note: "4/9 브레이크아웃 + 24h 저점" },
   { type: "S", label: "S2", price: "$7.50", note: "피보 38.2%" },
-  { type: "S", label: "S3", price: "$6.00", note: "3월 중순 브레이크아웃 레벨" },
+  { type: "S", label: "S3", price: "$6.76", note: "4/9 저점 (7일 러리 시작)" },
 ];
 
 const VVV_SCENARIOS = [
@@ -1169,7 +1291,7 @@ const VVV_SCENARIOS = [
     id: "A", title: "롱: 조정 시 매수 (모멘텀 추종)", priority: "1순위",
     entry: "$7.00-7.50 (S1 조정 시)", sl: "$6.30 (S1 하방)", tp1: "$10.00 (R:R ≈ 1:2.5)", tp2: "$12.00 (R:R ≈ 1:4)",
     signal: "4H RSI 과매도 접근 + S1 지지 확인 + Wintermute 지갑 매수 지속",
-    rationale: "60일 +383% 강한 업트렌드. 실제 프로덕트(1.3M유저, 45B토큰/일). 바이백&번 가속 중($123K/월). 에미션 25% 감축. DIEM 유통 제거 효과. Binance 스팟 미상장=잠재 촉매. Wintermute 현재 매수 주도",
+    rationale: "60일 +208.7% / 30일 +44.7% 업트렌드. 71% 스테이킹으로 float 얇음(~13M VVV). 실제 프로덕트(Venice AI). 바이백&번 가속 중($123K/월). 에미션 25% 감축. Binance 스팟 미상장=잠재 촉매. MEV bot(0x51c7/0xa836) DEX 매수 활동 확인 (단, 라벨된 Wintermute 0xdbf5은 VVV 0 보유)",
     risk: "ATH -62.6% 오버헤드. Wintermute 런칭 시 덤핑 전력. GoPlus 컨트랙트 경고. 팀 35M 베스팅 진행 중",
     color: "#34d399",
   },
@@ -1177,8 +1299,8 @@ const VVV_SCENARIOS = [
     id: "B", title: "숏: $10 심리저항 도달 시", priority: "2순위",
     entry: "$9.50-10.00 (R2 접근 시)", sl: "$10.80", tp1: "$7.50 (R:R ≈ 1:2)", tp2: "$6.00 (R:R ≈ 1:3.5)",
     signal: "$10 도달 후 거래량 감소 + 4H 다이버전스. Wintermute 지갑 매도 전환 감지",
-    rationale: "ATH $22.58 대비 -62.6%. $10-15 구간 대량 매물대 (런칭 시 고점 구매자). Wintermute 런칭 시 $19→$2.44 덤핑 이력. 현재 매수 주도 = 향후 분배 가능. 팀 베스팅 물량 + 에미션 6M/년",
-    risk: "업트렌드 강력 (60일 +383%). Binance 상장 시 숏 스퀴즈 위험. 바이백&번 = 자연적 매수 압력",
+    rationale: "ATH $22.58 대비 -60.2%. $10-15 구간 대량 매물대 (런칭 시 고점 구매자). 2025.1 Wintermute $1.4M DEX 덤프 + Venice 팀 $10.2M 덤프 이력 → 2주 -63%. Contract mutable (GoPlus rug flag). Max supply infinite. 팀 베스팅 물량 + 에미션 6M/년",
+    risk: "업트렌드 (60일 +208%). Binance 상장 시 숏 스퀴즈 위험. 71% 스테이킹 = free float 얇아 급등 가능. 바이백&번 = 자연적 매수 압력",
     color: "#ef4444",
   },
   {
@@ -1197,7 +1319,7 @@ const VVV_CATALYSTS = [
   { date: "2026.03.02", event: "OpenClaw 파트너십 → VVV +20%", impact: "급등", done: true },
   { date: "2026.03.18", event: "TEE + E2EE 암호화 AI 모드 출시 → +10%", impact: "프로덕트", done: true },
   { date: "2026.04", event: "x402 통합 (AI 에이전트 결제) + Seedance 2.0", impact: "유틸리티 확장", done: true },
-  { date: "진행중", event: "Wintermute/봇 지갑 DEX 매수 주도 — 온체인 모니터링 중", impact: "가격 상승 주도", done: true },
+  { date: "진행중", event: "0x51c7/0xa836 MEV bot DEX 매수 활동 — 온체인 모니터링 중 (Wintermute 라벨은 미확인)", impact: "MEV 활동", done: true },
   { date: "미정", event: "Binance 스팟 상장 (현재 선물만). 상장 시 급등 예상", impact: "잠재 촉매", done: false },
   { date: "~2026말", event: "팀 35M VVV 베스팅 완료 (24개월)", impact: "매도 압력", done: false },
 ];
@@ -2659,7 +2781,7 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
       <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
         <span style={{ fontSize: 24, fontWeight: 800, color: "#f0f0f5" }}>VVV</span>
         <span style={{ fontSize: 14, color: "#888" }}>Venice AI · Privacy AI Inference · Base L2</span>
-        <span style={{ fontSize: 11, color: "#06b6d4", background: "#0a1a1f", padding: "3px 8px", borderRadius: 4, border: "1px solid #153a45", fontWeight: 700 }}>WINTERMUTE 매수 주도</span>
+        <span style={{ fontSize: 11, color: "#06b6d4", background: "#0a1a1f", padding: "3px 8px", borderRadius: 4, border: "1px solid #153a45", fontWeight: 700 }}>MEV BOT 매수 활동</span>
       </div>
       <div style={{ fontSize: 12, color: "#555", marginBottom: 24 }}>Last updated: 2026-04-14 · Sources: CoinGecko, Venice.ai, Bankless Times, On-chain Radar, Arkham</div>
 
@@ -2669,10 +2791,10 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
           <div>
             <div style={{ fontSize: 11, color: "#06b6d4", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 4 }}>종합 판단</div>
             <div style={{ fontSize: 20, fontWeight: 800, color: "#06b6d4" }}>강한 업트렌드 — 조정 시 롱 or $10 저항 숏</div>
-            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>60일 +383%. Wintermute DEX 매수 주도. 바이백&번 가속. Binance 미상장=잠재 촉매. 단, 런칭 덤핑 전력 주의</div>
+            <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>60일 +208.7% / 30일 +44.7%. 71% 스테이킹으로 float 얇음. MEV bot DEX 매수 활동 (Wintermute 라벨 미확인). 바이백&번 가속. Binance 미상장=잠재 촉매. 2025.1 Wintermute $1.4M 덤프 전력 주의</div>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
-            {[["60d", "+383%", "#34d399"], ["소각", "42.3%", "#06b6d4"], ["Wintermute", "매수 중", "#34d399"], ["ATH", "-62.6%", "#f59e0b"]].map(([label, val, col]) => (
+            {[["60d", "+208.7%", "#34d399"], ["소각", "42.3%", "#06b6d4"], ["스테이킹", "71%", "#06b6d4"], ["ATH", "-60.2%", "#f59e0b"]].map(([label, val, col]) => (
               <div key={label} style={{ textAlign: "center", minWidth: 70 }}>
                 <div style={{ fontSize: 10, color: "#555", marginBottom: 2 }}>{label}</div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: col }}>{val}</div>
@@ -2725,13 +2847,17 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
             <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>핵심 지표</div>
             {[
               ["추세", VVV_TECHNICALS.trend, "#34d399"],
-              ["Wintermute", VVV_TECHNICALS.wintermute, "#f59e0b"],
+              ["RSI", VVV_TECHNICALS.rsi, "#888"],
+              ["Wintermute 검증", VVV_TECHNICALS.wintermute, "#f59e0b"],
               ["스테이킹", VVV_TECHNICALS.staking, "#888"],
+              ["신규 바이어", VVV_TECHNICALS.freshBuyer, "#34d399"],
+              ["과거 덤프", VVV_TECHNICALS.historicalDump, "#ef4444"],
               ["DIEM 시스템", VVV_TECHNICALS.diem, "#06b6d4"],
               ["바이백&번", VVV_TECHNICALS.burnRate, "#06b6d4"],
-              ["GoPlus 경고", VVV_TECHNICALS.goplus, "#ef4444"],
+              ["GoPlus ⚠️", VVV_TECHNICALS.goplus, "#ef4444"],
+              ["촉매", VVV_TECHNICALS.keyCatalyst, "#06b6d4"],
               ["창업자", VVV_TECHNICALS.founder, "#888"],
-            ].map(([label, val, col]) => (
+            ].filter(([, v]) => v).map(([label, val, col]) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0", borderBottom: "1px solid #14161e" }}>
                 <span style={{ fontSize: 12, color: "#888", minWidth: 80 }}>{label}</span>
                 <span style={{ fontSize: 11, fontWeight: 600, color: col, maxWidth: "60%", textAlign: "right" }}>{val}</span>
@@ -2780,7 +2906,7 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
               </div>
             );
           })}
-          <div style={{ marginTop: 8, fontSize: 11, color: "#06b6d4" }}>스테이킹 컨트랙트에 32.4M (71.3%) 락업 — 대량 출금 = 매도 7일 전 경고. Wintermute 7일 +128K 순매수 확인</div>
+          <div style={{ marginTop: 8, fontSize: 11, color: "#06b6d4" }}>스테이킹 컨트랙트에 32.4M (71.3%) 락업 — 대량 출금 = 매도 7일 전 경고. MEV bot(0x51c7/0xa836) DEX 매수 활동 확인 (Wintermute 라벨 미검증)</div>
         </div>
       </div>
 
@@ -2794,8 +2920,8 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
               <div style={{ fontSize: 12, color: "#ef8888", lineHeight: 1.6 }}>총 공급의 5.5% 마켓메이커 할당 수령 후 CEX 상장 전 DEX에서 즉시 덤핑. ATH $22.58→$2.44 (-89%) 2주 내 폭락. 온체인 분석가 Amir Ormu 적발</div>
             </div>
             <div style={{ background: "#0d1f15", borderRadius: 6, padding: "10px 12px", border: "1px solid #1a3a25" }}>
-              <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 4 }}>2026.04 현재 (매수 주도)</div>
-              <div style={{ fontSize: 12, color: "#88ccaa", lineHeight: 1.6 }}>Wintermute + 봇 지갑들이 DEX에서 적극 매수. 가격 상승 주도. 일부 지갑에 새 매수 유동성 준비. 런칭과 정반대 행동</div>
+              <div style={{ fontSize: 11, color: "#34d399", fontWeight: 600, marginBottom: 4 }}>2026.04 현재 (MEV bot 매수)</div>
+              <div style={{ fontSize: 12, color: "#88ccaa", lineHeight: 1.6 }}>0x51c7/0xa836 MEV bot들이 DEX에서 매수 활동 확인. 2026-04-15: 신규 지갑 0x1afE...가 $444K sVVV 매수. 단, BaseScan 공식 라벨된 Wintermute(0xdbf5)는 VVV 0 보유 — "Wintermute 주도" 클레임은 미검증</div>
             </div>
           </div>
           <div style={{ marginTop: 10, background: "#1a1508", borderRadius: 6, padding: "10px 12px", border: "1px solid #2a2418", fontSize: 12, color: "#d4a54a", lineHeight: 1.6 }}>
@@ -2883,7 +3009,7 @@ function VVVAnalysis({ expandedScenario, setExpandedScenario, sectionStyle, sect
           {[
             ["레버리지", "5x 이하 (업트렌드지만 변동성 큼)", "#f59e0b"],
             ["포지션 사이즈", "전체 자본 대비 3% 이하", "#f59e0b"],
-            ["Wintermute 전환 감시", "매수→매도 전환 시 즉시 롱 청산. 온체인 모니터링 가동 중", "#ef4444"],
+            ["MEV Bot 전환 감시", "매수→매도 전환 시 즉시 롱 청산. 0x51c7/0xa836 온체인 모니터링 가동 중", "#ef4444"],
             ["스테이킹 유출", "0x321b... 지갑 출금 감지 → 7일 후 매도 예측. 선제 숏 기회", "#f59e0b"],
             ["GoPlus 경고", "컨트랙트 소유자 매도 비활성화/민팅 가능. 중앙화 리스크", "#ef4444"],
             ["실제 프로덕트", "1.3M유저, 45B토큰/일. Erik Voorhees. 바이백&번 가속 중", "#34d399"],
