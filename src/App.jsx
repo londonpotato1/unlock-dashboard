@@ -687,7 +687,7 @@ export default function App() {
 
         {/* Top Tabs */}
         <div style={{ display: "flex", gap: 0, marginBottom: 28, borderBottom: "1px solid var(--border)" }}>
-          {[["unlocks", "Token Unlocks"]].map(([k, l]) => (
+          {[["unlocks", "Token Unlocks"], ["billions", "🔥 BILL TGE 5/4"]].map(([k, l]) => (
             <button key={k} onClick={() => setActiveTab(k)} style={{
               background: "transparent", border: "none", borderBottom: `2px solid ${activeTab === k ? "var(--accent-red)" : "transparent"}`,
               color: activeTab === k ? "var(--text-primary)" : "var(--text-tertiary)", padding: "10px 24px", fontSize: 15, fontWeight: 700,
@@ -761,6 +761,8 @@ export default function App() {
 
         {grouped.length === 0 && <div style={{ textAlign: "center", padding: 60, color: "var(--text-muted)" }}>해당 조건의 언락 일정이 없습니다.</div>}
         </>}
+
+        {activeTab === "billions" && <BillionsTab />}
       </div>
     </div>
   );
@@ -923,6 +925,522 @@ function UnlockCard({ u, expanded, onToggle }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+// ============================================================
+// Billions ($BILL) — TGE 5/4 Analysis Tab
+// Cross-verified: Official docs (billions.network), GitHub, X, CoinGecko
+// ============================================================
+const BILLIONS_DATA = {
+  identity: {
+    name: "Billions Network",
+    ticker: "BILL",
+    category: "Identity / AI Trust Layer / Web3 Infra",
+    tagline: "사람과 AI가 개인정보 노출 없이 신원·고유성·신뢰를 증명하는 네트워크",
+    tgeDate: "2026-05-04",
+    tgeTime: "09:00 CET",
+    tokenType: "ERC-20 utility (Ethereum L2)",
+    totalSupply: "10,000,000,000 BILL",
+    tgeCirc: "약 24.28% (2.4B)",
+    inflation: "0% (fixed supply)",
+    funding: "$30M+",
+    users: "2.6M+",
+  },
+  channels: [
+    { label: "Website", url: "https://billions.network", icon: "🌐" },
+    { label: "X (@billions_ntwk)", url: "https://x.com/billions_ntwk", icon: "𝕏" },
+    { label: "CEO X (@provenauthority)", url: "https://x.com/provenauthority", icon: "𝕏" },
+    { label: "Token Overview", url: "https://billions.network/token-overview", icon: "📄" },
+    { label: "White Paper", url: "https://billions.network/whitepaper", icon: "📄" },
+    { label: "MiCA Paper", url: "https://billions.network/mica-white-paper", icon: "📄" },
+    { label: "GitHub", url: "https://github.com/BillionsNetwork/billions-token", icon: "💻" },
+    { label: "Discord", url: "https://discord.com/invite/billions-ntwk", icon: "💬" },
+    { label: "FAQ", url: "https://billions.network/faq", icon: "❓" },
+    { label: "Reward Portal", url: "https://signup.billions.network/sign-in", icon: "🎁" },
+    { label: "Wallet", url: "https://wallet.billions.network/", icon: "👛" },
+  ],
+  contracts: [
+    { chain: "Ethereum", address: "0xb1110919016846972056AB995054D65560D5f05E", verified: true, explorer: "https://etherscan.io/token/" },
+    { chain: "Billions Mainnet", address: "0xb060E40C3B053C33D458f7105F95DA52741CAb62", verified: true, explorer: null },
+    { chain: "BSC (사용자 제공)", address: "0xDf24f8c21Cb404B3031a450D8e049D6E39FC1FA5", verified: false, explorer: "https://bscscan.com/token/" },
+    { chain: "Arbitrum", address: "0x55b9f84605B30Df9Bb9d817A6900219F25218157", verified: false, explorer: "https://arbiscan.io/token/" },
+    { chain: "Optimism", address: "0x55b9f84605B30Df9Bb9d817A6900219F25218157", verified: false, explorer: "https://optimistic.etherscan.io/token/" },
+    { chain: "Polygon", address: "0x0a1ac7A9CD9Af4fCd7321A8a090De580a1C037D6", verified: false, explorer: "https://polygonscan.com/token/" },
+    { chain: "Base", address: "0x42Bdfa05945dB355D59fE0B65124e3636F7fEdB5", verified: false, explorer: "https://basescan.org/token/" },
+  ],
+  tokenomics: [
+    { name: "Community", pct: 40, amount: "4.0B", color: "#3b82f6", vesting: "에어드롭, 스테이킹, 해커톤, 그로스 리워드" },
+    { name: "Foundation Reserves", pct: 32, amount: "3.2B", color: "#f59e0b", vesting: "4년 분할 release" },
+    { name: "Contributors", pct: 20, amount: "2.0B", color: "#8b5cf6", vesting: "1년 cliff + 3년 linear vesting" },
+    { name: "Investors", pct: 6, amount: "0.6B", color: "#ef4444", vesting: "12개월 cliff + 4년 vesting" },
+    { name: "Creators Program", pct: 2, amount: "0.2B", color: "#6b7280", vesting: "long-term contributors" },
+  ],
+  cexListings: [
+    { exchange: "KuCoin", pair: "BILL/USDT (추정)", time: "2026-05-04 17:00", status: "확정" },
+    { exchange: "MEXC", pair: "BILL/USDT", time: "Innovation Zone + Convert (사전 거래)", status: "확정" },
+    { exchange: "Binance Alpha", pair: "BILL", time: "노출됨 (Spot 미확인)", status: "예정" },
+    { exchange: "Coinbase", pair: "—", time: "로드맵 등재만", status: "예정" },
+    { exchange: "Kraken", pair: "—", time: "상장 예정 (시각 미확인)", status: "예정" },
+    { exchange: "OKX", pair: "—", time: "Boost 캠페인 추정 (조건 미확인)", status: "미확인" },
+  ],
+  timeline: [
+    { date: "2024-06-13", title: "Polygon 분사", desc: "Polygon Labs에서 분사하여 Privado ID로 출범" },
+    { date: "2024-09-19", title: "Disco.xyz 합병", desc: "Evin McMullen CSO 합류" },
+    { date: "2025-02-28", title: "Billions 브랜드 공개", desc: "첫 공식 브랜딩 발표" },
+    { date: "2025-06-26", title: "모바일 앱 런칭", desc: "4개월에 100만 pre-registration 달성" },
+    { date: "2025-11-13", title: "$BILL 티커 공개", desc: "공식 토큰 티커 발표" },
+    { date: "2026-01-20", title: "Token Overview 업데이트", desc: "토크노믹스 최종 확정" },
+    { date: "2026-04-10", title: "NESA AI 파트너십", desc: "E2E encrypted AI + verified identity" },
+    { date: "2026-04-12", title: "Agglayer Identity Layer", desc: "Polygon Agglayer 공식 ID 레이어" },
+    { date: "2026-04-16", title: "Tria 파트너십", desc: "Privacy-preserving KYC for Web3 Finance" },
+    { date: "2026-05-04", title: "TGE 🔥", desc: "Token Generation Event — 09:00 CET", future: true },
+  ],
+  utility: [
+    { icon: "💳", title: "수수료 결제", desc: "검증/크레덴셜 수수료 (BILL 사용 시 10-15% 할인)" },
+    { icon: "🗳️", title: "거버넌스", desc: "투표권 (future phases)" },
+    { icon: "🔒", title: "스테이킹", desc: "평판 구축, 프리미엄 기능 접근" },
+    { icon: "🎁", title: "리워드", desc: "에어드롭, 추천 인센티브" },
+    { icon: "🤖", title: "AI 담보", desc: "AI 에이전트 및 앱 담보 자산" },
+    { icon: "🛡️", title: "DID 안티스팸", desc: "Decentralized Identity 스팸 방어" },
+    { icon: "🔓", title: "기능 해금", desc: "네트워크 프리미엄 기능 액세스" },
+  ],
+  roadmap: [
+    { phase: "Phase 1", title: "Human & AI Internet", desc: "현재 단계. 사람과 AI 식별 기반 구축", current: true },
+    { phase: "Phase 2", title: "Reputation Layer", desc: "평판 시스템 도입, 신뢰도 기반 인터랙션", current: false },
+    { phase: "Phase 3", title: "Global Trust Economy", desc: "전세계 신뢰 경제 인프라로 확장", current: false },
+  ],
+  shortTerm: [
+    "Rewards Dashboard 통합/이관",
+    "FAIRR (First AI Agent Rewards) 확장",
+    "스테이킹 기능 런칭",
+    "추가 정부 ID 지원 확대",
+    "Premium Badge / Premium usernames",
+  ],
+  team: [
+    { name: "Evin McMullen", role: "CEO & Co-founder", bg: "Disco.xyz 출신, doxxed", link: "https://x.com/provenauthority" },
+    { name: "Antoni Martin", role: "Co-founder & COO", bg: "Privado ID 출신", link: null },
+    { name: "David Z.", role: "Co-founder", bg: "LinkedIn 확인", link: null },
+    { name: "CTO", role: "미공개", bg: "공식 발표 대기", link: null },
+  ],
+  backers: ["Polychain", "Coinbase Ventures", "Liberty City Ventures", "BITKRAFT"],
+  partners: {
+    chains: ["Agglayer", "Base", "BNB Chain", "Linea", "Polygon"],
+    apps: ["NESA AI", "Tria", "Sentient", "OpenClaw", "Sony Bank", "HSBC", "Red Cross", "Lagrange", "q/acc"],
+  },
+  competitive: [
+    { feature: "검증 방식", billions: "Mobile-first, passport/phone 기반", worldcoin: "Iris hardware (Orb)" },
+    { feature: "하드웨어", billions: "전용 하드웨어 불필요", worldcoin: "Orb 디바이스 필수" },
+    { feature: "크레덴셜", billions: "ZK reusable credentials", worldcoin: "단일 검증" },
+    { feature: "대상", billions: "사람 + AI 둘 다", worldcoin: "사람만" },
+    { feature: "프라이버시", billions: "Zero-knowledge proof 기본", worldcoin: "Iris hash 저장" },
+  ],
+  news: [
+    { date: "2026-05-03", title: "KuCoin: $BILL 상장 발표", desc: "5/4 17:00 거래 시작 공식화", url: "https://x.com/billions_ntwk", tag: "상장" },
+    { date: "2026-05-02", title: "MEXC: First in Market - Innovation Zone + Convert", desc: "사전 거래 가능한 Convert Feature 활성화", url: "https://x.com/billions_ntwk", tag: "상장" },
+    { date: "2026-05-02", title: "Binance Alpha: Airdrop frenzy begins", desc: "Binance Alpha 노출 시작", url: "https://x.com/billions_ntwk", tag: "상장" },
+    { date: "2026-05-02", title: "BILL Token TGE 발표", desc: "공식 TGE 일정 5/4 09:00 CET 확정", url: "https://billions.network", tag: "TGE" },
+    { date: "2026-04-16", title: "Tria 파트너십", desc: "Privacy-preserving KYC for Web3 Finance", url: "https://billions.network/blog/billions-x-tria-bringing-privacy-preserving-kcy-to-the-next-generation-of-web3-finance", tag: "파트너십" },
+    { date: "2026-04-12", title: "Agglayer 공식 Identity Layer", desc: "Polygon Agglayer의 공식 ID 레이어로 채택", url: "https://billions.network/blog/billions-becomes-agglayers-official-identity-layer", tag: "파트너십" },
+    { date: "2026-04-10", title: "NESA AI 파트너십", desc: "First end-to-end encrypted AI network with verified identity", url: "https://billions.network/blog/the-first-end-to-end-encrypted-ai-network-now-has-verified-identity", tag: "파트너십" },
+    { date: "2026-04-XX", title: "⚠️ Last-minute token unlock 변경 백래시", desc: "토큰 언락 일정 변경에 대한 커뮤니티 일부 비판", url: "https://x.com/billions_ntwk", tag: "리스크" },
+  ],
+  risks: [
+    { title: "Last-minute unlock 변경", desc: "TGE 직전 토큰 언락 일정 변경에 대한 커뮤니티 일부 백래시 보도" },
+    { title: "Sell-the-news 우려", desc: "TGE 후 단기 매도 압력 가능성 (CEX 동시 상장으로 유동성은 충분)" },
+    { title: "TGE 유통 비율 24.28%", desc: "업계 평균 10-15% 대비 다소 높음. 초기 매도 압력 잠재" },
+    { title: "CTO 미공개", desc: "기술 리더십 투명성 부족. 라운드별 밸류에이션도 미공개" },
+    { title: "상장 조건 미확정", desc: "Coinbase/Kraken/OKX 정확한 상장 시각 및 페어 미확정" },
+  ],
+};
+
+function dDayLabel(targetDateStr) {
+  const target = new Date(targetDateStr + "T00:00:00");
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const diffDays = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+  if (diffDays > 0) return `D-${diffDays}`;
+  if (diffDays === 0) return "D-DAY";
+  return `D+${Math.abs(diffDays)}`;
+}
+
+function BillionsTab() {
+  const [copiedAddr, setCopiedAddr] = useState(null);
+  const [contractsOpen, setContractsOpen] = useState(true);
+  const data = BILLIONS_DATA;
+  const dday = dDayLabel(data.identity.tgeDate);
+
+  const copyAddr = (addr) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(addr).then(() => {
+        setCopiedAddr(addr);
+        setTimeout(() => setCopiedAddr(null), 1500);
+      }).catch(() => {});
+    }
+  };
+
+  const sectionTitle = (txt) => (
+    <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.2px", marginBottom: 12 }}>{txt}</div>
+  );
+
+  const card = (children, extra = {}) => (
+    <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 18px", transition: "transform 0.15s, border-color 0.15s", ...extra }}>{children}</div>
+  );
+
+  return (
+    <div>
+      <style>{`
+        @keyframes billPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.04); } }
+        @keyframes billGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); } 50% { box-shadow: 0 0 0 12px rgba(239,68,68,0); } }
+        .bill-card-hover:hover { transform: translateY(-2px); border-color: var(--text-tertiary) !important; }
+      `}</style>
+
+
+      <div style={{
+        background: "var(--featured-bg)",
+        border: "1px solid var(--featured-border)",
+        borderRadius: 14,
+        padding: "28px 28px 24px",
+        marginBottom: 24,
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: 280 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "3px 9px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>TGE EVENT</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-tertiary)" }}>{data.identity.category}</span>
+            </div>
+            <h2 style={{ fontSize: 28, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.5px", lineHeight: 1.2, margin: 0 }}>
+              🔥 ${data.identity.ticker} TGE — 내일 5/4 09:00 CET
+            </h2>
+            <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 10, lineHeight: 1.6, maxWidth: 720 }}>
+              <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>{data.identity.name}</span> · {data.identity.tagline}
+            </div>
+          </div>
+          <div style={{
+            background: "var(--accent-red)",
+            color: "#fff",
+            borderRadius: 14,
+            padding: "16px 22px",
+            textAlign: "center",
+            minWidth: 120,
+            animation: "billGlow 2.4s ease-in-out infinite",
+          }}>
+            <div style={{ fontSize: 11, fontWeight: 600, opacity: 0.9, textTransform: "uppercase", letterSpacing: "1px" }}>Countdown</div>
+            <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1, marginTop: 6, animation: "billPulse 1.6s ease-in-out infinite" }}>{dday}</div>
+            <div style={{ fontSize: 10, fontWeight: 600, marginTop: 6, opacity: 0.85 }}>{data.identity.tgeTime}</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Quick Stats")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+          {[
+            ["총공급", "10B BILL", "var(--text-primary)"],
+            ["TGE 유통", data.identity.tgeCirc, "#f59e0b"],
+            ["펀딩 라운드", data.identity.funding, "#34d399"],
+            ["검증 사용자", data.identity.users, "#3b82f6"],
+            ["백커", `${data.backers.length}곳`, "#8b5cf6"],
+            ["TGE 가격", "TBD", "var(--text-tertiary)"],
+          ].map(([label, val, col]) => (
+            <div key={label} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px" }}>
+              <div style={{ fontSize: 11, color: "var(--text-tertiary)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: col, marginTop: 4 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Tokenomics — 10B Total Supply")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 18px" }}>
+
+          <div style={{ display: "flex", height: 14, borderRadius: 6, overflow: "hidden", marginBottom: 14 }}>
+            {data.tokenomics.map((t) => (
+              <div key={t.name} style={{ width: `${t.pct}%`, background: t.color, minWidth: 4 }} title={`${t.name} ${t.pct}%`} />
+            ))}
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
+            {data.tokenomics.map((t) => (
+              <div key={t.name} style={{ display: "grid", gridTemplateColumns: "auto 160px 70px 80px 1fr", gap: 12, alignItems: "center", padding: "10px 12px", background: "var(--bg-primary)", borderRadius: 6, border: "1px solid var(--border)" }}>
+                <span style={{ width: 10, height: 10, borderRadius: 2, background: t.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{t.name}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: t.color }}>{t.pct}%</span>
+                <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>{t.amount}</span>
+                <span style={{ fontSize: 11, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{t.vesting}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("CEX Listing Schedule")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.4fr 2fr 0.8fr", padding: "10px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px" }}>
+            <div>거래소</div>
+            <div>페어</div>
+            <div>시각</div>
+            <div style={{ textAlign: "right" }}>상태</div>
+          </div>
+          {data.cexListings.map((x, i) => {
+            const statusColor = x.status === "확정" ? "#34d399" : x.status === "예정" ? "#f59e0b" : "#6b7280";
+            return (
+              <div key={x.exchange} style={{ display: "grid", gridTemplateColumns: "1.2fr 1.4fr 2fr 0.8fr", padding: "12px 16px", borderBottom: i < data.cexListings.length - 1 ? "1px solid var(--border)" : "none", alignItems: "center" }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{x.exchange}</div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>{x.pair}</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{x.time}</div>
+                <div style={{ textAlign: "right" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: statusColor, background: `${statusColor}1a`, border: `1px solid ${statusColor}40`, padding: "3px 10px", borderRadius: 4 }}>{x.status}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        <div onClick={() => setContractsOpen(!contractsOpen)} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.2px" }}>Multichain Contracts</span>
+          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{contractsOpen ? "▾" : "▸"}</span>
+        </div>
+        {contractsOpen && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
+            {data.contracts.map((c) => (
+              <div key={c.chain + c.address} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 8, padding: "12px 16px", display: "grid", gridTemplateColumns: "180px 1fr auto auto", gap: 12, alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{c.chain}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: c.verified ? "#34d399" : "#f59e0b", background: c.verified ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)", border: `1px solid ${c.verified ? "rgba(52,211,153,0.3)" : "rgba(245,158,11,0.3)"}`, padding: "2px 6px", borderRadius: 3 }}>
+                    {c.verified ? "✓ verified" : "⚠ unverified"}
+                  </span>
+                </div>
+                <code style={{ fontSize: 11, color: "var(--text-secondary)", fontFamily: "ui-monospace, Consolas, monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.address}</code>
+                <button onClick={() => copyAddr(c.address)} style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 5, padding: "4px 10px", fontSize: 11, fontWeight: 600, color: copiedAddr === c.address ? "#34d399" : "var(--text-secondary)", cursor: "pointer", fontFamily: "inherit", transition: "color 0.15s" }}>
+                  {copiedAddr === c.address ? "✓ Copied" : "📋 Copy"}
+                </button>
+                {c.explorer ? (
+                  <a href={c.explorer + c.address} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none", padding: "4px 10px", border: "1px solid var(--border)", borderRadius: 5, background: "var(--bg-primary)", fontWeight: 600 }}>↗ Explorer</a>
+                ) : <span style={{ fontSize: 11, color: "var(--text-muted)", padding: "4px 10px" }}>—</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Project Timeline")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "18px 22px" }}>
+          <div style={{ position: "relative", paddingLeft: 22 }}>
+            <div style={{ position: "absolute", left: 6, top: 4, bottom: 4, width: 2, background: "var(--border)" }} />
+            {data.timeline.map((ev, i) => (
+              <div key={i} style={{ position: "relative", marginBottom: i < data.timeline.length - 1 ? 14 : 0, paddingBottom: i < data.timeline.length - 1 ? 14 : 0, borderBottom: i < data.timeline.length - 1 ? "1px solid var(--border)" : "none" }}>
+                <div style={{ position: "absolute", left: -19, top: 4, width: 12, height: 12, borderRadius: "50%", background: ev.future ? "var(--accent-red)" : "var(--bg-primary)", border: `2px solid ${ev.future ? "var(--accent-red)" : "var(--text-tertiary)"}`, animation: ev.future ? "billPulse 1.8s ease-in-out infinite" : "none" }} />
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)", minWidth: 100 }}>{ev.date}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: ev.future ? "var(--accent-red)" : "var(--text-primary)" }}>{ev.title}</span>
+                  {ev.future && <span style={{ fontSize: 10, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "2px 7px", borderRadius: 3, fontWeight: 700 }}>UPCOMING</span>}
+                </div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, marginLeft: 110 }}>{ev.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Token Utility")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+          {data.utility.map((u) => (
+            <div key={u.title} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
+              <div style={{ fontSize: 22, marginBottom: 8 }}>{u.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{u.title}</div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{u.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Roadmap — 3 Phases")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 10, marginBottom: 14 }}>
+          {data.roadmap.map((p, i) => (
+            <div key={p.phase} style={{
+              background: p.current ? "var(--featured-bg)" : "var(--bg-secondary)",
+              border: `1px solid ${p.current ? "var(--featured-border)" : "var(--border)"}`,
+              borderLeft: `3px solid ${p.current ? "var(--accent-red)" : ALLOC_COLORS[i % ALLOC_COLORS.length]}`,
+              borderRadius: 10,
+              padding: "16px 18px",
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: p.current ? "var(--accent-red)" : "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>{p.phase}</span>
+                {p.current && <span style={{ fontSize: 10, fontWeight: 700, color: "var(--accent-red)", background: "var(--featured-chip)", border: "1px solid var(--featured-border)", padding: "2px 7px", borderRadius: 3 }}>NOW</span>}
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", marginBottom: 6 }}>{p.title}</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>{p.desc}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 18px" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 8 }}>단기 (Q2-Q3 2026)</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {data.shortTerm.map((s) => (
+              <span key={s} style={{ fontSize: 12, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "5px 10px", borderRadius: 5 }}>{s}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28, display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
+        <div>
+          {sectionTitle("Team")}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+            {data.team.map((t) => (
+              <div key={t.name} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", marginBottom: 3 }}>{t.name}</div>
+                <div style={{ fontSize: 12, color: "#3b82f6", fontWeight: 600, marginBottom: 6 }}>{t.role}</div>
+                <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginBottom: t.link ? 8 : 0 }}>{t.bg}</div>
+                {t.link && <a href={t.link} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none" }}>↗ X Profile</a>}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          {sectionTitle("Backers ($30M+ raised)")}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
+            {data.backers.map((b) => (
+              <div key={b} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 18px", textAlign: "center" }}>
+                <div style={{ fontSize: 22, marginBottom: 6 }}>💎</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{b}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Partnerships & Integrations")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", marginBottom: 8 }}>Chains</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {data.partners.chains.map((c) => (
+                <span key={c} style={{ fontSize: 12, fontWeight: 600, color: "#3b82f6", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", padding: "5px 11px", borderRadius: 5 }}>{c}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", marginBottom: 8 }}>Apps</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {data.partners.apps.map((a) => (
+                <span key={a} style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "5px 11px", borderRadius: 5 }}>{a}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Competitive — vs Worldcoin")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1.4fr", padding: "10px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.6px" }}>
+            <div>구분</div>
+            <div style={{ color: "var(--accent-red)" }}>Billions ($BILL)</div>
+            <div>Worldcoin ($WLD)</div>
+          </div>
+          {data.competitive.map((c, i) => (
+            <div key={c.feature} style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 1.4fr", padding: "12px 16px", borderBottom: i < data.competitive.length - 1 ? "1px solid var(--border)" : "none", alignItems: "center" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-secondary)" }}>{c.feature}</div>
+              <div style={{ fontSize: 12, color: "var(--text-primary)", fontWeight: 600 }}>{c.billions}</div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{c.worldcoin}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Recent News (Last 30 days)")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8 }}>
+          {data.news.map((n, i) => {
+            const tagColors = { TGE: "#ef4444", 상장: "#34d399", 파트너십: "#3b82f6", 리스크: "#f59e0b" };
+            const tc = tagColors[n.tag] || "#6b7280";
+            return (
+              <div key={i} className="bill-card-hover" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: `3px solid ${tc}`, borderRadius: 8, padding: "12px 16px", transition: "transform 0.15s, border-color 0.15s" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)" }}>{n.date}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: tc, background: `${tc}1a`, border: `1px solid ${tc}40`, padding: "2px 8px", borderRadius: 3 }}>{n.tag}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)" }}>{n.title}</span>
+                </div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: 6 }}>{n.desc}</div>
+                <a href={n.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#3b82f6", textDecoration: "none", wordBreak: "break-all" }}>↗ {n.url}</a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("⚠️ Risk Signals")}
+        <div style={{ background: "var(--featured-bg)", border: "1px solid var(--featured-border)", borderLeft: "3px solid var(--accent-red)", borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10 }}>
+            {data.risks.map((r, i) => (
+              <div key={i} style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 8, padding: "12px 14px" }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent-red)", marginBottom: 4 }}>{`#${i + 1} ${r.title}`}</div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>{r.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Official Channels")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 8 }}>
+          {data.channels.map((c) => (
+            <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="bill-card-hover" style={{
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border)",
+              borderRadius: 8,
+              padding: "12px 14px",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              transition: "transform 0.15s, border-color 0.15s",
+            }}>
+              <span style={{ fontSize: 18 }}>{c.icon}</span>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
+                <div style={{ fontSize: 10, color: "var(--text-tertiary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.url.replace(/^https?:\/\//, "")}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+
+      <div style={{ textAlign: "center", padding: "20px 0 0", borderTop: "1px solid var(--border)", marginTop: 8 }}>
+        <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.6 }}>
+          데이터 출처: billions.network 공식 docs · GitHub · X · CoinGecko · 1차+2차 librarian 교차검증
+          <br />
+          본 정보는 투자 자문이 아니며, TGE 직전 변경 가능성 있음 (Last verified: 2026-05-03)
+        </div>
+      </div>
     </div>
   );
 }
