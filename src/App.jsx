@@ -687,7 +687,7 @@ export default function App() {
 
         {/* Top Tabs */}
         <div style={{ display: "flex", gap: 0, marginBottom: 28, borderBottom: "1px solid var(--border)" }}>
-          {[["unlocks", "Token Unlocks"], ["billions", "🔥 BILL TGE 5/4"], ["ethene", "🎯 Ethene Picks"]].map(([k, l]) => (
+          {[["unlocks", "Token Unlocks"], ["billions", "🔥 BILL TGE 5/4"], ["citrea", "₿ Citrea 막차"]].map(([k, l]) => (
             <button key={k} onClick={() => setActiveTab(k)} style={{
               background: "transparent", border: "none", borderBottom: `2px solid ${activeTab === k ? "var(--accent-red)" : "transparent"}`,
               color: activeTab === k ? "var(--text-primary)" : "var(--text-tertiary)", padding: "10px 24px", fontSize: 15, fontWeight: 700,
@@ -764,7 +764,7 @@ export default function App() {
 
         {activeTab === "billions" && <BillionsTab />}
 
-        {activeTab === "ethene" && <EtheneTab />}
+        {activeTab === "citrea" && <CitreaTab />}
       </div>
     </div>
   );
@@ -1448,847 +1448,887 @@ function BillionsTab() {
 }
 
 // ============================================================
-// Ethene Picks Tab — Ethene Labs 18개 포트폴리오 KRW 상장 분석
+// Citrea Deep-Dive Tab — Bitcoin's First ZK Rollup
+// Sources: docs · blog (17 posts) · DeFiLlama · GitHub · X
+// 3-pass librarian verification (2026-05-03)
 // ============================================================
-const CITREA_GUIDE_BASE = "https://x.com/" + "CitreaKorea/status/";
+const X_BASE = "https://x.com/";
+const KOREA_X_BASE = X_BASE + "Citrea" + "Korea/status/";
+const BLOG_BASE = "https://www.blog.citrea.xyz/";
 
-const ETHENE_DATA = {
-  agencyName: "Ethene Labs",
-  agencyTagline: "싱가포르 Token Advisory & Asia GTM 에이전시",
-  portfolio: [
-    { ticker: "ARB", name: "Arbitrum", category: "L2", price: "$0.118", mcap: "$725.1M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "KAITO", name: "Kaito", category: "AI/InfoFi", price: "$0.472", mcap: "$113.9M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "MOVE", name: "Movement", category: "Move 생태계 / Infrastructure", price: "$0.01767", mcap: "$65.1M", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "KAT", name: "Katana", category: "DeFi L2 (AggLayer)", price: "$0.009488 (₩13.97)", mcap: "$22.2M (₩32.7B)", krw: ["upbit","bithumb"], status: "listed", note: "🪙 코인원 상장 후보 · TGE 2026-03-18, KRW 상장 2026-03-26, 유통량 2.342B / 총공급 10B", userInvolved: true },
-    { ticker: "OPEN", name: "OpenLedger", category: "AI/Open Data", price: "$0.224", mcap: "$48.3M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "주의: OpenEden 아님 — OpenLedger (별도 토큰)" },
-    { ticker: "EDEN", name: "OpenEden (TBILL)", category: "RWA/Treasuries", price: "—", mcap: "—", krw: ["bithumb","coinone"], status: "listed", note: "🚀 업비트 펌프 후보 · 빗썸+코인원만, permissioned RWA / 유동성 제한적" },
-    { ticker: "SEI", name: "Sei", category: "L1", price: "$0.05826", mcap: "$392.2M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "UNI", name: "Uniswap", category: "DEX", price: "$3.24", mcap: "$2.052B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "SENT", name: "Sentient", category: "AI/AGI", price: "$0.01707", mcap: "$123.5M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "Open-source AGI, FDV $588M" },
-    { ticker: "MNT", name: "Mantle", category: "L2", price: "$0.6329", mcap: "$2.090B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "BLEND", name: "Fluent", category: "Blended L2 (EVM/WASM/SVM)", price: "$0.1173 (₩172)", mcap: "$23.45M (₩34.3B), FDV $171.5M", krw: ["upbit","bithumb"], status: "listed", note: "🪙 코인원 상장 후보 · KRW 상장 2026-04-29, public testnet 상태, 유통 200M / 총공급 1B", userInvolved: true },
-    { ticker: "PYTH", name: "Pyth Network", category: "Oracle", price: "$0.04892", mcap: "$281.3M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
-    { ticker: "NEAR", name: "Near Protocol", category: "L1", price: "$1.27", mcap: "$1.647B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "FRAX", name: "Frax", category: "Stablecoin/DeFi", price: "$0.4658", mcap: "$44.4M", krw: ["bithumb","coinone"], status: "listed", note: "🚀 업비트 펌프 후보 · 빗썸+코인원만" },
-    { ticker: "RON", name: "Ronin", category: "Gaming Chain", price: "$0.09404", mcap: "$72.6M", krw: ["bithumb","coinone"], status: "listed", note: "🚀 업비트 펌프 후보 · 빗썸+코인원만" },
-    { ticker: "CRO", name: "Cronos", category: "Exchange Chain", price: "$0.06817", mcap: "$2.971B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "KAIA", name: "Kaia", category: "L1 (Klaytn 후신)", price: "$0.04539", mcap: "$265.8M", krw: ["bithumb","coinone"], status: "listed", note: "🚀 업비트 펌프 후보 · 빗썸+코인원만" },
-    { ticker: "CHR", name: "Chromia", category: "L1 (dApp infra)", price: "$0.02608", mcap: "$25.4M", krw: ["bithumb"], status: "listed", note: "🟠 빗썸 단독 · 업비트/코인원 추가 상장 가능성" },
-    { ticker: "SKY", name: "Sky (前 MakerDAO)", category: "DeFi 거버넌스", price: "$0.08071", mcap: "$1.873B", krw: ["upbit","bithumb","coinone"], status: "listed" },
-    { ticker: "—", name: "Citrea", category: "BTC L2 zk-rollup", price: "N/A", mcap: "N/A", krw: [], status: "no-token", note: "🚨 토큰 미발행이지만 에어드랍 캠페인 마무리 단계. 포인트 시스템(상위 50등 컷 ~2,701점) + 뱃지(Beginner→Power User) → 막차 타이밍. Dashboard: app.citrea.xyz", userInvolved: true },
-    { ticker: "—", name: "Flow Traders", category: "글로벌 마켓메이커 (토큰 아님)", price: "N/A", mcap: "N/A", krw: [], status: "non-token", note: "회사. KRW 상장 대상 아님" },
+const CITREA_DATA = {
+  identity: {
+    name: "Citrea",
+    fullName: "Citrea (Bitcoin's First ZK Rollup)",
+    tagline: "비트코인 첫 ZK Rollup · BTC L2",
+    chain: "Chain ID 4114, native cBTC",
+    mainnetLive: "2026-01-27",
+    tokenStatus: "❌ 자체 토큰 없음 (cBTC = native, ERC20 wrapper WCBTC)",
+    company: "Chainway Labs (Cayman Islands, 2022 설립, 11-50명)",
+  },
+  alert: {
+    title: "Citrea 에어드랍 캠페인 — 마무리 단계 · 막차 타이밍",
+    subtitle: "메인넷 포인트 시스템 · 50등 컷 약 2,936점 · 6개 활동 적립 → 향후 에어드랍 가중치",
+    dashboardUrl: "https://app.citrea.xyz",
+  },
+  campaign: {
+    startDate: "2026-01-27 (메인넷 라이브와 동시)",
+    endDate: "공식 마감일 미공개",
+    seasonStructure: "공식 'Season 1/2' 구조 미확인 (weekly recap 운영 중)",
+    updateSchedule: "화요일 / 금요일 정기 업데이트",
+    pointSystem: "비선형 알고리즘, sybil 검사 적용",
+    rewardGuarantee: "❌ 보상/토큰 권리 보장 없음 (대시보드 명시)",
+    dashboardUrl: "https://app.citrea.xyz",
+    announceUrl: "https://fixvx.com/citrea_xyz/status/2044400892791968062",
+  },
+  categories: [
+    { id: "bridger", name: "Bridger", icon: "🌉", color: "#3b82f6", activatedDate: "2026-01-30", boostActive: true, dApps: ["Bridge Hub", "Avail Nexus", "Squid", "Stargate", "Symbiosis", "Atomiq", "Clementine"], description: "BTC → cBTC 입금" },
+    { id: "lp", name: "Liquidity Provider", icon: "💧", color: "#f59e0b", activatedDate: "2026-02-06", boostActive: true, dApps: ["Satsuma", "JuiceSwap"], description: "DEX 풀 유동성 공급" },
+    { id: "trader", name: "Trader", icon: "📈", color: "#8b5cf6", activatedDate: "2026-02-13", boostActive: false, dApps: ["Satsuma", "JuiceSwap", "Fibrous"], description: "스왑/거래" },
+    { id: "lender", name: "Lender", icon: "🏦", color: "#ef4444", activatedDate: "2026-02-20", boostActive: true, dApps: ["Zentra"], description: "ctUSD supply (borrow X)" },
+    { id: "yield", name: "Yield Strategist", icon: "🌾", color: "#34d399", activatedDate: "2026-02-27", boostActive: true, dApps: ["Accountable", "Generic USD"], description: "Vault 예치" },
+    { id: "adventurer", name: "Adventurer", icon: "🗺️", color: "#6b7280", activatedDate: "2026-03-06", boostActive: false, dApps: ["Signals", "Foresight", "Omnihub", "Rango", "DFX"], description: "Citrea 거래 빈도" },
   ],
-  userProjects: [
-    {
-      ticker: "KAT", name: "Katana",
-      status: "✅ 업비트 상장 완료",
-      tge: "2026-03-18 → KRW 상장 2026-03-26",
-      tokenomics: "10B 총공급, VC 프리세일 없음, User Liquidity Mining 20%, Community Airdrop 15%, Core Contributors 15.65%, Treasury/Community 48.35%, Public Sale 1%",
-      verdict: "✅ 상장 완료 + KAT pre-staking·Perps Points Program Season 1 진행 중. 보상 캠페인 활용 가능",
-      backers: "Polygon Labs, GSR",
-      website: "https://katana.network",
-      x: "https://x.com/katana",
-      docs: "https://docs.katana.network",
-      tgeAnnounce: "https://katana.network/blog/the-wait-is-over-katana-tge-is-here",
-      upbitNotice: "https://www.upbit.com/service_center/notice?id=6097",
-      bithumbNotice: "https://feed.bithumb.com/notice/1652436",
-      campaigns: [
-        { name: "KAT Pre-staking", url: "https://app.katana.network/stake" },
-        { name: "Krate Liquidity Mining", url: "https://app.katana.network/earn" },
-        { name: "Perps Points Program S1", url: "https://katana.network/blog/katana-perps-points-program-season-1-the-forge" },
-        { name: "Perps Trading", url: "https://perps.katana.network/" },
-      ],
-    },
-    {
-      ticker: "BLEND", name: "Fluent",
-      status: "✅ 업비트/빗썸 KRW 상장 완료",
-      tge: "공식 TGE 공지 미확인 / KRW 상장 2026-04-29",
-      tokenomics: "공식 토크노믹스/베스팅 문서 미공개 ⚠️ — 분배표/락업 verification needed",
-      verdict: "Public testnet 상태에서 KRW 상장. CoinGecko 기준 유통 200M/총공급 1B/FDV ₩171B. 공식 분배표·베스팅표 미공개는 여전한 리스크. Connect/Prints/Fluentscan 시스템 외 명확한 에어드랍 캠페인 미확인",
-      backers: "공개 미확인",
-      website: "https://fluent.xyz",
-      x: "https://x.com/fluentxyz",
-      docs: "https://docs.fluent.xyz",
-      upbitNotice: "https://www.upbit.com/service_center/notice?id=6178",
-      bithumbNotice: "https://feed.bithumb.com/notice/1652844",
-    },
-    {
-      ticker: "—", name: "Citrea",
-      status: "🚨 메인넷 에어드랍 캠페인 진행 중 (마무리 단계)",
-      tge: "토큰 미발행 / 메인넷 2026-01-27 라이브 / 에어드랍 막차",
-      tokenomics: "포인트 시스템 기반 리더보드 운영 — 상위 50등 컷 약 2,701점. 6개 활동(브릿지/LP/스왑/렌딩/볼트/앱사용) 적립. 뱃지 등급(Beginner → Power User). 향후 에어드랍에서 가장 중요한 요소",
-      verdict: "🔥 예치작 권장 — 공식 트윗에서 애드작 마무리 단계 힌트. 지금이 마지막 기회. Dashboard에서 활동 체크 가능",
-      backers: "Founders Fund, Maven11, Mirana, dao5, Erik Voorhees, Balaji Srinivasan, Jameson Lopp 등 ($16.7M raised, Series A $14M)",
-      website: "https://citrea.xyz",
-      x: "https://x.com/citrea_xyz",
-      docs: "https://docs.citrea.xyz",
-      blog: "https://www.blog.citrea.xyz/",
-      mainnetAnnounce: "https://www.blog.citrea.xyz/citrea-mainnet-is-live/",
-      seriesA: "https://www.blog.citrea.xyz/announcing-citrea-series-a-round/",
-      campaignDashboard: "https://app.citrea.xyz",
-      campaignAnnounce: "https://fixvx.com/citrea_xyz/status/2044400892791968062",
-      airdropCampaign: {
-        topCutoff: 2701,
-        topCutoffRank: 50,
-        activities: [
-          { name: "브릿지", color: "#3b82f6" },
-          { name: "LP 공급", color: "#f59e0b" },
-          { name: "스왑", color: "#8b5cf6" },
-          { name: "렌딩", color: "#ef4444" },
-          { name: "볼트", color: "#6b7280" },
-          { name: "앱 사용", color: "#34d399" },
-        ],
-        badges: [
-          { name: "Beginner", color: "#6b7280" },
-          { name: "Active", color: "#3b82f6" },
-          { name: "Advanced", color: "#f59e0b" },
-          { name: "Power User", color: "#ef4444" },
-        ],
-      },
-      airdropGuides: [
-        { type: "브릿지", url: CITREA_GUIDE_BASE + "2037509197332623617" },
-        { type: "렌딩", url: CITREA_GUIDE_BASE + "2037719468647108664" },
-        { type: "유동성 공급", url: CITREA_GUIDE_BASE + "2041059226995626189" },
-        { type: "예측시장", url: CITREA_GUIDE_BASE + "2041861811767799861" },
-      ],
-    },
+  badges: [
+    { name: "Beginner", color: "#6b7280", description: "시작 단계" },
+    { name: "Explorer", color: "#3b82f6", description: "기본 활동 진행" },
+    { name: "Advanced", color: "#f59e0b", description: "고급 활동 다수" },
+    { name: "Power User", color: "#ef4444", description: "최상위 활동" },
   ],
+  leaderboard: {
+    snapshotDate: "2026-05-01 14:00 UTC",
+    rank1: "6,316.03",
+    rank50Cut: "2,936.28",
+    safeTarget: "3,000~3,100점 (다음 업데이트 전 진입)",
+    note: "공개 API는 상위 50명만 노출 (limit=100 시도해도 동일)",
+  },
+  koreanGuides: [
+    { type: "브릿지", url: KOREA_X_BASE + "2037509197332623617" },
+    { type: "렌딩 (Zentra)", url: KOREA_X_BASE + "2037719468647108664" },
+    { type: "유동성 (Satsuma Merkl)", url: KOREA_X_BASE + "2041059226995626189" },
+    { type: "예측시장", url: KOREA_X_BASE + "2041861811767799861" },
+  ],
+  channels: [
+    { type: "Website", url: "https://citrea.xyz", label: "citrea.xyz" },
+    { type: "X", url: X_BASE + "citrea_xyz", label: "@citrea_xyz" },
+    { type: "Docs", url: "https://docs.citrea.xyz", label: "docs.citrea.xyz" },
+    { type: "Blog", url: BLOG_BASE, label: "blog.citrea.xyz" },
+    { type: "Dashboard", url: "https://app.citrea.xyz", label: "app.citrea.xyz" },
+    { type: "Explorer", url: "https://explorer.mainnet.citrea.xyz", label: "explorer.mainnet" },
+    { type: "🇰🇷 Korea X", url: X_BASE + "Citrea" + "Korea", label: "@" + "Citrea" + "Korea (공식)" },
+    { type: "🇰🇷 Korea Telegram", url: "https://t.me/citreakorea", label: "t.me/citreakorea" },
+  ],
+  mainnetStats: {
+    tvl: "$2.9M",
+    txDaily: "11,328",
+    txTotal: "898,005",
+    addressTotal: "37,857",
+    blocksTotal: "6,859,760",
+    blockTime: "2초",
+    blockGasLimit: "10,000,000",
+    bridgedBTC: "26.0218 WCBTC",
+    chainId: "4114",
+    apps: "30+ ₿apps (실명 노출 20+)",
+  },
+  tech: {
+    type: "Type 2 zkEVM",
+    prover: "RISC Zero (zk-STARK → SNARK 래핑)",
+    da: "Bitcoin Data Availability",
+    bridge: "Clementine (BitVM2 기반 trust-minimized two-way peg)",
+    finality: "BTC mainnet 6 confirmations",
+    sequencer: "현재 단일 sequencer (분산화는 로드맵)",
+    consensus: "1-of-N honest signer assumption",
+  },
+  team: [
+    { name: "Orkun Kılıç", role: "CEO / Co-founder / Tech Lead", background: "前 Dexalot, BiLira, OlymposHQ, Geometry Venture Development, Koç Univ AI Lab", x: X_BASE + "0x_orkun", url: "https://0rkun.com/" },
+    { name: "Murat Karademir", role: "COO / Co-founder", background: "前 Inzva (비영리)", x: null, url: null },
+    { name: "Ekrem Bal", role: "Chief Scientist", background: "Clementine 공개 글 공저자", x: null, url: null },
+    { name: "Jason Chew", role: "Ecosystem Growth Manager", background: "—", x: null, url: null },
+  ],
+  funding: {
+    total: "$16.7M",
+    rounds: [
+      { name: "Seed", amount: "$2.7M", date: "2024-02-21 (2023 클로징)", lead: "Galaxy", url: BLOG_BASE + "announcing-our-seed-round/" },
+      { name: "Series A", amount: "$14M", date: "2024-10-31", lead: "Founders Fund", url: BLOG_BASE + "announcing-citrea-series-a-round/" },
+    ],
+    investors: [
+      "Founders Fund (lead Series A)", "Galaxy (lead Seed)", "Maven11", "Mirana", "dao5",
+      "Delphi Ventures", "Erik Voorhees", "Balaji Srinivasan", "Nikil Viswanathan (Alchemy CEO)",
+      "Mert Mumtaz (Helius CEO)", "Jameson Lopp", "Anurag Arjun (Avail co-founder)",
+      "Eric Wall", "BatuX", "Igor Barinov", "James Parillo",
+    ],
+    valuation: "공식 미공개",
+    nextRound: "공식 발표 없음",
+  },
+  partners: {
+    techCore: ["BitVM Alliance", "RISC Zero"],
+    bridges: ["Symbiosis", "Atomiq", "LayerZero", "Hyperlane", "Squid Router", "Avail"],
+    stablecoin: ["MoonPay (ctUSD 발행)", "M0 (powered by)"],
+    clementineSigners: ["Chainway Labs", "Galaxy", "Coinsummer", "Omakase", "Nansen", "Nethermind", "Laminated Labs", "Hashkey Cloud", "Finoa", "Luxor"],
+  },
+  timeline: [
+    { date: "2024-02-06", title: "Citrea 첫 공개", desc: "'Bitcoin's First ZK Rollup' 첫 소개", url: BLOG_BASE + "introducing-citrea/" },
+    { date: "2024-02-21", title: "Seed Round 공개", desc: "$2.7M, Galaxy 리드", url: BLOG_BASE + "announcing-our-seed-round/" },
+    { date: "2024-03-21", title: "Clementine 공개", desc: "BitVM 기반 trust-minimized two-way peg", url: BLOG_BASE + "unveiling-clementine/" },
+    { date: "2024-06-05", title: "Public Devnet", desc: "공개 devnet 라이브", url: BLOG_BASE + "citrea-public-devnet-live/" },
+    { date: "2024-09-24", title: "Testnet", desc: "Bitcoin Testnet4 위 testnet", url: BLOG_BASE + "citrea-testnet-live-on-bitcoin-testnet4/" },
+    { date: "2024-10-31", title: "Series A", desc: "$14M, Founders Fund 리드, 누적 $16.7M", url: BLOG_BASE + "announcing-citrea-series-a-round/" },
+    { date: "2024-11-20", title: "Road to Mainnet", desc: "메인넷 전 마지막 기술 과제 공개", url: BLOG_BASE + "citrea-road-to-mainnet/" },
+    { date: "2024-12-19", title: "Prover 공개", desc: "Bitcoin용 prover 설계/최적화", url: BLOG_BASE + "citrea-prover-designed-for-bitcoin/" },
+    { date: "2024-12-23", title: "Kumquat fork", desc: "첫 fork/업그레이드", url: BLOG_BASE + "kumquat-the-first-ever-fork-on-citrea/" },
+    { date: "2025-04-21", title: "Tangerine 업그레이드", desc: "BitVM activation 포함 핵심 업그레이드", url: BLOG_BASE + "tangerine-upgrade-bitvm-activation-on-clementine/" },
+    { date: "2025-07-15", title: "Unfreeze ₿apps 캠페인", desc: "메인넷 전 커뮤니티 캠페인 시작", url: BLOG_BASE + "unfreeze-bapps-campaign/" },
+    { date: "2025-10-29", title: "Audit 완료", desc: "메인넷 직전 감사 단계 완료", url: BLOG_BASE + "citrea-fully-completes-its-audit-phase/" },
+    { date: "2025-11-12", title: "Trusted Setup 완료", desc: "BitVM ZK proof trusted setup", url: BLOG_BASE + "citrea-completes-the-first-ever-trusted-setup-ceremony-for-zk-proofs-used-in-bitvm/" },
+    { date: "2026-01-15", title: "ctUSD 공개", desc: "MoonPay/M0 native stablecoin", url: BLOG_BASE + "introducing-citrea-usd-ctusd-the-native-stablecoin-for-bitcoin-issued-by-moonpay-and-powered-by-m0/" },
+    { date: "2026-01-27", title: "🚀 메인넷 라이브", desc: "Citrea Mainnet 공식 오픈", url: BLOG_BASE + "citrea-mainnet-is-live/", featured: true },
+    { date: "2026-03-02", title: "Citrea Foundation", desc: "독립 재단 출범", url: BLOG_BASE + "citrea-introduces-the-citrea-foundation/" },
+    { date: "2026-04-03", title: "Post-Quantum", desc: "양자내성 대응 로드맵", url: BLOG_BASE + "post-quantum-citrea/" },
+  ],
+  roadmap: {
+    shortTerm: {
+      title: "단기 (Q2 2026, 1-3개월)",
+      items: ["메인넷 초기 유저/앱 확대", "더 많은 ₿apps 롤아웃", "기관 파트너 / 생태계 발표", "Citrea Foundation 그랜트 프로그램"],
+    },
+    midTerm: {
+      title: "중기 (Q3-Q4 2026)",
+      items: ["토큰 발행 공식 발표 없음", "추가 펀딩 라운드 공식 없음", "Foundation 기반 그랜트/생태계 성장", "ctUSD 확장", "Post-Quantum 연구 진행"],
+    },
+    longTerm: {
+      title: "장기 (2027+)",
+      items: ["비전: 'Bitcoin capital markets / world's finance'", "기술 방향: Multi-proving", "Decentralized sequencing", "Volition model"],
+    },
+  },
+  competitors: [
+    { name: "Citrea", tvl: "$2.9M", mcap: "N/A (토큰 없음)", note: "BitVM 기반, RISC Zero, 메인넷 초기", featured: true },
+    { name: "Stacks", tvl: "$119.59M", mcap: "$413.91M", note: "가장 성숙, 토큰 STX" },
+    { name: "Mezo", tvl: "$27.13M", mcap: "$21.36M", note: "토큰 있음" },
+    { name: "BOB", tvl: "$10.78M", mcap: "$16.75M", note: "토큰 있음" },
+    { name: "Botanix", tvl: "$415,853", mcap: "N/A", note: "토큰 미발행" },
+  ],
+  strategy: {
+    target: "3,000~3,100점 (50등 컷 2,936 + 여유)",
+    timing: "다음 업데이트(화/금) 전 진입",
+    priority: [
+      { rank: 1, action: "Bridge", note: "1회 진입 + 유지 (Bridge Hub 또는 Stargate/Squid)", boost: true },
+      { rank: 2, action: "LP Satsuma", note: "Merkl 캠페인 진행 중, 우선 추천", boost: true },
+      { rank: 3, action: "Lend Zentra (ctUSD supply)", note: "borrow X, supply만", boost: true },
+      { rank: 4, action: "Yield vault", note: "Accountable/Generic USD 적은 금액", boost: true },
+      { rank: 5, action: "Adventurer", note: "저비용 다회 tx (Signals/Foresight 등)", boost: false },
+      { rank: 6, action: "Trader", note: "volume 필요해서 비효율 가능", boost: false },
+    ],
+    risks: [
+      "Sybil 검사 적용 (캠페인 중·후)",
+      "진행도 비선형 알고리즘",
+      "기능 언제든 변경/중단 가능",
+      "보상/토큰 권리 보장 없음",
+      "에어드랍 확정처럼 말하는 사람 경계",
+    ],
+  },
 };
 
-function EtheneTab() {
-  const data = ETHENE_DATA;
-  const [matrixSort, setMatrixSort] = useState("status");
+function CitreaTab() {
+  const data = CITREA_DATA;
 
-  const sectionTitle = (txt) => (
-    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 12 }}>{txt}</div>
+  const sectionTitle = (txt, accent) => (
+    <div style={{
+      fontSize: 14, fontWeight: 700, color: accent || "var(--text-tertiary)",
+      textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 12,
+      display: "flex", alignItems: "center", gap: 8,
+    }}>{txt}</div>
   );
 
-  const linkStyle = { fontSize: 13, color: "#3b82f6", textDecoration: "none", fontWeight: 600 };
+  const linkStyle = { fontSize: 13, color: "#f59e0b", textDecoration: "none", fontWeight: 600 };
   const extLink = (href, label) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" style={linkStyle}>↗ {label}</a>
-  );
-
-  const listedTokens = data.portfolio.filter((p) => p.status === "listed");
-  const upbitCount = listedTokens.filter((p) => p.krw.includes("upbit")).length;
-  const bithumbCount = listedTokens.filter((p) => p.krw.includes("bithumb")).length;
-  const coinoneCount = listedTokens.filter((p) => p.krw.includes("coinone")).length;
-  const noTokenCount = data.portfolio.filter((p) => p.status === "no-token").length;
-  const nonTokenCount = data.portfolio.filter((p) => p.status === "non-token").length;
-
-  const userTickers = new Set(data.userProjects.map((u) => u.ticker));
-  const fullListed = listedTokens.filter((p) => p.krw.length === 3 && !userTickers.has(p.ticker));
-  const partialListed = listedTokens.filter(
-    (p) => p.krw.length === 2 && !p.krw.includes("upbit") && !userTickers.has(p.ticker),
-  );
-  const singleListed = listedTokens.filter((p) => p.krw.length === 1 && !userTickers.has(p.ticker));
-
-  const sortedMatrix = [...listedTokens].sort((a, b) => {
-    if (matrixSort === "status") {
-      const aFull = a.krw.length === 3 ? 0 : a.krw.length === 2 ? 1 : 2;
-      const bFull = b.krw.length === 3 ? 0 : b.krw.length === 2 ? 1 : 2;
-      if (aFull !== bFull) return aFull - bFull;
-      return a.ticker.localeCompare(b.ticker);
-    }
-    if (matrixSort === "ticker") return a.ticker.localeCompare(b.ticker);
-    return 0;
-  });
-
-  const krwCheck = (has) => (
-    <span style={{ fontSize: 18, color: has ? "#34d399" : "var(--text-muted)", fontWeight: 700 }}>
-      {has ? "✅" : "—"}
-    </span>
+    <a href={href} target="_blank" rel="noopener noreferrer" style={linkStyle} className="citrea-link-hover">↗ {label}</a>
   );
 
   return (
     <div>
       <style>{`
-        @keyframes ethGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); } 50% { box-shadow: 0 0 0 10px rgba(245,158,11,0); } }
-        @keyframes citreaPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.55), 0 0 22px 0 rgba(239,68,68,0.25); } 50% { box-shadow: 0 0 0 14px rgba(239,68,68,0), 0 0 38px 4px rgba(245,158,11,0.18); } }
+        @keyframes citreaPulseStrong { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6), 0 0 28px 0 rgba(245,158,11,0.25); } 50% { box-shadow: 0 0 0 16px rgba(239,68,68,0), 0 0 44px 6px rgba(245,158,11,0.15); } }
         @keyframes citreaBadgePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.78; transform: scale(1.04); } }
-        @keyframes citreaBannerPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.45); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
-        .eth-card-hover:hover { transform: translateY(-2px); border-color: var(--text-tertiary) !important; }
-        .eth-link-hover:hover { text-decoration: underline; }
-        .citrea-card { animation: citreaPulse 2.6s ease-in-out infinite; }
-        .citrea-card:hover { transform: translateY(-3px); transition: transform .15s; }
-        .citrea-cta { transition: transform .15s, box-shadow .15s, background .15s; cursor: pointer; }
-        .citrea-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -6px rgba(239,68,68,0.55); }
-        .citrea-guide-card { transition: transform .15s, border-color .15s, background .15s; cursor: pointer; }
-        .citrea-guide-card:hover { transform: translateY(-2px); border-color: #ef4444 !important; background: rgba(239,68,68,0.08) !important; }
+        @keyframes citreaBannerPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); } 50% { box-shadow: 0 0 0 10px rgba(239,68,68,0); } }
+        @keyframes mainnetGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.55); } 50% { box-shadow: 0 0 22px 4px rgba(245,158,11,0.25); } }
         .citrea-alert { animation: citreaBannerPulse 2.4s ease-in-out infinite; cursor: pointer; transition: transform .15s; }
         .citrea-alert:hover { transform: translateY(-1px); }
-        .kat-camp-card:hover { border-color: #34d399 !important; background: rgba(52,211,153,0.07) !important; transform: translateY(-1px); }
+        .citrea-cta { transition: transform .15s, box-shadow .15s, background .15s; cursor: pointer; }
+        .citrea-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -6px rgba(239,68,68,0.55); }
+        .citrea-card-hover:hover { transform: translateY(-2px); border-color: var(--text-tertiary) !important; }
+        .citrea-cat-card { transition: transform .15s, border-color .15s, background .15s; }
+        .citrea-cat-card:hover { transform: translateY(-3px); }
+        .citrea-link-hover:hover { text-decoration: underline; }
+        .citrea-guide-card { transition: transform .15s, border-color .15s, background .15s; cursor: pointer; }
+        .citrea-guide-card:hover { transform: translateY(-2px); border-color: #ef4444 !important; background: rgba(239,68,68,0.08) !important; }
+        .citrea-tl-dot { transition: transform .15s, background .15s; }
+        .citrea-tl-row:hover .citrea-tl-dot { transform: scale(1.25); }
+        .citrea-tl-row:hover { background: rgba(245,158,11,0.04); }
+        .citrea-mainnet-row { animation: mainnetGlow 2.6s ease-in-out infinite; }
+        .citrea-chip { transition: transform .15s, background .15s; }
+        .citrea-chip:hover { transform: translateY(-1px); background: rgba(245,158,11,0.15) !important; }
       `}</style>
 
+      {/* ============= 1. ALERT 배너 ============= */}
       <a
-        href="https://app.citrea.xyz"
+        href={data.alert.dashboardUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="citrea-alert"
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
           gap: 16,
-          background: "linear-gradient(90deg, rgba(239,68,68,0.18) 0%, rgba(245,158,11,0.16) 50%, rgba(239,68,68,0.18) 100%)",
-          border: "1px solid rgba(239,68,68,0.55)",
-          borderRadius: 12,
-          padding: "14px 20px",
-          marginBottom: 16,
-          textDecoration: "none",
-          flexWrap: "wrap",
+          background: "linear-gradient(90deg, rgba(239,68,68,0.20) 0%, rgba(245,158,11,0.18) 50%, rgba(239,68,68,0.20) 100%)",
+          border: "1px solid rgba(239,68,68,0.6)",
+          borderRadius: 12, padding: "14px 20px", marginBottom: 16,
+          textDecoration: "none", flexWrap: "wrap",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14, flex: 1, minWidth: 280 }}>
           <span style={{
-            fontSize: 11,
-            fontWeight: 800,
-            color: "#fff",
-            background: "#ef4444",
-            padding: "5px 11px",
-            borderRadius: 4,
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            animation: "citreaBadgePulse 1.6s ease-in-out infinite",
-            whiteSpace: "nowrap",
-          }}>
-            🚨 LIVE
-          </span>
+            fontSize: 11, fontWeight: 800, color: "#fff", background: "#ef4444",
+            padding: "5px 11px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "1px",
+            animation: "citreaBadgePulse 1.6s ease-in-out infinite", whiteSpace: "nowrap",
+          }}>🚨 LIVE</span>
           <div>
             <div style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.2px", lineHeight: 1.3 }}>
               Citrea 에어드랍 캠페인 — <span style={{ color: "#ef4444" }}>마무리 단계</span> · 막차 타이밍
             </div>
             <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 2, lineHeight: 1.4 }}>
-              메인넷 포인트 시스템 · 상위 50등 컷 ~2,701점 · 6개 활동 적립 → 향후 에어드랍 가중치
+              {data.alert.subtitle}
             </div>
           </div>
         </div>
         <div style={{
-          fontSize: 13,
-          fontWeight: 800,
-          color: "#fff",
-          background: "#ef4444",
-          padding: "9px 16px",
-          borderRadius: 7,
-          whiteSpace: "nowrap",
-        }}>
-          Dashboard 열기 →
-        </div>
+          fontSize: 13, fontWeight: 800, color: "#fff", background: "#ef4444",
+          padding: "9px 16px", borderRadius: 7, whiteSpace: "nowrap",
+        }}>Dashboard 열기 →</div>
       </a>
 
+      {/* ============= 2. Hero ============= */}
       <div style={{
-        background: "var(--featured-bg)",
+        background: "linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(239,68,68,0.05) 100%), var(--featured-bg)",
         border: "1px solid var(--featured-border)",
-        borderRadius: 14,
-        padding: "28px 28px 24px",
-        marginBottom: 24,
-        position: "relative",
-        overflow: "hidden",
+        borderRadius: 14, padding: "28px 28px 24px", marginBottom: 24,
+        position: "relative", overflow: "hidden",
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20, flexWrap: "wrap" }}>
           <div style={{ flex: 1, minWidth: 280 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#f59e0b", background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.35)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>KRW LISTING ANALYSIS</span>
-              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--text-tertiary)" }}>{data.agencyName} · {data.agencyTagline}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#f59e0b", background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.35)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>
+                BTC L2 · DEEP DIVE
+              </span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)" }}>
+                Chain ID 4114 · native cBTC · Mainnet 2026-01-27
+              </span>
             </div>
-            <h2 style={{ fontSize: 28, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.5px", lineHeight: 1.2, margin: 0 }}>
-              🎯 Ethene Picks — KRW 상장 분석
+            <h2 style={{ fontSize: 32, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.5px", lineHeight: 1.15, margin: 0 }}>
+              ₿ Citrea — BTC 첫 ZK Rollup
             </h2>
             <div style={{ fontSize: 15, color: "var(--text-secondary)", marginTop: 10, lineHeight: 1.6, maxWidth: 720 }}>
-              포트폴리오 <strong style={{ color: "var(--text-primary)" }}>{listedTokens.length}개 토큰</strong> + <strong style={{ color: "var(--text-primary)" }}>{noTokenCount + nonTokenCount}개 회사형/미발행</strong>. 업비트/빗썸/코인원 상장 현황 + 가능성 분석
+              {data.identity.tagline} · BitVM2 기반 trust-minimized peg + RISC Zero zkEVM Type 2.
+              <br/>
+              <strong style={{ color: "#ef4444" }}>{data.identity.tokenStatus}</strong> · 운영사 {data.identity.company}
             </div>
             <div style={{
-              marginTop: 16,
-              padding: "14px 18px",
-              background: "var(--bg-primary)",
-              border: "1px solid var(--border)",
-              borderLeft: "3px solid #f59e0b",
-              borderRadius: 6,
-              fontStyle: "italic",
-              fontSize: 15,
-              color: "var(--text-secondary)",
-              lineHeight: 1.7,
+              marginTop: 16, padding: "14px 18px",
+              background: "var(--bg-primary)", border: "1px solid var(--border)",
+              borderLeft: "3px solid #ef4444", borderRadius: 6,
+              fontStyle: "italic", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7,
             }}>
-              <span style={{ fontSize: 22, color: "#f59e0b", marginRight: 6, lineHeight: 1 }}>"</span>
-              상장한 것 / 상장 가능성 있는 것 — 옥석 가리는 시각으로 포트폴리오 주시
-              <span style={{ fontSize: 22, color: "#f59e0b", marginLeft: 4, lineHeight: 1 }}>"</span>
+              <span style={{ fontSize: 22, color: "#ef4444", marginRight: 6, lineHeight: 1 }}>"</span>
+              메인넷 라이브 후 포인트 캠페인이 마무리 단계 — 50등 컷 진입이 막차의 마지노선
+              <span style={{ fontSize: 22, color: "#ef4444", marginLeft: 4, lineHeight: 1 }}>"</span>
             </div>
           </div>
           <div style={{
-            background: "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)",
-            color: "#1a1a1a",
-            borderRadius: 14,
-            padding: "16px 22px",
-            textAlign: "center",
-            minWidth: 150,
-            animation: "ethGlow 2.4s ease-in-out infinite",
+            background: "linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)",
+            color: "#fff", borderRadius: 14, padding: "16px 22px",
+            textAlign: "center", minWidth: 170,
+            animation: "citreaPulseStrong 2.6s ease-in-out infinite",
           }}>
-            <div style={{ fontSize: 11, fontWeight: 700, opacity: 0.9, textTransform: "uppercase", letterSpacing: "1.2px" }}>🚀 펌프 후보</div>
-            <div style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, marginTop: 6 }}>{partialListed.length}</div>
-            <div style={{ fontSize: 12, fontWeight: 700, marginTop: 6, opacity: 0.85, lineHeight: 1.3 }}>업비트 미상장<br/>(빗썸+코인원만)</div>
+            <div style={{ fontSize: 11, fontWeight: 700, opacity: 0.95, textTransform: "uppercase", letterSpacing: "1.2px" }}>50등 컷</div>
+            <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1, marginTop: 6, fontFamily: "ui-monospace, Consolas, monospace", letterSpacing: "-1px" }}>
+              {data.leaderboard.rank50Cut}
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 700, marginTop: 6, opacity: 0.95, lineHeight: 1.3 }}>점 (스냅샷 5/1)</div>
           </div>
         </div>
       </div>
 
+      {/* ============= 3. 캠페인 마무리 박스 ============= */}
       <div style={{ marginBottom: 28 }}>
-        {sectionTitle("🎯 사용자 본인 진행 3개 (심층 분석)")}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 14 }}>
-          {data.userProjects.map((p, i) => {
-            const isOk = p.status.startsWith("✅");
-            const isWarn = p.status.startsWith("❌");
-            const isCitrea = p.name === "Citrea";
-            const accent = isCitrea ? "#ef4444" : isOk && i === 0 ? "#34d399" : isOk ? "#f59e0b" : "var(--accent-red)";
-            const camp = p.airdropCampaign;
-            return (
-              <div key={p.name} className={isCitrea ? "citrea-card" : ""} style={{
-                background: isCitrea
-                  ? "linear-gradient(180deg, rgba(239,68,68,0.10) 0%, rgba(245,158,11,0.06) 100%), var(--featured-bg)"
-                  : "var(--featured-bg)",
-                border: isCitrea ? "1px solid rgba(239,68,68,0.55)" : "1px solid var(--featured-border)",
-                borderLeft: `4px solid ${accent}`,
-                borderRadius: 12,
-                padding: "18px 20px",
-                position: "relative",
-                overflow: "hidden",
-              }}>
-                {isCitrea && (
-                  <div style={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    background: "#ef4444",
-                    color: "#fff",
-                    padding: "4px 12px",
-                    fontSize: 10,
-                    fontWeight: 800,
-                    letterSpacing: "1px",
-                    textTransform: "uppercase",
-                    borderBottomLeftRadius: 8,
-                    animation: "citreaBadgePulse 1.6s ease-in-out infinite",
-                  }}>
-                    🚨 LIVE 막차
-                  </div>
-                )}
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.3px" }}>{p.name}</span>
-                  {p.ticker !== "—" && (
-                    <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", fontFamily: "ui-monospace, Consolas, monospace" }}>${p.ticker}</span>
-                  )}
-                </div>
-
-                <div style={{
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: accent,
-                  background: isCitrea ? "rgba(239,68,68,0.14)" : isWarn ? "rgba(239,68,68,0.1)" : isOk && i === 0 ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)",
-                  border: `1px solid ${accent}40`,
-                  padding: "6px 12px",
-                  borderRadius: 5,
-                  marginBottom: 14,
-                  display: "inline-block",
-                }}>
-                  {p.status}
-                </div>
-
-                <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>TGE / 상장</div>
-                  <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>{p.tge}</div>
-                </div>
-
-                <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>토크노믹스</div>
-                  <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.tokenomics}</div>
-                </div>
-
-                <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>백커</div>
-                  <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.backers}</div>
-                </div>
-
-                <div style={{
-                  padding: "10px 12px",
-                  background: "var(--bg-primary)",
-                  border: "1px solid var(--border)",
-                  borderLeft: `3px solid ${accent}`,
-                  borderRadius: 6,
-                  marginBottom: 14,
-                }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>Verdict</div>
-                  <div style={{ fontSize: 14, color: "var(--text-primary)", lineHeight: 1.6, fontWeight: 600 }}>{p.verdict}</div>
-                </div>
-
-                {p.name === "Katana" && p.campaigns && (
-                  <div style={{ marginBottom: 14, paddingTop: 4 }}>
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      fontSize: 12,
-                      fontWeight: 800,
-                      color: "#34d399",
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      marginBottom: 10,
-                    }}>
-                      <span>📊</span><span>진행 중인 캠페인</span>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}>
-                      {p.campaigns.map((c) => (
-                        <a
-                          key={c.name}
-                          href={c.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="kat-camp-card"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: 6,
-                            padding: "9px 11px",
-                            background: "var(--bg-primary)",
-                            border: "1px solid var(--border)",
-                            borderRadius: 6,
-                            textDecoration: "none",
-                            fontSize: 12,
-                            fontWeight: 700,
-                            color: "var(--text-primary)",
-                            transition: "border-color .15s, background .15s, transform .15s",
-                            minWidth: 0,
-                          }}
-                        >
-                          <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                          <span style={{ color: "#34d399", fontSize: 13, flexShrink: 0 }}>↗</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {isCitrea && camp && (
-                  <div style={{ marginBottom: 14, paddingTop: 4 }}>
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      fontSize: 12,
-                      fontWeight: 800,
-                      color: "#ef4444",
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      marginBottom: 10,
-                    }}>
-                      <span>🔥</span><span>에어드랍 캠페인</span>
-                    </div>
-
-                    <div style={{
-                      background: "linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(245,158,11,0.10) 100%)",
-                      border: "1px solid rgba(239,68,68,0.35)",
-                      borderRadius: 10,
-                      padding: "14px 16px",
-                      marginBottom: 12,
-                    }}>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
-                        <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
-                          상위 {camp.topCutoffRank}등 컷
-                        </span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                        <span style={{ fontSize: 32, fontWeight: 800, color: "#ef4444", letterSpacing: "-1px", lineHeight: 1, fontFamily: "ui-monospace, Consolas, monospace" }}>
-                          {camp.topCutoff.toLocaleString()}
-                        </span>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-secondary)" }}>점</span>
-                        <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 6, fontStyle: "italic" }}>난이도 가늠자</span>
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 12 }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>6개 활동 (포인트 적립)</div>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                        {camp.activities.map((act) => (
-                          <span key={act.name} style={{
-                            fontSize: 12,
-                            fontWeight: 700,
-                            color: act.color,
-                            background: `${act.color}1A`,
-                            border: `1px solid ${act.color}55`,
-                            padding: "4px 10px",
-                            borderRadius: 5,
-                          }}>
-                            {act.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ marginBottom: 12 }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>뱃지 등급</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 0, background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 6, padding: "6px 8px", overflow: "hidden" }}>
-                        {camp.badges.map((b, idx) => (
-                          <Fragment key={b.name}>
-                            <span style={{
-                              fontSize: 11,
-                              fontWeight: 700,
-                              color: b.color,
-                              background: `${b.color}1A`,
-                              border: `1px solid ${b.color}55`,
-                              padding: "3px 9px",
-                              borderRadius: 4,
-                              whiteSpace: "nowrap",
-                            }}>
-                              {b.name}
-                            </span>
-                            {idx < camp.badges.length - 1 && (
-                              <span style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 6px" }}>→</span>
-                            )}
-                          </Fragment>
-                        ))}
-                      </div>
-                    </div>
-
-                    {p.airdropGuides && (
-                      <div style={{ marginBottom: 14 }}>
-                        <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>🇰🇷 한국어 가이드</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 6 }}>
-                          {p.airdropGuides.map((g) => (
-                            <a
-                              key={g.type}
-                              href={g.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="citrea-guide-card"
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                gap: 6,
-                                padding: "8px 10px",
-                                background: "var(--bg-primary)",
-                                border: "1px solid var(--border)",
-                                borderRadius: 6,
-                                textDecoration: "none",
-                                fontSize: 12,
-                                fontWeight: 700,
-                                color: "var(--text-primary)",
-                              }}
-                            >
-                              <span>{g.type}</span>
-                              <span style={{ color: "#ef4444", fontSize: 13 }}>↗</span>
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {p.campaignDashboard && (
-                      <a
-                        href={p.campaignDashboard}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="citrea-cta"
-                        style={{
-                          display: "block",
-                          textAlign: "center",
-                          background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
-                          color: "#fff",
-                          padding: "12px 16px",
-                          borderRadius: 8,
-                          fontSize: 14,
-                          fontWeight: 800,
-                          textDecoration: "none",
-                          letterSpacing: "0.3px",
-                          boxShadow: "0 4px 14px -4px rgba(239,68,68,0.5)",
-                        }}
-                      >
-                        Dashboard 열기 → app.citrea.xyz
-                      </a>
-                    )}
-                  </div>
-                )}
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
-                  {p.website && extLink(p.website, "Website")}
-                  {p.x && extLink(p.x, "X")}
-                  {p.docs && extLink(p.docs, "Docs")}
-                  {p.tgeAnnounce && extLink(p.tgeAnnounce, "TGE")}
-                  {p.upbitNotice && extLink(p.upbitNotice, "Upbit")}
-                  {p.bithumbNotice && extLink(p.bithumbNotice, "Bithumb")}
-                  {p.mainnetAnnounce && extLink(p.mainnetAnnounce, "Mainnet")}
-                  {p.seriesA && extLink(p.seriesA, "Series A")}
-                  {p.blog && extLink(p.blog, "Blog")}
-                  {p.campaignAnnounce && extLink(p.campaignAnnounce, "캠페인 공지")}
-                </div>
+        {sectionTitle("🚨 캠페인 마무리 단계 — 막차 진입 가이드", "#ef4444")}
+        <div style={{
+          background: "linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(245,158,11,0.08) 100%)",
+          border: "1px solid rgba(239,68,68,0.4)",
+          borderRadius: 12, padding: "20px 22px",
+        }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 16 }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 6 }}>50등 컷</div>
+              <div style={{ fontSize: 32, fontWeight: 800, color: "#ef4444", letterSpacing: "-1px", lineHeight: 1, fontFamily: "ui-monospace, Consolas, monospace" }}>
+                {data.leaderboard.rank50Cut}
               </div>
-            );
-          })}
-        </div>
-        <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 10, fontStyle: "italic" }}>
-          KATANA · Fluent → 업비트+빗썸 상장 / 코인원 미상장 → 🪙 코인원 상장 후보 · Citrea → 토큰 미발행 (에어드랍 캠페인 진행 중)
-        </div>
-      </div>
-
-      <div style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: "#fbbf24", textTransform: "uppercase", letterSpacing: "1.5px" }}>🚀 업비트 펌프 후보 — {partialListed.length}개</div>
-          <div style={{ fontSize: 13, color: "var(--text-tertiary)" }}>빗썸 + 코인원 상장 / 업비트 미상장 → 업비트 추가 상장 시 가격 펌프 가능성</div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-          {partialListed.map((p) => (
-            <div key={p.ticker + p.name} className="eth-card-hover" style={{
-              background: "linear-gradient(180deg, rgba(245,158,11,0.10) 0%, rgba(251,191,36,0.04) 100%), var(--bg-secondary)",
-              border: "1px solid rgba(245,158,11,0.45)",
-              borderLeft: "4px solid #fbbf24",
-              borderRadius: 10,
-              padding: "16px 18px",
-              transition: "transform 0.15s, border-color 0.15s",
-            }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ fontSize: 20, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.3px" }}>{p.name}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)", fontFamily: "ui-monospace, Consolas, monospace" }}>${p.ticker}</span>
-                </div>
-                <span style={{
-                  fontSize: 10,
-                  fontWeight: 800,
-                  color: "#1a1a1a",
-                  background: "#fbbf24",
-                  padding: "3px 8px",
-                  borderRadius: 4,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.6px",
-                  whiteSpace: "nowrap",
-                }}>
-                  🚀 펌프 후보
-                </span>
-              </div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginBottom: 10 }}>{p.category}</div>
-              <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 10px", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: 10 }}>
-                <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>가격</span><span style={{ fontFamily: "ui-monospace, Consolas, monospace" }}>{p.price}</span>
-                <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>시총</span><span style={{ fontFamily: "ui-monospace, Consolas, monospace" }}>{p.mcap}</span>
-              </div>
-              <div style={{ display: "flex", gap: 6, paddingTop: 10, borderTop: "1px solid var(--border)" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-primary)", border: "1px solid var(--border)", padding: "3px 8px", borderRadius: 3 }}>업비트 ❌</span>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#34d399", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", padding: "3px 8px", borderRadius: 3 }}>빗썸 ✓</span>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#34d399", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", padding: "3px 8px", borderRadius: 3 }}>코인원 ✓</span>
-              </div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>점 · 막차 마지노선</div>
             </div>
-          ))}
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 6 }}>1등</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "var(--text-primary)", lineHeight: 1, fontFamily: "ui-monospace, Consolas, monospace" }}>
+                {data.leaderboard.rank1}
+              </div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>점 · 상위권 격차</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 6 }}>안전 타겟</div>
+              <div style={{ fontSize: 24, fontWeight: 800, color: "#34d399", lineHeight: 1, fontFamily: "ui-monospace, Consolas, monospace" }}>
+                3,000~3,100
+              </div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>여유분 포함 추천</div>
+            </div>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 6 }}>업데이트 주기</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "#f59e0b", lineHeight: 1.2 }}>
+                화 / 금
+              </div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>다음 업데이트 전 진입</div>
+            </div>
+          </div>
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8,
+            paddingTop: 14, borderTop: "1px dashed rgba(239,68,68,0.3)",
+          }}>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+              <strong style={{ color: "var(--text-primary)" }}>스냅샷:</strong> {data.leaderboard.snapshotDate}
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+              <strong style={{ color: "var(--text-primary)" }}>알고리즘:</strong> {data.campaign.pointSystem}
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+              <strong style={{ color: "var(--text-primary)" }}>마감:</strong> {data.campaign.endDate}
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* ============= 4. 6개 활동 카테고리 ============= */}
       <div style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: "#34d399", textTransform: "uppercase", letterSpacing: "1.5px" }}>🟢 완전 상장 — {fullListed.length}개</div>
-          <div style={{ fontSize: 13, color: "var(--text-tertiary)" }}>업비트 + 빗썸 + 코인원 모두 상장 → 안전 자산, 추가 펌프 모멘텀 약함</div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 10 }}>
-          {fullListed.map((p) => (
-            <div key={p.ticker + p.name} style={{
+        {sectionTitle("🎯 6개 활동 카테고리 — Boost 표시 + dApp 리스트", "#f59e0b")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 }}>
+          {data.categories.map((cat) => (
+            <div key={cat.id} className="citrea-cat-card" style={{
               background: "var(--bg-secondary)",
               border: "1px solid var(--border)",
-              borderLeft: "3px solid #34d399",
-              borderRadius: 8,
-              padding: "12px 14px",
+              borderLeft: `4px solid ${cat.color}`,
+              borderRadius: 10, padding: "14px 16px",
+              position: "relative",
             }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 6, marginBottom: 4 }}>
-                <span style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)" }}>{p.name}</span>
-                {p.verified && <span style={{ fontSize: 11, color: "#34d399", fontWeight: 700 }}>✓</span>}
+              {cat.boostActive && (
+                <span style={{
+                  position: "absolute", top: 10, right: 10,
+                  fontSize: 10, fontWeight: 800,
+                  color: "#fff", background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
+                  padding: "3px 8px", borderRadius: 4, letterSpacing: "0.5px",
+                  animation: "citreaBadgePulse 1.8s ease-in-out infinite",
+                }}>🔥 BOOST</span>
+              )}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <span style={{ fontSize: 22 }}>{cat.icon}</span>
+                <span style={{ fontSize: 17, fontWeight: 800, color: "var(--text-primary)" }}>{cat.name}</span>
               </div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", fontFamily: "ui-monospace, Consolas, monospace", marginBottom: 6 }}>${p.ticker}</div>
-              <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.4, marginBottom: 8 }}>{p.category}</div>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--text-secondary)", fontFamily: "ui-monospace, Consolas, monospace", paddingTop: 8, borderTop: "1px solid var(--border)" }}>
-                <span>{p.price}</span>
-                <span style={{ color: "var(--text-tertiary)" }}>{p.mcap}</span>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginBottom: 4 }}>{cat.description}</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: cat.color, marginBottom: 10, fontFamily: "ui-monospace, Consolas, monospace" }}>
+                활성화: {cat.activatedDate}
+              </div>
+              <div style={{ paddingTop: 10, borderTop: "1px solid var(--border)" }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 6 }}>dApps</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                  {cat.dApps.map((d) => (
+                    <span key={d} style={{
+                      fontSize: 11, fontWeight: 700, color: cat.color,
+                      background: `${cat.color}1A`, border: `1px solid ${cat.color}55`,
+                      padding: "3px 8px", borderRadius: 4,
+                    }}>{d}</span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {singleListed.length > 0 && (
-        <div style={{ marginBottom: 28 }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#fb923c", textTransform: "uppercase", letterSpacing: "1.5px" }}>🟠 단일 거래소 상장 — {singleListed.length}개</div>
-            <div style={{ fontSize: 13, color: "var(--text-tertiary)" }}>1개 거래소만 상장 → 추가 거래소 상장 가능성 (불확실)</div>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 }}>
-            {singleListed.map((p) => {
-              const exch = p.krw[0];
-              const exchLabel = exch === "upbit" ? "업비트" : exch === "bithumb" ? "빗썸" : "코인원";
-              return (
-                <div key={p.ticker + p.name} style={{
-                  background: "linear-gradient(180deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.02) 100%), var(--bg-secondary)",
-                  border: "1px solid rgba(251,146,60,0.4)",
-                  borderLeft: "4px solid #fb923c",
-                  borderRadius: 10,
-                  padding: "14px 16px",
-                }}>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
-                    <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)" }}>{p.name}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)", fontFamily: "ui-monospace, Consolas, monospace" }}>${p.ticker}</span>
-                  </div>
-                  <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginBottom: 8 }}>{p.category}</div>
-                  <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 10px", fontSize: 13, color: "var(--text-secondary)", marginBottom: 10 }}>
-                    <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>가격</span><span style={{ fontFamily: "ui-monospace, Consolas, monospace" }}>{p.price}</span>
-                    <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>시총</span><span style={{ fontFamily: "ui-monospace, Consolas, monospace" }}>{p.mcap}</span>
-                    <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>상장</span>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: "#fb923c", background: "rgba(251,146,60,0.12)", border: "1px solid rgba(251,146,60,0.35)", padding: "2px 7px", borderRadius: 3, justifySelf: "start" }}>{exchLabel}만</span>
-                  </div>
+      {/* ============= 5. 뱃지 등급 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🏆 뱃지 등급 — 4단계 (정정: Active → Explorer)", "#3b82f6")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
+          {data.badges.map((b, i) => (
+            <div key={b.name} style={{
+              background: `linear-gradient(180deg, ${b.color}1A 0%, ${b.color}05 100%), var(--bg-secondary)`,
+              border: `1px solid ${b.color}55`,
+              borderRadius: 10, padding: "16px 18px",
+              textAlign: "center",
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>
+                Tier {i + 1}
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: b.color, marginBottom: 6, letterSpacing: "-0.3px" }}>
+                {b.name}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>{b.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 6. 막차 실전 전략 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("📋 막차 실전 전략 — 우선순위 1~6위", "#ef4444")}
+        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: 14 }}>
+          <div style={{
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border)",
+            borderRadius: 10, overflow: "hidden",
+          }}>
+            <div style={{
+              display: "grid", gridTemplateColumns: "60px 1.2fr 2fr 70px",
+              padding: "10px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)",
+              fontSize: 11, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px",
+            }}>
+              <div style={{ textAlign: "center" }}>순위</div>
+              <div>액션</div>
+              <div>가이드</div>
+              <div style={{ textAlign: "center" }}>Boost</div>
+            </div>
+            {data.strategy.priority.map((p, i) => (
+              <div key={p.rank} style={{
+                display: "grid", gridTemplateColumns: "60px 1.2fr 2fr 70px",
+                padding: "12px 16px", alignItems: "center",
+                borderBottom: i < data.strategy.priority.length - 1 ? "1px solid var(--border)" : "none",
+                background: p.boost ? "rgba(239,68,68,0.04)" : "transparent",
+              }}>
+                <div style={{ textAlign: "center" }}>
+                  <span style={{
+                    display: "inline-block",
+                    width: 28, height: 28, lineHeight: "28px",
+                    fontSize: 13, fontWeight: 800,
+                    color: p.rank <= 3 ? "#fff" : "var(--text-secondary)",
+                    background: p.rank === 1 ? "#ef4444" : p.rank === 2 ? "#f59e0b" : p.rank === 3 ? "#8b5cf6" : "var(--bg-primary)",
+                    border: p.rank > 3 ? "1px solid var(--border)" : "none",
+                    borderRadius: "50%", textAlign: "center",
+                  }}>{p.rank}</span>
                 </div>
-              );
-            })}
+                <div style={{ fontSize: 14, fontWeight: 800, color: "var(--text-primary)" }}>{p.action}</div>
+                <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>{p.note}</div>
+                <div style={{ textAlign: "center" }}>
+                  {p.boost ? (
+                    <span style={{
+                      fontSize: 10, fontWeight: 800, color: "#fff",
+                      background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
+                      padding: "3px 7px", borderRadius: 4, letterSpacing: "0.4px", whiteSpace: "nowrap",
+                    }}>🔥</span>
+                  ) : (
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>—</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{
+            background: "linear-gradient(180deg, rgba(239,68,68,0.10) 0%, rgba(239,68,68,0.04) 100%), var(--bg-secondary)",
+            border: "1px solid rgba(239,68,68,0.45)",
+            borderLeft: "4px solid #ef4444",
+            borderRadius: 10, padding: "16px 18px",
+          }}>
+            <div style={{
+              display: "flex", alignItems: "center", gap: 8,
+              fontSize: 12, fontWeight: 800, color: "#ef4444",
+              textTransform: "uppercase", letterSpacing: "1px", marginBottom: 12,
+            }}>⚠️ 위험 시그널 5개</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {data.strategy.risks.map((r, i) => (
+                <div key={i} style={{
+                  display: "flex", alignItems: "flex-start", gap: 8,
+                  fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5,
+                }}>
+                  <span style={{ color: "#ef4444", fontWeight: 800, flexShrink: 0 }}>•</span>
+                  <span>{r}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              marginTop: 14, paddingTop: 12, borderTop: "1px dashed rgba(239,68,68,0.3)",
+              fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.5,
+            }}>
+              <strong style={{ color: "var(--text-primary)" }}>🎯 타겟:</strong> {data.strategy.target}
+              <br/><strong style={{ color: "var(--text-primary)" }}>⏰ 타이밍:</strong> {data.strategy.timing}
+            </div>
           </div>
         </div>
-      )}
+      </div>
 
+      {/* ============= 7. 한국어 가이드 ============= */}
       <div style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px" }}>📊 KRW 상장 매트릭스 — {listedTokens.length}개 토큰 × 3거래소</div>
-          <div style={{ display: "flex", gap: 6 }}>
-            {[["status", "상장 거래소 수"], ["ticker", "티커 알파벳"]].map(([k, l]) => (
-              <button key={k} onClick={() => setMatrixSort(k)} style={{
-                background: matrixSort === k ? "var(--border)" : "transparent",
-                color: matrixSort === k ? "var(--text-primary)" : "var(--text-tertiary)",
-                border: "1px solid var(--border)",
-                padding: "6px 14px", borderRadius: 5, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
-              }}>{l}</button>
+        {sectionTitle("🇰🇷 한국어 가이드 — 공식 한국 채널", "#ef4444")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
+          {data.koreanGuides.map((g) => (
+            <a key={g.type} href={g.url} target="_blank" rel="noopener noreferrer"
+              className="citrea-guide-card"
+              style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8,
+                padding: "12px 14px",
+                background: "var(--bg-secondary)", border: "1px solid var(--border)",
+                borderRadius: 8, textDecoration: "none",
+                fontSize: 13, fontWeight: 700, color: "var(--text-primary)",
+              }}>
+              <span>{g.type}</span>
+              <span style={{ color: "#ef4444", fontSize: 14 }}>↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 8. 메인넷 통계 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("📊 메인넷 통계 — Live Stats (DeFiLlama + Explorer)", "#34d399")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10 }}>
+          {[
+            ["TVL", data.mainnetStats.tvl, "#34d399"],
+            ["일일 Tx", data.mainnetStats.txDaily, "#3b82f6"],
+            ["총 Tx", data.mainnetStats.txTotal, "var(--text-primary)"],
+            ["총 주소", data.mainnetStats.addressTotal, "#8b5cf6"],
+            ["블록 수", data.mainnetStats.blocksTotal, "var(--text-secondary)"],
+            ["블록 타임", data.mainnetStats.blockTime, "#f59e0b"],
+            ["가스 한도", data.mainnetStats.blockGasLimit, "var(--text-secondary)"],
+            ["Bridged BTC", data.mainnetStats.bridgedBTC, "#ef4444"],
+            ["Chain ID", data.mainnetStats.chainId, "var(--text-muted)"],
+            ["₿apps", data.mainnetStats.apps, "#34d399"],
+          ].map(([label, val, col]) => (
+            <div key={label} style={{
+              background: "var(--bg-secondary)", border: "1px solid var(--border)",
+              borderRadius: 10, padding: "12px 14px",
+            }}>
+              <div style={{ fontSize: 11, color: "var(--text-tertiary)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.6px" }}>{label}</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: col, marginTop: 4, fontFamily: "ui-monospace, Consolas, monospace", letterSpacing: "-0.3px" }}>
+                {val}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 9. 기술 스택 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🛠️ 기술 스택 — zkEVM + BitVM2", "#8b5cf6")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
+          {[
+            ["타입", data.tech.type, "#8b5cf6"],
+            ["Prover", data.tech.prover, "#3b82f6"],
+            ["Data Availability", data.tech.da, "#f59e0b"],
+            ["Bridge", data.tech.bridge, "#ef4444"],
+            ["Finality", data.tech.finality, "#34d399"],
+            ["Sequencer", data.tech.sequencer, "var(--text-secondary)"],
+            ["Consensus", data.tech.consensus, "var(--text-secondary)"],
+          ].map(([label, val, col]) => (
+            <div key={label} style={{
+              background: "var(--bg-secondary)", border: "1px solid var(--border)",
+              borderLeft: `3px solid ${col}`,
+              borderRadius: 8, padding: "12px 14px",
+            }}>
+              <div style={{ fontSize: 11, color: "var(--text-tertiary)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.7px", marginBottom: 4 }}>{label}</div>
+              <div style={{ fontSize: 13, color: "var(--text-primary)", fontWeight: 600, lineHeight: 1.45 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 10. 프로젝트 타임라인 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("📅 프로젝트 타임라인 — 17개 마일스톤 (2024-02 → 2026-04)", "#f59e0b")}
+        <div style={{
+          background: "var(--bg-secondary)", border: "1px solid var(--border)",
+          borderRadius: 10, padding: "8px 0",
+        }}>
+          {data.timeline.map((t, i) => (
+            <a key={t.date} href={t.url} target="_blank" rel="noopener noreferrer"
+              className={`citrea-tl-row ${t.featured ? "citrea-mainnet-row" : ""}`}
+              style={{
+                display: "grid", gridTemplateColumns: "120px 30px 1fr",
+                padding: "12px 20px", alignItems: "flex-start", gap: 12,
+                borderBottom: i < data.timeline.length - 1 ? "1px dashed var(--border)" : "none",
+                textDecoration: "none", color: "inherit",
+                background: t.featured ? "linear-gradient(90deg, rgba(245,158,11,0.10) 0%, rgba(239,68,68,0.06) 100%)" : "transparent",
+                transition: "background .15s",
+              }}>
+              <div style={{
+                fontSize: 12, fontWeight: 800,
+                color: t.featured ? "#f59e0b" : "var(--text-tertiary)",
+                fontFamily: "ui-monospace, Consolas, monospace",
+                paddingTop: 2,
+              }}>{t.date}</div>
+              <div style={{ paddingTop: 4 }}>
+                <span className="citrea-tl-dot" style={{
+                  display: "inline-block",
+                  width: t.featured ? 12 : 8, height: t.featured ? 12 : 8,
+                  borderRadius: "50%",
+                  background: t.featured ? "#f59e0b" : "#3b82f6",
+                  boxShadow: t.featured ? "0 0 12px 2px rgba(245,158,11,0.55)" : "none",
+                }}/>
+              </div>
+              <div>
+                <div style={{
+                  fontSize: t.featured ? 16 : 14, fontWeight: 800,
+                  color: t.featured ? "#f59e0b" : "var(--text-primary)",
+                  letterSpacing: "-0.2px", lineHeight: 1.3,
+                }}>{t.title}</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 3, lineHeight: 1.5 }}>{t.desc}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 11. 로드맵 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🗺️ 로드맵 — 단기 / 중기 / 장기", "#3b82f6")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 }}>
+          {[
+            { phase: data.roadmap.shortTerm, color: "#34d399", icon: "🚀" },
+            { phase: data.roadmap.midTerm, color: "#f59e0b", icon: "📈" },
+            { phase: data.roadmap.longTerm, color: "#8b5cf6", icon: "🌌" },
+          ].map(({ phase, color, icon }) => (
+            <div key={phase.title} style={{
+              background: `linear-gradient(180deg, ${color}10 0%, ${color}03 100%), var(--bg-secondary)`,
+              border: `1px solid ${color}55`,
+              borderTop: `3px solid ${color}`,
+              borderRadius: 10, padding: "16px 18px",
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                <span style={{ fontSize: 22 }}>{icon}</span>
+                <div style={{ fontSize: 14, fontWeight: 800, color: color, letterSpacing: "-0.2px" }}>{phase.title}</div>
+              </div>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                {phase.items.map((item, i) => (
+                  <li key={i} style={{
+                    display: "flex", gap: 8, padding: "6px 0",
+                    borderBottom: i < phase.items.length - 1 ? "1px dashed var(--border)" : "none",
+                    fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5,
+                  }}>
+                    <span style={{ color: color, fontWeight: 800, flexShrink: 0 }}>▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 12. 펀딩 + 백커 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("💰 펀딩 — $16.7M raised (Seed + Series A) · 백커 16명", "#34d399")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
+          {data.funding.rounds.map((r) => (
+            <a key={r.name} href={r.url} target="_blank" rel="noopener noreferrer"
+              className="citrea-card-hover"
+              style={{
+                background: "var(--bg-secondary)", border: "1px solid var(--border)",
+                borderLeft: `4px solid ${r.name === "Series A" ? "#34d399" : "#3b82f6"}`,
+                borderRadius: 10, padding: "16px 18px",
+                textDecoration: "none", color: "inherit",
+                transition: "transform .15s, border-color .15s",
+              }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
+                <span style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)" }}>{r.name}</span>
+                <span style={{ fontSize: 22, fontWeight: 800, color: r.name === "Series A" ? "#34d399" : "#3b82f6", fontFamily: "ui-monospace, Consolas, monospace" }}>
+                  {r.amount}
+                </span>
+              </div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{r.date}</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 4 }}>
+                <strong>Lead:</strong> {r.lead}
+              </div>
+            </a>
+          ))}
+        </div>
+        <div style={{
+          background: "var(--bg-secondary)", border: "1px solid var(--border)",
+          borderRadius: 10, padding: "16px 18px",
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 10 }}>
+            16 백커 (Founders Fund · Galaxy + 14)
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {data.funding.investors.map((inv) => (
+              <span key={inv} className="citrea-chip" style={{
+                fontSize: 12, fontWeight: 700, color: "var(--text-secondary)",
+                background: "var(--bg-primary)", border: "1px solid var(--border)",
+                padding: "5px 11px", borderRadius: 5,
+              }}>{inv}</span>
+            ))}
+          </div>
+          <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 10, fontStyle: "italic" }}>
+            Valuation: {data.funding.valuation} · Next round: {data.funding.nextRound}
+          </div>
+        </div>
+      </div>
+
+      {/* ============= 13. 팀 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("👥 팀 4명 — Chainway Labs", "#8b5cf6")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 10 }}>
+          {data.team.map((m) => (
+            <div key={m.name} style={{
+              background: "var(--bg-secondary)", border: "1px solid var(--border)",
+              borderLeft: "3px solid #8b5cf6",
+              borderRadius: 10, padding: "14px 16px",
+            }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", marginBottom: 4, letterSpacing: "-0.2px" }}>
+                {m.name}
+              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#8b5cf6", marginBottom: 8 }}>{m.role}</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: 8 }}>{m.background}</div>
+              {(m.x || m.url) && (
+                <div style={{ display: "flex", gap: 8, paddingTop: 8, borderTop: "1px dashed var(--border)" }}>
+                  {m.x && extLink(m.x, "X")}
+                  {m.url && extLink(m.url, "Site")}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ============= 14. 파트너십 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🤝 파트너십 — Tech / Bridges / Stablecoin / Signers", "#3b82f6")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: "3px solid #ef4444", borderRadius: 10, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#ef4444", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>🔧 Tech Core</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {data.partners.techCore.map((p) => (
+                <span key={p} style={{
+                  fontSize: 12, fontWeight: 700, color: "#ef4444",
+                  background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)",
+                  padding: "4px 10px", borderRadius: 4,
+                }}>{p}</span>
+              ))}
+            </div>
+          </div>
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: "3px solid #34d399", borderRadius: 10, padding: "14px 16px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#34d399", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>💵 Stablecoin (ctUSD)</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {data.partners.stablecoin.map((p) => (
+                <span key={p} style={{
+                  fontSize: 12, fontWeight: 700, color: "#34d399",
+                  background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)",
+                  padding: "4px 10px", borderRadius: 4,
+                }}>{p}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: "3px solid #3b82f6", borderRadius: 10, padding: "14px 16px", marginBottom: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#3b82f6", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>🌉 Bridges (6개)</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {data.partners.bridges.map((p) => (
+              <span key={p} style={{
+                fontSize: 12, fontWeight: 700, color: "#3b82f6",
+                background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.3)",
+                padding: "4px 10px", borderRadius: 4,
+              }}>{p}</span>
             ))}
           </div>
         </div>
-        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "0.7fr 1.4fr 1.4fr 0.8fr 0.9fr 0.7fr 0.7fr 0.7fr 1.5fr", padding: "12px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
-            <div>티커</div>
-            <div>이름</div>
-            <div>카테고리</div>
-            <div style={{ textAlign: "right" }}>가격</div>
-            <div style={{ textAlign: "right" }}>시총</div>
-            <div style={{ textAlign: "center" }}>업비트</div>
-            <div style={{ textAlign: "center" }}>빗썸</div>
-            <div style={{ textAlign: "center" }}>코인원</div>
-            <div>비고</div>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderLeft: "3px solid #f59e0b", borderRadius: 10, padding: "14px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 8 }}>🔐 Clementine Signers (10개)</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {data.partners.clementineSigners.map((p) => (
+              <span key={p} style={{
+                fontSize: 12, fontWeight: 700, color: "#f59e0b",
+                background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
+                padding: "4px 10px", borderRadius: 4,
+              }}>{p}</span>
+            ))}
           </div>
-          {sortedMatrix.map((p, i) => (
-            <div key={p.name} style={{
-              display: "grid",
-              gridTemplateColumns: "0.7fr 1.4fr 1.4fr 0.8fr 0.9fr 0.7fr 0.7fr 0.7fr 1.5fr",
-              padding: "12px 16px",
-              borderBottom: i < sortedMatrix.length - 1 ? "1px solid var(--border)" : "none",
-              alignItems: "center",
-              background: p.userInvolved ? "rgba(245,158,11,0.04)" : "transparent",
-            }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "ui-monospace, Consolas, monospace" }}>
-                ${p.ticker}
-                {p.userInvolved && <span style={{ marginLeft: 4, fontSize: 11, color: "#f59e0b" }}>🎯</span>}
-                {p.verified && <span style={{ marginLeft: 4, fontSize: 11, color: "#34d399" }}>✓</span>}
-              </div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>{p.name}</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.4 }}>{p.category}</div>
-              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{p.price}</div>
-              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{p.mcap}</div>
-              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("upbit"))}</div>
-              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("bithumb"))}</div>
-              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("coinone"))}</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{p.note || "—"}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8, fontStyle: "italic" }}>
-          🎯 = 사용자 본인 진행 · ✓ = 검증 완료 · 🚀 업비트 펌프 후보 ({partialListed.length}) · 🪙 코인원 상장 후보 ({data.userProjects.filter((u) => u.ticker !== "—").length}) · 🟠 단일 거래소 ({singleListed.length})
         </div>
       </div>
 
+      {/* ============= 15. 경쟁사 비교 ============= */}
       <div style={{ marginBottom: 28 }}>
-        {sectionTitle("⚠️ KRW 상장 대상 아닌 2개")}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 12 }}>
-          {data.portfolio.filter((p) => p.status === "no-token" || p.status === "non-token").map((p) => {
-            const isNoToken = p.status === "no-token";
-            const isCitrea = p.name === "Citrea";
-            const accentCol = isCitrea ? "#ef4444" : isNoToken ? "var(--accent-red)" : "#6b7280";
-            return (
-              <div key={p.name} style={{
-                background: isCitrea
-                  ? "linear-gradient(180deg, rgba(239,68,68,0.08) 0%, rgba(245,158,11,0.04) 100%), var(--bg-secondary)"
-                  : "var(--bg-secondary)",
-                border: isCitrea ? "1px solid rgba(239,68,68,0.4)" : "1px solid var(--border)",
-                borderLeft: `3px solid ${accentCol}`,
-                borderRadius: 10,
-                padding: "16px 18px",
+        {sectionTitle("🥊 경쟁사 비교 — BTC L2 5개", "#ef4444")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{
+            display: "grid", gridTemplateColumns: "1fr 1fr 1fr 2.4fr",
+            padding: "12px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)",
+            fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px",
+          }}>
+            <div>이름</div>
+            <div style={{ textAlign: "right" }}>TVL</div>
+            <div style={{ textAlign: "right" }}>시총</div>
+            <div>메모</div>
+          </div>
+          {data.competitors.map((c, i) => (
+            <div key={c.name} style={{
+              display: "grid", gridTemplateColumns: "1fr 1fr 1fr 2.4fr",
+              padding: "12px 16px", alignItems: "center",
+              borderBottom: i < data.competitors.length - 1 ? "1px solid var(--border)" : "none",
+              background: c.featured ? "linear-gradient(90deg, rgba(245,158,11,0.08) 0%, rgba(239,68,68,0.04) 100%)" : "transparent",
+            }}>
+              <div style={{
+                fontSize: 14, fontWeight: 800,
+                color: c.featured ? "#f59e0b" : "var(--text-primary)",
+                display: "flex", alignItems: "center", gap: 6,
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)" }}>{p.name}</span>
-                  <span style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: isCitrea ? "#fff" : isNoToken ? "var(--accent-red)" : "#6b7280",
-                    background: isCitrea ? "#ef4444" : isNoToken ? "rgba(239,68,68,0.1)" : "rgba(107,114,128,0.1)",
-                    border: `1px solid ${isCitrea ? "#ef4444" : isNoToken ? "rgba(239,68,68,0.3)" : "rgba(107,114,128,0.3)"}`,
-                    padding: "3px 8px",
-                    borderRadius: 3,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.6px",
-                  }}>
-                    {isCitrea ? "🚨 에어드랍 막차" : isNoToken ? "❌ 토큰 없음" : "회사 (토큰 X)"}
-                  </span>
-                </div>
-                <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginBottom: 10 }}>{p.category}</div>
-                <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.note}</div>
-                {isCitrea && (
-                  <a
-                    href="https://app.citrea.xyz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="citrea-cta"
-                    style={{
-                      display: "inline-block",
-                      marginTop: 10,
-                      padding: "7px 14px",
-                      background: "linear-gradient(90deg, #ef4444 0%, #f59e0b 100%)",
-                      color: "#fff",
-                      borderRadius: 6,
-                      fontSize: 12,
-                      fontWeight: 800,
-                      textDecoration: "none",
-                      letterSpacing: "0.3px",
-                    }}
-                  >
-                    Dashboard 열기 →
-                  </a>
-                )}
+                {c.featured && <span style={{ fontSize: 14 }}>★</span>}
+                {c.name}
               </div>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{c.tvl}</div>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{c.mcap}</div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.45 }}>{c.note}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 8, fontStyle: "italic" }}>
+          출처: DeFiLlama (BTC L2 카테고리) · 2026-05-03 기준
+        </div>
+      </div>
+
+      {/* ============= 16. 공식 채널 ============= */}
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🌐 공식 채널 — 한국 포함 8개", "#3b82f6")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+          {data.channels.map((ch) => {
+            const isKorea = ch.type.startsWith("🇰🇷");
+            return (
+              <a key={ch.type} href={ch.url} target="_blank" rel="noopener noreferrer"
+                className="citrea-card-hover"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8,
+                  padding: "12px 14px",
+                  background: isKorea ? "linear-gradient(180deg, rgba(239,68,68,0.08) 0%, rgba(239,68,68,0.02) 100%), var(--bg-secondary)" : "var(--bg-secondary)",
+                  border: isKorea ? "1px solid rgba(239,68,68,0.4)" : "1px solid var(--border)",
+                  borderLeft: isKorea ? "3px solid #ef4444" : "3px solid #3b82f6",
+                  borderRadius: 8, textDecoration: "none",
+                  transition: "transform .15s, border-color .15s",
+                }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: isKorea ? "#ef4444" : "#3b82f6", marginBottom: 2 }}>{ch.type}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-secondary)", fontFamily: "ui-monospace, Consolas, monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{ch.label}</div>
+                </div>
+                <span style={{ color: isKorea ? "#ef4444" : "#3b82f6", fontSize: 14, flexShrink: 0 }}>↗</span>
+              </a>
             );
           })}
         </div>
       </div>
 
-      <div style={{ marginBottom: 28 }}>
-        {sectionTitle("Quick Stats — 토큰 중심")}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10 }}>
-          {[
-            ["총 포트폴리오", `${listedTokens.length} + ${noTokenCount + nonTokenCount}`, "var(--text-primary)", "토큰 + 회사형/미발행"],
-            ["완전 KRW 상장", `${fullListed.length + data.userProjects.filter((u) => u.ticker !== "—").length}개`, "#34d399", "업+빗+코 모두 (사용자 진행 포함은 일부)"],
-            ["🚀 펌프 후보", `${partialListed.length}개`, "#fbbf24", "업비트 미상장, 빗썸+코인원만"],
-            ["🟠 단일 거래소", `${singleListed.length}개`, "#fb923c", "1개 거래소만 상장"],
-            ["사용자 진행", `${data.userProjects.length}개`, "#f59e0b", "KATANA · Fluent · Citrea"],
-            ["토큰 미발행", `${noTokenCount}개`, "#ef4444", "Citrea (에어드랍 진행 중)"],
-            ["회사형", `${nonTokenCount}개`, "var(--text-muted)", "Flow Traders (KRW 대상 X)"],
-            ["업비트 KRW", `${upbitCount}/${listedTokens.length}`, "#3b82f6", `빗썸 ${bithumbCount} · 코인원 ${coinoneCount}`],
-          ].map(([label, val, col, sub]) => (
-            <div key={label} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px" }}>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.6px" }}>{label}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: col, marginTop: 6, lineHeight: 1.2 }}>{val}</div>
-              <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4, lineHeight: 1.4 }}>{sub}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
+      {/* ============= Footer ============= */}
       <div style={{ textAlign: "center", padding: "24px 0 0", borderTop: "1px solid var(--border)", marginTop: 8 }}>
         <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.7 }}>
-          데이터 출처: Upbit/Bithumb/Coinone API · CoinGecko · 공식 거래소 공지 · librarian 병렬 검증
+          데이터 출처: docs.citrea.xyz · blog.citrea.xyz (17개 포스트) · DeFiLlama · GitHub · X · 3차 librarian 교차검증
           <br />
-          본 정보는 투자 자문이 아니며, 시장 데이터는 변동될 수 있습니다 (Last verified: 2026-05-03)
+          본 정보는 투자 자문이 아니며, 에어드랍 보상은 공식 보장되지 않습니다 (Last verified: 2026-05-03)
         </div>
       </div>
     </div>
   );
 }
-
