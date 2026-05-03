@@ -687,7 +687,7 @@ export default function App() {
 
         {/* Top Tabs */}
         <div style={{ display: "flex", gap: 0, marginBottom: 28, borderBottom: "1px solid var(--border)" }}>
-          {[["unlocks", "Token Unlocks"], ["billions", "🔥 BILL TGE 5/4"]].map(([k, l]) => (
+          {[["unlocks", "Token Unlocks"], ["billions", "🔥 BILL TGE 5/4"], ["ethene", "🎯 Ethene Picks"]].map(([k, l]) => (
             <button key={k} onClick={() => setActiveTab(k)} style={{
               background: "transparent", border: "none", borderBottom: `2px solid ${activeTab === k ? "var(--accent-red)" : "transparent"}`,
               color: activeTab === k ? "var(--text-primary)" : "var(--text-tertiary)", padding: "10px 24px", fontSize: 15, fontWeight: 700,
@@ -763,6 +763,8 @@ export default function App() {
         </>}
 
         {activeTab === "billions" && <BillionsTab />}
+
+        {activeTab === "ethene" && <EtheneTab />}
       </div>
     </div>
   );
@@ -1439,6 +1441,592 @@ function BillionsTab() {
           데이터 출처: billions.network 공식 docs · GitHub · X · CoinGecko · 1차+2차 librarian 교차검증
           <br />
           본 정보는 투자 자문이 아니며, TGE 직전 변경 가능성 있음 (Last verified: 2026-05-03)
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// Ethene Picks Tab — Ethene Labs 18개 포트폴리오 KRW 상장 분석
+// ============================================================
+const ETHENE_DATA = {
+  identity: {
+    name: "Ethene Labs",
+    legal: "ETHENE LABS XYZ PTE. LTD.",
+    founded: "2024-03-12",
+    hq: "Singapore (143 Cecil Street #16-01, GB Building)",
+    size: "2-10 employees",
+    services: ["Token Advisory", "Asia GTM"],
+    tagline: "Trusted by Industry Leaders — 18개 Tier-S 클라이언트",
+    sources: {
+      website: "https://ethenelabs.xyz",
+      x: "https://x.com/EtheneLabs",
+      linkedin: "https://www.linkedin.com/company/ethene-labs/",
+      registry: "https://www.sgpbusiness.com/company/Ethene-Labs-Xyz-Pte-Ltd",
+      tokenAdvisory: "https://ethenelabs.xyz/token-advisory",
+      asiaGtm: "https://ethenelabs.xyz/asia-gtm",
+    },
+  },
+  founder: {
+    name: "Ben Wee",
+    role: "Founder / Director (공개 직함은 advisor·director가 우세)",
+    background: "前 Crypto.com Capital VP, 前 Citi Asia ECM Analyst, NUS BBA",
+    x: "https://x.com/benhwx",
+    linkedin: "https://sg.linkedin.com/in/ben-wee",
+    koreaActivity: "2022 KBW부터 Seoul에서 Crypto.com/Cronos 행사 주최. 한국 밋업마다 직접 방문",
+  },
+  portfolio: [
+    { ticker: "ARB", name: "Arbitrum", category: "L2", price: "$0.117", mcap: "$722M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "KAITO", name: "Kaito", category: "AI/InfoFi", price: "$0.470", mcap: "$114M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "MOVE", name: "Movement", category: "L1", price: "$0.0177", mcap: "$64.9M", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "KAT", name: "Katana", category: "DeFi L2 (AggLayer)", price: "₩14", mcap: "—", krw: ["upbit","bithumb"], status: "listed", note: "TGE 2026-03-18, KRW 상장 2026-03-26", userInvolved: true },
+    { ticker: "OPEN", name: "OpenEden (TBILL)", category: "RWA/Treasuries", price: "—", mcap: "—", krw: ["upbit","bithumb","coinone"], status: "listed", note: "permissioned, 유동성 제한적" },
+    { ticker: "SEI", name: "Sei", category: "L1", price: "$0.0583", mcap: "$393M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "UNI", name: "Uniswap", category: "DEX", price: "$3.24", mcap: "$2.05B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "SENT", name: "Sentient", category: "AI/AGI", price: "—", mcap: "$123.8M", krw: ["upbit","bithumb","coinone"], status: "listed", note: "Open-source AGI, FDV $588M" },
+    { ticker: "MNT", name: "Mantle", category: "L2", price: "$0.633", mcap: "$2.09B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "BLEND", name: "Fluent", category: "Blended L2 (EVM/WASM/SVM)", price: "₩175", mcap: "—", krw: ["upbit","bithumb"], status: "listed", note: "KRW 상장 2026-04-29, public testnet 상태", userInvolved: true },
+    { ticker: "PYTH", name: "Pyth Network", category: "Oracle", price: "$0.0490", mcap: "$282M", krw: ["upbit","bithumb","coinone"], status: "listed", verified: true },
+    { ticker: "NEAR", name: "Near Protocol", category: "L1", price: "$1.27", mcap: "$1.65B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "FRAX", name: "Frax", category: "Stablecoin/DeFi", price: "$0.993", mcap: "$274M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "RON", name: "Ronin", category: "Gaming Chain", price: "$0.0941", mcap: "$72.7M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "CRO", name: "Cronos", category: "Exchange Chain", price: "$0.0682", mcap: "$2.97B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "KAIA", name: "Kaia", category: "L1 (Klaytn 후신)", price: "$0.0453", mcap: "$266M", krw: ["bithumb","coinone"], status: "listed", note: "업비트 X" },
+    { ticker: "CHR", name: "Chromia", category: "L1 (dApp infra)", price: "$0.0261", mcap: "$25.4M", krw: ["bithumb"], status: "listed", note: "빗썸만" },
+    { ticker: "SKY", name: "Sky (前 MakerDAO)", category: "DeFi 거버넌스", price: "$0.0804", mcap: "$1.87B", krw: ["upbit","bithumb","coinone"], status: "listed" },
+    { ticker: "—", name: "Citrea", category: "BTC L2 zk-rollup", price: "N/A", mcap: "N/A", krw: [], status: "no-token", note: "❌ 네이티브 토큰 자체 없음 (cBTC만 사용). 메인넷 2026-01-27 라이브. Chainway Labs", userInvolved: true },
+    { ticker: "—", name: "Flow Traders", category: "글로벌 마켓메이커 (토큰 아님)", price: "N/A", mcap: "N/A", krw: [], status: "non-token", note: "회사. KRW 상장 대상 아님" },
+  ],
+  koreaEvents: [
+    { date: "2022 KBW", event: "Ben Wee 개인 주최 Crypto.com/Cronos 행사 (서울)", attendees: "—" },
+    { date: "2026-01-27", event: "Fluent Korea Community Event (Hashed Lounge, Seoul)", attendees: "120+" },
+    { date: "2026-02-02", event: "Katana Korea Community Hangout (Hashed Lounge, Seoul)", attendees: "140+" },
+    { date: "2026-03-09", event: "Citrea Korea Community Kickoff (Gangnam, Seoul)", attendees: "140+" },
+  ],
+  userProjects: [
+    {
+      ticker: "KAT", name: "Katana",
+      status: "✅ 업비트 상장 완료",
+      tge: "2026-03-18 → KRW 상장 2026-03-26",
+      tokenomics: "10B 총공급, VC 프리세일 없음, User Liquidity Mining 20%, Community Airdrop 15%, Core Contributors 15.65%, Treasury/Community 48.35%, Public Sale 1%",
+      verdict: "이미 상장 완료. 추가 매수 타이밍보다는 하방 리스크 모니터링",
+      backers: "Polygon Labs, GSR",
+      website: "https://katana.network",
+      x: "https://x.com/katana",
+      docs: "https://docs.katana.network",
+      tgeAnnounce: "https://katana.network/blog/the-wait-is-over-katana-tge-is-here",
+      upbitNotice: "https://www.upbit.com/service_center/notice?id=6097",
+      bithumbNotice: "https://feed.bithumb.com/notice/1652436",
+    },
+    {
+      ticker: "BLEND", name: "Fluent",
+      status: "✅ 업비트/빗썸 KRW 상장 완료",
+      tge: "공식 TGE 공지 미확인 / KRW 상장 2026-04-29",
+      tokenomics: "공식 토크노믹스/베스팅 문서 미공개 ⚠️ — 분배표/락업 verification needed",
+      verdict: "Public testnet 상태에서 KRW 상장 — 토크노믹스 비공개는 리스크. 모니터링 필수",
+      backers: "공개 미확인",
+      website: "https://fluent.xyz",
+      x: "https://x.com/fluentxyz",
+      docs: "https://docs.fluent.xyz",
+      upbitNotice: "https://www.upbit.com/service_center/notice?id=6178",
+      bithumbNotice: "https://feed.bithumb.com/notice/1652844",
+    },
+    {
+      ticker: "—", name: "Citrea",
+      status: "❌ 네이티브 토큰 없음 (cBTC만)",
+      tge: "토큰 발행 자체 없음 / 메인넷 2026-01-27 라이브",
+      tokenomics: "공식 문서: 'Citrea has no native token, no published tokenomics'. 가스/전송용 cBTC가 네이티브",
+      verdict: "💡 예치작 X — 토큰 자체가 없으므로 매수/예치 자체가 불가능. 생태계 참여(빌더/dApp)로 접근하는 게 맞음",
+      backers: "Founders Fund, Maven11, Mirana, dao5, Erik Voorhees, Balaji Srinivasan, Jameson Lopp 등 ($16.7M raised, Series A $14M)",
+      website: "https://citrea.xyz",
+      x: "https://x.com/citrea_xyz",
+      docs: "https://docs.citrea.xyz",
+      blog: "https://www.blog.citrea.xyz/",
+      mainnetAnnounce: "https://www.blog.citrea.xyz/citrea-mainnet-is-live/",
+      seriesA: "https://www.blog.citrea.xyz/announcing-citrea-series-a-round/",
+    },
+  ],
+  credibility: {
+    positive: [
+      "싱가포르 법인 실존 (ETHENE LABS XYZ PTE. LTD.)",
+      "LinkedIn/X/웹사이트 일관됨",
+      "Asia GTM 실무 흔적 다수 (3건 한국 이벤트 검증)",
+      "Ben Wee 개인 X/LinkedIn 활동 활발",
+      "주요 클라이언트(Katana/Fluent/Citrea)와의 협업 증거",
+    ],
+    negative: [
+      "회사 매우 젊음 (2년차)",
+      "직원 2-10명 (소규모)",
+      "클라이언트별 성과 정량 공개 안됨",
+      "'100+ Tier-S clients' 마케팅 문구 검증 불가",
+    ],
+    truthCheck: {
+      claim: "맡은 프로젝트 죄다 업비트 갔다",
+      reality: "검증 가능한 KRW 상장은 17개 (18개 토큰 중 Citrea 제외). 다만 '에이전시 기여로 상장됐다'는 직접 증거는 ARB/KAITO/PYTH/SEI 4개만 부분 확인. 나머지는 자체 마케팅 문구",
+      verdict: "⚠️ 과장 가능성 — 옥석 가리는 시각으로 활용은 OK, '에이전시가 상장 보장한다'는 해석은 위험",
+    },
+  },
+  channels: [
+    { type: "Website", url: "https://ethenelabs.xyz", label: "ethenelabs.xyz" },
+    { type: "X", url: "https://x.com/EtheneLabs", label: "@EtheneLabs" },
+    { type: "LinkedIn", url: "https://www.linkedin.com/company/ethene-labs/", label: "Company Page" },
+    { type: "Founder X", url: "https://x.com/benhwx", label: "@benhwx (Ben Wee)" },
+    { type: "Founder LinkedIn", url: "https://sg.linkedin.com/in/ben-wee", label: "Ben Wee" },
+    { type: "Token Advisory", url: "https://ethenelabs.xyz/token-advisory", label: "Service Page" },
+    { type: "Asia GTM", url: "https://ethenelabs.xyz/asia-gtm", label: "Service Page" },
+  ],
+};
+
+function EtheneTab() {
+  const data = ETHENE_DATA;
+  const [matrixSort, setMatrixSort] = useState("status");
+
+  const sectionTitle = (txt) => (
+    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: 12 }}>{txt}</div>
+  );
+
+  const linkStyle = { fontSize: 13, color: "#3b82f6", textDecoration: "none", fontWeight: 600 };
+  const extLink = (href, label) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" style={linkStyle}>↗ {label}</a>
+  );
+
+  const listedTokens = data.portfolio.filter((p) => p.status === "listed");
+  const upbitCount = listedTokens.filter((p) => p.krw.includes("upbit")).length;
+  const bithumbCount = listedTokens.filter((p) => p.krw.includes("bithumb")).length;
+  const coinoneCount = listedTokens.filter((p) => p.krw.includes("coinone")).length;
+  const noTokenCount = data.portfolio.filter((p) => p.status === "no-token").length;
+  const nonTokenCount = data.portfolio.filter((p) => p.status === "non-token").length;
+
+  const sortedMatrix = [...listedTokens].sort((a, b) => {
+    if (matrixSort === "status") {
+      const aFull = a.krw.length === 3 ? 0 : a.krw.length === 2 ? 1 : 2;
+      const bFull = b.krw.length === 3 ? 0 : b.krw.length === 2 ? 1 : 2;
+      if (aFull !== bFull) return aFull - bFull;
+      return a.ticker.localeCompare(b.ticker);
+    }
+    if (matrixSort === "ticker") return a.ticker.localeCompare(b.ticker);
+    return 0;
+  });
+
+  const krwCheck = (has) => (
+    <span style={{ fontSize: 18, color: has ? "#34d399" : "var(--text-muted)", fontWeight: 700 }}>
+      {has ? "✅" : "—"}
+    </span>
+  );
+
+  return (
+    <div>
+      <style>{`
+        @keyframes ethGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); } 50% { box-shadow: 0 0 0 10px rgba(245,158,11,0); } }
+        .eth-card-hover:hover { transform: translateY(-2px); border-color: var(--text-tertiary) !important; }
+        .eth-link-hover:hover { text-decoration: underline; }
+      `}</style>
+
+      <div style={{
+        background: "var(--featured-bg)",
+        border: "1px solid var(--featured-border)",
+        borderRadius: 14,
+        padding: "28px 28px 24px",
+        marginBottom: 24,
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: 280 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#f59e0b", background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.35)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase", letterSpacing: "0.8px" }}>AGENCY ANALYSIS</span>
+              <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-tertiary)" }}>Singapore · Token Advisory</span>
+            </div>
+            <h2 style={{ fontSize: 28, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.5px", lineHeight: 1.2, margin: 0 }}>
+              🎯 Ethene Picks — 옥석 가리기
+            </h2>
+            <div style={{ fontSize: 16, color: "var(--text-secondary)", marginTop: 10, lineHeight: 1.6, maxWidth: 720 }}>
+              <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>{data.identity.name}</span> · {data.identity.tagline}
+            </div>
+            <div style={{
+              marginTop: 16,
+              padding: "14px 18px",
+              background: "var(--bg-primary)",
+              border: "1px solid var(--border)",
+              borderLeft: "3px solid #f59e0b",
+              borderRadius: 6,
+              fontStyle: "italic",
+              fontSize: 15,
+              color: "var(--text-secondary)",
+              lineHeight: 1.7,
+            }}>
+              <span style={{ fontSize: 22, color: "#f59e0b", marginRight: 6, lineHeight: 1 }}>"</span>
+              이 에이전시가 업비트를 보낼 힘이 있다고 해석하면 안될 거 같고, 옥석을 잘 가린다고 해석하고 포트폴리오 주시하면 좋을 듯
+              <span style={{ fontSize: 22, color: "#f59e0b", marginLeft: 4, lineHeight: 1 }}>"</span>
+            </div>
+          </div>
+          <div style={{
+            background: "#f59e0b",
+            color: "#1a1a1a",
+            borderRadius: 14,
+            padding: "16px 22px",
+            textAlign: "center",
+            minWidth: 130,
+            animation: "ethGlow 2.4s ease-in-out infinite",
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 700, opacity: 0.85, textTransform: "uppercase", letterSpacing: "1.2px" }}>Portfolio</div>
+            <div style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, marginTop: 8 }}>{data.portfolio.length}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, marginTop: 8, opacity: 0.85 }}>Tier-S 클라이언트</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Ethene Labs — 회사 정보")}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "18px 20px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>법인</div>
+            <div style={{ fontSize: 17, fontWeight: 800, color: "var(--text-primary)", marginBottom: 4 }}>{data.identity.name}</div>
+            <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginBottom: 14, fontFamily: "ui-monospace, Consolas, monospace" }}>{data.identity.legal}</div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "8px 14px", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
+              <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>설립</span><span>{data.identity.founded}</span>
+              <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>HQ</span><span>{data.identity.hq}</span>
+              <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>규모</span><span>{data.identity.size}</span>
+              <span style={{ color: "var(--text-tertiary)", fontWeight: 600 }}>서비스</span>
+              <span>
+                {data.identity.services.map((s) => (
+                  <span key={s} style={{ display: "inline-block", fontSize: 12, fontWeight: 700, color: "#3b82f6", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", padding: "3px 9px", borderRadius: 4, marginRight: 6 }}>{s}</span>
+                ))}
+              </span>
+            </div>
+
+            <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid var(--border)", display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {extLink(data.identity.sources.website, "Website")}
+              {extLink(data.identity.sources.x, "X")}
+              {extLink(data.identity.sources.linkedin, "LinkedIn")}
+              {extLink(data.identity.sources.registry, "SG Registry")}
+            </div>
+          </div>
+
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "18px 20px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>Founder</div>
+            <div style={{ fontSize: 17, fontWeight: 800, color: "var(--text-primary)", marginBottom: 4 }}>{data.founder.name}</div>
+            <div style={{ fontSize: 13, color: "#3b82f6", fontWeight: 600, marginBottom: 12 }}>{data.founder.role}</div>
+
+            <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>배경</div>
+              {data.founder.background}
+            </div>
+
+            <div style={{
+              padding: "10px 12px",
+              background: "var(--bg-primary)",
+              border: "1px solid var(--border)",
+              borderRadius: 6,
+              fontSize: 13,
+              color: "var(--text-secondary)",
+              lineHeight: 1.6,
+              marginBottom: 14,
+            }}>
+              <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>🇰🇷 한국 활동:</span> {data.founder.koreaActivity}
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {extLink(data.founder.x, "@benhwx")}
+              {extLink(data.founder.linkedin, "LinkedIn")}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🚨 신뢰도 검증 — '죄다 업비트' 주장 팩트체크")}
+        <div style={{ background: "var(--featured-bg)", border: "1px solid var(--featured-border)", borderLeft: "3px solid var(--accent-red)", borderRadius: 10, padding: "18px 20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
+            <div style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 8, padding: "14px 16px" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent-red)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 8 }}>주장 (Claim)</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.5, fontStyle: "italic" }}>
+                "{data.credibility.truthCheck.claim}"
+              </div>
+            </div>
+            <div style={{ background: "var(--bg-primary)", border: "1px solid var(--border)", borderRadius: 8, padding: "14px 16px" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#34d399", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 8 }}>현실 (Reality)</div>
+              <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>{data.credibility.truthCheck.reality}</div>
+            </div>
+          </div>
+
+          <div style={{
+            background: "rgba(245,158,11,0.08)",
+            border: "1px solid rgba(245,158,11,0.3)",
+            borderRadius: 6,
+            padding: "12px 16px",
+            marginBottom: 14,
+            fontSize: 15,
+            fontWeight: 700,
+            color: "#f59e0b",
+            lineHeight: 1.5,
+          }}>
+            {data.credibility.truthCheck.verdict}
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#34d399", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 8 }}>✅ Positive</div>
+              <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>
+                {data.credibility.positive.map((p, i) => <li key={i}>{p}</li>)}
+              </ul>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent-red)", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 8 }}>⚠️ Negative</div>
+              <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>
+                {data.credibility.negative.map((n, i) => <li key={i}>{n}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🇰🇷 한국 이벤트 타임라인 (Asia GTM 실무 증거)")}
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "18px 22px" }}>
+          <div style={{ position: "relative", paddingLeft: 22 }}>
+            <div style={{ position: "absolute", left: 6, top: 4, bottom: 4, width: 2, background: "var(--border)" }} />
+            {data.koreaEvents.map((ev, i) => (
+              <div key={i} style={{
+                position: "relative",
+                marginBottom: i < data.koreaEvents.length - 1 ? 14 : 0,
+                paddingBottom: i < data.koreaEvents.length - 1 ? 14 : 0,
+                borderBottom: i < data.koreaEvents.length - 1 ? "1px solid var(--border)" : "none",
+              }}>
+                <div style={{ position: "absolute", left: -19, top: 4, width: 12, height: 12, borderRadius: "50%", background: "var(--bg-primary)", border: "2px solid #3b82f6" }} />
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#3b82f6", minWidth: 110 }}>{ev.date}</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>{ev.event}</span>
+                  {ev.attendees !== "—" && (
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "#34d399", background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.3)", padding: "3px 9px", borderRadius: 3 }}>
+                      👥 {ev.attendees}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("🎯 사용자 본인 진행 3개 (심층 분석)")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 14 }}>
+          {data.userProjects.map((p, i) => {
+            const isOk = p.status.startsWith("✅");
+            const isWarn = p.status.startsWith("❌");
+            const accent = isOk && i === 0 ? "#34d399" : isOk ? "#f59e0b" : "var(--accent-red)";
+            return (
+              <div key={p.name} style={{
+                background: "var(--featured-bg)",
+                border: "1px solid var(--featured-border)",
+                borderLeft: `4px solid ${accent}`,
+                borderRadius: 12,
+                padding: "18px 20px",
+              }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.3px" }}>{p.name}</span>
+                  {p.ticker !== "—" && (
+                    <span style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", fontFamily: "ui-monospace, Consolas, monospace" }}>${p.ticker}</span>
+                  )}
+                </div>
+
+                <div style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: accent,
+                  background: isWarn ? "rgba(239,68,68,0.1)" : isOk && i === 0 ? "rgba(52,211,153,0.1)" : "rgba(245,158,11,0.1)",
+                  border: `1px solid ${accent}40`,
+                  padding: "6px 12px",
+                  borderRadius: 5,
+                  marginBottom: 14,
+                  display: "inline-block",
+                }}>
+                  {p.status}
+                </div>
+
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>TGE / 상장</div>
+                  <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>{p.tge}</div>
+                </div>
+
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>토크노믹스</div>
+                  <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.tokenomics}</div>
+                </div>
+
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>백커</div>
+                  <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.backers}</div>
+                </div>
+
+                <div style={{
+                  padding: "10px 12px",
+                  background: "var(--bg-primary)",
+                  border: "1px solid var(--border)",
+                  borderLeft: `3px solid ${accent}`,
+                  borderRadius: 6,
+                  marginBottom: 14,
+                }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: "0.8px", marginBottom: 4 }}>Verdict</div>
+                  <div style={{ fontSize: 14, color: "var(--text-primary)", lineHeight: 1.6, fontWeight: 600 }}>{p.verdict}</div>
+                </div>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
+                  {p.website && extLink(p.website, "Website")}
+                  {p.x && extLink(p.x, "X")}
+                  {p.docs && extLink(p.docs, "Docs")}
+                  {p.tgeAnnounce && extLink(p.tgeAnnounce, "TGE")}
+                  {p.upbitNotice && extLink(p.upbitNotice, "Upbit")}
+                  {p.bithumbNotice && extLink(p.bithumbNotice, "Bithumb")}
+                  {p.mainnetAnnounce && extLink(p.mainnetAnnounce, "Mainnet")}
+                  {p.seriesA && extLink(p.seriesA, "Series A")}
+                  {p.blog && extLink(p.blog, "Blog")}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "1.5px" }}>📊 KRW 상장 매트릭스 — {listedTokens.length}개 토큰 × 3거래소</div>
+          <div style={{ display: "flex", gap: 6 }}>
+            {[["status", "상장 거래소 수"], ["ticker", "티커 알파벳"]].map(([k, l]) => (
+              <button key={k} onClick={() => setMatrixSort(k)} style={{
+                background: matrixSort === k ? "var(--border)" : "transparent",
+                color: matrixSort === k ? "var(--text-primary)" : "var(--text-tertiary)",
+                border: "1px solid var(--border)",
+                padding: "6px 14px", borderRadius: 5, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              }}>{l}</button>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "0.7fr 1.4fr 1.4fr 0.8fr 0.9fr 0.7fr 0.7fr 0.7fr 1.5fr", padding: "12px 16px", background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
+            <div>티커</div>
+            <div>이름</div>
+            <div>카테고리</div>
+            <div style={{ textAlign: "right" }}>가격</div>
+            <div style={{ textAlign: "right" }}>시총</div>
+            <div style={{ textAlign: "center" }}>업비트</div>
+            <div style={{ textAlign: "center" }}>빗썸</div>
+            <div style={{ textAlign: "center" }}>코인원</div>
+            <div>비고</div>
+          </div>
+          {sortedMatrix.map((p, i) => (
+            <div key={p.name} style={{
+              display: "grid",
+              gridTemplateColumns: "0.7fr 1.4fr 1.4fr 0.8fr 0.9fr 0.7fr 0.7fr 0.7fr 1.5fr",
+              padding: "12px 16px",
+              borderBottom: i < sortedMatrix.length - 1 ? "1px solid var(--border)" : "none",
+              alignItems: "center",
+              background: p.userInvolved ? "rgba(245,158,11,0.04)" : "transparent",
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "ui-monospace, Consolas, monospace" }}>
+                ${p.ticker}
+                {p.userInvolved && <span style={{ marginLeft: 4, fontSize: 11, color: "#f59e0b" }}>🎯</span>}
+                {p.verified && <span style={{ marginLeft: 4, fontSize: 11, color: "#34d399" }}>✓</span>}
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>{p.name}</div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.4 }}>{p.category}</div>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{p.price}</div>
+              <div style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "right", fontFamily: "ui-monospace, Consolas, monospace" }}>{p.mcap}</div>
+              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("upbit"))}</div>
+              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("bithumb"))}</div>
+              <div style={{ textAlign: "center" }}>{krwCheck(p.krw.includes("coinone"))}</div>
+              <div style={{ fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.5 }}>{p.note || "—"}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8, fontStyle: "italic" }}>
+          🎯 = 사용자 본인 진행 · ✓ = 에이전시 기여 부분 확인
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("⚠️ KRW 상장 대상 아닌 2개")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 12 }}>
+          {data.portfolio.filter((p) => p.status === "no-token" || p.status === "non-token").map((p) => {
+            const isNoToken = p.status === "no-token";
+            return (
+              <div key={p.name} style={{
+                background: "var(--bg-secondary)",
+                border: "1px solid var(--border)",
+                borderLeft: `3px solid ${isNoToken ? "var(--accent-red)" : "#6b7280"}`,
+                borderRadius: 10,
+                padding: "16px 18px",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)" }}>{p.name}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: isNoToken ? "var(--accent-red)" : "#6b7280", background: isNoToken ? "rgba(239,68,68,0.1)" : "rgba(107,114,128,0.1)", border: `1px solid ${isNoToken ? "rgba(239,68,68,0.3)" : "rgba(107,114,128,0.3)"}`, padding: "3px 8px", borderRadius: 3, textTransform: "uppercase", letterSpacing: "0.6px" }}>
+                    {isNoToken ? "❌ 토큰 없음" : "회사 (토큰 X)"}
+                  </span>
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginBottom: 10 }}>{p.category}</div>
+                <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{p.note}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Quick Stats")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+          {[
+            ["총 클라이언트", `${data.portfolio.length}개`, "var(--text-primary)"],
+            ["KRW 상장 완료", `${listedTokens.length}/${data.portfolio.length} (${Math.round(listedTokens.length / data.portfolio.length * 100)}%)`, "#34d399"],
+            ["업비트 KRW", `${upbitCount}개`, "#3b82f6"],
+            ["빗썸 KRW", `${bithumbCount}개`, "#f59e0b"],
+            ["코인원 KRW", `${coinoneCount}개`, "#8b5cf6"],
+            ["토큰 미발행", `${noTokenCount}개`, "var(--accent-red)"],
+            ["회사형", `${nonTokenCount}개`, "#6b7280"],
+            ["사용자 진행", `${data.userProjects.length}개`, "#f59e0b"],
+          ].map(([label, val, col]) => (
+            <div key={label} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)", borderRadius: 10, padding: "14px 16px" }}>
+              <div style={{ fontSize: 13, color: "var(--text-tertiary)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.6px" }}>{label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: col, marginTop: 6, lineHeight: 1.2 }}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 28 }}>
+        {sectionTitle("Ethene Labs 공식 채널")}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 8 }}>
+          {data.channels.map((c) => (
+            <a key={c.url} href={c.url} target="_blank" rel="noopener noreferrer" className="eth-card-hover" style={{
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border)",
+              borderRadius: 8,
+              padding: "12px 14px",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              transition: "transform 0.15s, border-color 0.15s",
+            }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "#3b82f6", background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", padding: "3px 8px", borderRadius: 3, minWidth: 60, textAlign: "center" }}>
+                {c.type}
+              </span>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
+                <div style={{ fontSize: 11, color: "var(--text-tertiary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginTop: 2 }}>{c.url.replace(/^https?:\/\//, "")}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ textAlign: "center", padding: "24px 0 0", borderTop: "1px solid var(--border)", marginTop: 8 }}>
+        <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.7 }}>
+          데이터 출처: ethenelabs.xyz · sgpbusiness · LinkedIn · X · Upbit/Bithumb/Coinone API · 6개 librarian 병렬 검증
+          <br />
+          본 정보는 투자 자문이 아니며, 에이전시 클라이언트 관계는 자체 마케팅 문구 기준 (Last verified: 2026-05-03)
         </div>
       </div>
     </div>
