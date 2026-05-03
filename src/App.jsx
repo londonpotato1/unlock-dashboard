@@ -1,4 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const THEME_STORAGE_KEY = "unlock-dashboard-theme";
+
+function getInitialTheme() {
+  if (typeof window === "undefined") return "dark";
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (stored === "light" || stored === "dark") return stored;
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
+  return "dark";
+}
 
 // ============================================================
 // Token Unlock Data — Full fact-check 2026-04-14
@@ -616,7 +626,16 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("unlocks");
   const [filter, setFilter] = useState("all");
   const [expanded, setExpanded] = useState(null);
+  const [theme, setTheme] = useState(getInitialTheme);
   const today = new Date(); today.setHours(0, 0, 0, 0);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const isDark = theme === "dark";
 
   let filtered = unlocks;
   if (filter === "big") filtered = unlocks.filter((u) => u.unlockPct >= 5);
@@ -628,28 +647,50 @@ export default function App() {
   const upcomingCount = unlocks.filter((u) => new Date(u.date + "T00:00:00") >= today).length;
 
   return (
-    <div style={{ background: "#090b10", minHeight: "100vh", color: "#c8c8d0", fontFamily: "'Inter', system-ui, -apple-system, sans-serif", fontSize: 14 }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;margin:0;padding:0;}::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:#0d0f14;}::-webkit-scrollbar-thumb{background:#252830;border-radius:3px;}`}</style>
+    <div style={{ background: "var(--bg-primary)", minHeight: "100vh", color: "var(--text-primary)", fontFamily: "'Inter', system-ui, -apple-system, sans-serif", fontSize: 14, transition: "background-color 0.3s ease, color 0.3s ease" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');*{box-sizing:border-box;margin:0;padding:0;}::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--scrollbar-track);}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:3px;}`}</style>
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 32px" }}>
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32 }}>
           <div>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: "#f0f0f5", margin: 0, letterSpacing: "-0.5px" }}>Token Unlock Dashboard</h1>
-            <p style={{ fontSize: 14, color: "#555", marginTop: 6 }}>Apr 2026 – Dec 2026 · Fact-checked: Tokenomist + CoinGecko + BscScan + Cysic Docs</p>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.5px" }}>Token Unlock Dashboard</h1>
+            <p style={{ fontSize: 14, color: "var(--text-tertiary)", marginTop: 6 }}>Apr 2026 – Dec 2026 · Fact-checked: Tokenomist + CoinGecko + BscScan + Cysic Docs</p>
           </div>
-          <div style={{ fontSize: 12, color: "#444", textAlign: "right" }}>
-            <div>Last verified: 2026-04-12</div>
-            <div style={{ marginTop: 4, fontSize: 11, color: "#555" }}>built by <span style={{ color: "#888", fontWeight: 600 }}>London Potato</span> 🥔</div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+              title={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+              style={{
+                width: 36, height: 36, borderRadius: 8,
+                background: "var(--bg-secondary)", border: "1px solid var(--border)",
+                color: "var(--text-primary)", cursor: "pointer", fontSize: 16,
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                fontFamily: "inherit", lineHeight: 1, padding: 0,
+                transition: "background 0.2s, color 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--featured-chip)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "var(--bg-secondary)"; }}
+              onFocus={(e) => { e.currentTarget.style.outline = "2px solid var(--accent-red)"; e.currentTarget.style.outlineOffset = "2px"; }}
+              onBlur={(e) => { e.currentTarget.style.outline = "none"; }}
+            >
+              <span aria-hidden="true">{isDark ? "☀️" : "🌙"}</span>
+            </button>
+            <div style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "right" }}>
+              <div>Last verified: 2026-04-12</div>
+              <div style={{ marginTop: 4, fontSize: 11, color: "var(--text-tertiary)" }}>built by <span style={{ color: "var(--text-secondary)", fontWeight: 600 }}>London Potato</span> 🥔</div>
+            </div>
           </div>
         </div>
 
         {/* Top Tabs */}
-        <div style={{ display: "flex", gap: 0, marginBottom: 28, borderBottom: "1px solid #181c24" }}>
+        <div style={{ display: "flex", gap: 0, marginBottom: 28, borderBottom: "1px solid var(--border)" }}>
           {[["unlocks", "Token Unlocks"]].map(([k, l]) => (
             <button key={k} onClick={() => setActiveTab(k)} style={{
-              background: "transparent", border: "none", borderBottom: `2px solid ${activeTab === k ? "#ef4444" : "transparent"}`,
-              color: activeTab === k ? "#f0f0f5" : "#555", padding: "10px 24px", fontSize: 15, fontWeight: 700,
+              background: "transparent", border: "none", borderBottom: `2px solid ${activeTab === k ? "var(--accent-red)" : "transparent"}`,
+              color: activeTab === k ? "var(--text-primary)" : "var(--text-tertiary)", padding: "10px 24px", fontSize: 15, fontWeight: 700,
               cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s",
             }}>{l}</button>
           ))}
@@ -660,12 +701,12 @@ export default function App() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
           {[
             ["Total Value", `$${totalVal.toFixed(0)}M`, "#60a5fa"],
-            ["Events", `${unlocks.length}`, "#c8c8d0"],
+            ["Events", `${unlocks.length}`, "var(--text-primary)"],
             ["High Impact (≥5%)", `${bigCount}`, "#f59e0b"],
             ["Upcoming", `${upcomingCount}`, "#34d399"],
           ].map(([label, val, col]) => (
-            <div key={label} style={{ background: "#0e1018", borderRadius: 10, border: "1px solid #181c24", padding: "14px 16px" }}>
-              <div style={{ fontSize: 11, color: "#555", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
+            <div key={label} style={{ background: "var(--bg-secondary)", borderRadius: 10, border: "1px solid var(--border)", padding: "14px 16px" }}>
+              <div style={{ fontSize: 11, color: "var(--text-tertiary)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
               <div style={{ fontSize: 22, fontWeight: 700, color: col, marginTop: 4 }}>{val}</div>
             </div>
           ))}
@@ -675,9 +716,9 @@ export default function App() {
         <div style={{ display: "flex", gap: 6, marginBottom: 28 }}>
           {[["all", "All"], ["upcoming", "Upcoming"], ["big", "High Impact (≥5%)"]].map(([k, l]) => (
             <button key={k} onClick={() => setFilter(k)} style={{
-              background: filter === k ? "#181c24" : "transparent",
-              color: filter === k ? "#e5e5e5" : "#555",
-              border: `1px solid ${filter === k ? "#282c38" : "#181c24"}`,
+              background: filter === k ? "var(--border)" : "transparent",
+              color: filter === k ? "var(--text-primary)" : "var(--text-tertiary)",
+              border: `1px solid ${filter === k ? "var(--border)" : "var(--border)"}`,
               padding: "7px 16px", borderRadius: 6, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
             }}>{l}</button>
           ))}
@@ -692,21 +733,21 @@ export default function App() {
 
           return (
             <div key={date} style={{ marginBottom: 28, opacity: past ? 0.35 : 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, paddingBottom: 10, borderBottom: "1px solid #14161e" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, paddingBottom: 10, borderBottom: "1px solid var(--border)" }}>
                 <div style={{
                   width: 40, height: 40, borderRadius: 8,
-                  background: todayMark ? "#0d1f15" : "#0e1018",
-                  border: `1px solid ${todayMark ? "#1a3a25" : "#181c24"}`,
+                  background: todayMark ? "#0d1f15" : "var(--bg-secondary)",
+                  border: `1px solid ${todayMark ? "#1a3a25" : "var(--border)"}`,
                   display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
                 }}>
-                  <span style={{ fontSize: 17, fontWeight: 800, color: todayMark ? "#34d399" : "#ddd", lineHeight: 1 }}>{dt.day}</span>
-                  <span style={{ fontSize: 10, color: todayMark ? "#34d399" : "#666" }}>{dt.weekday}</span>
+                  <span style={{ fontSize: 17, fontWeight: 800, color: todayMark ? "#34d399" : "var(--text-primary)", lineHeight: 1 }}>{dt.day}</span>
+                  <span style={{ fontSize: 10, color: todayMark ? "#34d399" : "var(--text-tertiary)" }}>{dt.weekday}</span>
                 </div>
-                <span style={{ fontSize: 14, fontWeight: 700, color: todayMark ? "#34d399" : "#aaa" }}>
+                <span style={{ fontSize: 14, fontWeight: 700, color: todayMark ? "#34d399" : "var(--text-primary)" }}>
                   {dt.full}
                   {todayMark && <span style={{ fontSize: 11, marginLeft: 8, padding: "2px 8px", background: "#0d1f15", border: "1px solid #1a3a25", borderRadius: 4, color: "#34d399", fontWeight: 600 }}>TODAY</span>}
                 </span>
-                <span style={{ marginLeft: "auto", fontSize: 13, color: "#555", fontWeight: 500 }}>{items.length}건 · ${dayVal.toFixed(1)}M</span>
+                <span style={{ marginLeft: "auto", fontSize: 13, color: "var(--text-tertiary)", fontWeight: 500 }}>{items.length}건 · ${dayVal.toFixed(1)}M</span>
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: items.length === 1 ? "1fr" : "repeat(auto-fill, minmax(520px, 1fr))", gap: 10 }}>
@@ -718,7 +759,7 @@ export default function App() {
           );
         })}
 
-        {grouped.length === 0 && <div style={{ textAlign: "center", padding: 60, color: "#444" }}>해당 조건의 언락 일정이 없습니다.</div>}
+        {grouped.length === 0 && <div style={{ textAlign: "center", padding: 60, color: "var(--text-muted)" }}>해당 조건의 언락 일정이 없습니다.</div>}
         </>}
       </div>
     </div>
@@ -732,38 +773,38 @@ function UnlockCard({ u, expanded, onToggle }) {
   const col = pctColor(u.unlockPct);
 
   return (
-    <div style={{ background: u.featured ? "rgba(239,68,68,0.04)" : pctBg(u.unlockPct), border: `1px solid ${u.featured ? "#2a1418" : "#181c24"}`, borderRadius: 10, borderLeft: `3px solid ${col}`, overflow: "hidden" }}>
+    <div style={{ background: u.featured ? "var(--featured-bg)" : pctBg(u.unlockPct), border: `1px solid ${u.featured ? "var(--featured-border)" : "var(--border)"}`, borderRadius: 10, borderLeft: `3px solid ${col}`, overflow: "hidden" }}>
       <div onClick={onToggle} style={{ padding: "14px 18px", cursor: "pointer", display: "grid", gridTemplateColumns: "1fr auto", gap: "4px 20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
-          <span style={{ fontSize: 16, fontWeight: 800, color: "#f0f0f5", minWidth: 50 }}>{u.token}</span>
-          <span style={{ fontSize: 13, color: "#888", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{u.name}</span>
-          <span style={{ fontSize: 11, color: "#555", background: "#14161e", padding: "2px 7px", borderRadius: 3, flexShrink: 0 }}>{u.cat}</span>
-          {u.featured && <span style={{ fontSize: 10, color: "#ef4444", background: "#1a0a0e", padding: "2px 6px", borderRadius: 3, border: "1px solid #2a1418", fontWeight: 700 }}>FEATURED</span>}
+          <span style={{ fontSize: 16, fontWeight: 800, color: "var(--text-primary)", minWidth: 50 }}>{u.token}</span>
+          <span style={{ fontSize: 13, color: "var(--text-secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{u.name}</span>
+          <span style={{ fontSize: 11, color: "var(--text-tertiary)", background: "var(--bg-secondary)", padding: "2px 7px", borderRadius: 3, flexShrink: 0 }}>{u.cat}</span>
+          {u.featured && <span style={{ fontSize: 10, color: "var(--accent-red)", background: "var(--featured-chip)", padding: "2px 6px", borderRadius: 3, border: "1px solid var(--featured-border)", fontWeight: 700 }}>FEATURED</span>}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ textAlign: "right", minWidth: 70 }}>
             <div style={{ fontSize: 15, fontWeight: 700, color: col }}>{u.unlockPct}%</div>
-            <div style={{ fontSize: 10, color: "#555" }}>유통 대비</div>
+            <div style={{ fontSize: 10, color: "var(--text-tertiary)" }}>유통 대비</div>
           </div>
           <div style={{ textAlign: "right", minWidth: 60 }}>
-            <div style={{ fontSize: 15, fontWeight: 600, color: "#ccc" }}>${u.unlockVal}M</div>
-            <div style={{ fontSize: 10, color: "#555" }}>가치</div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>${u.unlockVal}M</div>
+            <div style={{ fontSize: 10, color: "var(--text-tertiary)" }}>가치</div>
           </div>
-          <span style={{ fontSize: 16, color: "#444", marginLeft: 4 }}>{expanded ? "▾" : "▸"}</span>
+          <span style={{ fontSize: 16, color: "var(--text-muted)", marginLeft: 4 }}>{expanded ? "▾" : "▸"}</span>
         </div>
-        <div style={{ gridColumn: "1 / -1", display: "flex", gap: 16, fontSize: 12, color: "#555", marginTop: 2, flexWrap: "wrap" }}>
-          <span>수령: <span style={{ color: "#888" }}>{u.recipient}</span></span>
-          <span>유통: <span style={{ color: "#888" }}>{u.circulating}</span></span>
-          <span>총발행: <span style={{ color: "#888" }}>{u.totalSupply}</span></span>
-          {u.maxSupply !== u.totalSupply && <span>최대: <span style={{ color: u.maxSupply.includes("Unlimited") ? "#f59e0b" : "#888" }}>{u.maxSupply}</span></span>}
+        <div style={{ gridColumn: "1 / -1", display: "flex", gap: 16, fontSize: 12, color: "var(--text-tertiary)", marginTop: 2, flexWrap: "wrap" }}>
+          <span>수령: <span style={{ color: "var(--text-secondary)" }}>{u.recipient}</span></span>
+          <span>유통: <span style={{ color: "var(--text-secondary)" }}>{u.circulating}</span></span>
+          <span>총발행: <span style={{ color: "var(--text-secondary)" }}>{u.totalSupply}</span></span>
+          {u.maxSupply !== u.totalSupply && <span>최대: <span style={{ color: u.maxSupply.includes("Unlimited") ? "#f59e0b" : "var(--text-secondary)" }}>{u.maxSupply}</span></span>}
         </div>
       </div>
 
       {expanded && (
-        <div style={{ padding: "0 18px 16px", borderTop: "1px solid #14161e" }}>
+        <div style={{ padding: "0 18px 16px", borderTop: "1px solid var(--border)" }}>
           {/* Allocation bar */}
           <div style={{ marginTop: 14, marginBottom: 10 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 8 }}>Token Allocation</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 8 }}>Token Allocation</div>
             <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden", marginBottom: 8 }}>
               {u.allocation.map((a, i) => (
                 <div key={i} style={{ width: `${a.pct}%`, background: ALLOC_COLORS[i % ALLOC_COLORS.length], minWidth: 2 }} />
@@ -773,8 +814,8 @@ function UnlockCard({ u, expanded, onToggle }) {
               {u.allocation.map((a, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12 }}>
                   <span style={{ width: 8, height: 8, borderRadius: 2, background: ALLOC_COLORS[i % ALLOC_COLORS.length], flexShrink: 0 }} />
-                  <span style={{ color: "#888" }}>{a.name}</span>
-                  <span style={{ color: "#bbb", fontWeight: 600 }}>{a.pct}%</span>
+                  <span style={{ color: "var(--text-secondary)" }}>{a.name}</span>
+                  <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>{a.pct}%</span>
                 </div>
               ))}
             </div>
@@ -783,7 +824,7 @@ function UnlockCard({ u, expanded, onToggle }) {
           {/* Unlock Breakdown */}
           {u.unlockBreakdown && (
             <div style={{ marginTop: 12, marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 8 }}>Unlock Breakdown</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 8 }}>Unlock Breakdown</div>
               <div style={{ display: "flex", height: 10, borderRadius: 5, overflow: "hidden", marginBottom: 8 }}>
                 {u.unlockBreakdown.map((b, i) => (
                   <div key={i} style={{ width: `${b.pct}%`, background: b.color, minWidth: 4 }} />
@@ -791,13 +832,13 @@ function UnlockCard({ u, expanded, onToggle }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(u.unlockBreakdown.length, 3)}, 1fr)`, gap: 8 }}>
                 {u.unlockBreakdown.map((b, i) => (
-                  <div key={i} style={{ background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e" }}>
+                  <div key={i} style={{ background: "var(--bg-secondary)", borderRadius: 6, padding: "10px 12px", border: "1px solid var(--border)" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
                       <span style={{ width: 8, height: 8, borderRadius: 2, background: b.color }} />
-                      <span style={{ fontSize: 11, color: "#888" }}>{b.name}</span>
+                      <span style={{ fontSize: 11, color: "var(--text-secondary)" }}>{b.name}</span>
                     </div>
                     <div style={{ fontSize: 16, fontWeight: 700, color: b.color }}>{b.amount}</div>
-                    <div style={{ fontSize: 11, color: "#555" }}>{b.pct}% of unlock</div>
+                    <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{b.pct}% of unlock</div>
                   </div>
                 ))}
               </div>
@@ -807,18 +848,18 @@ function UnlockCard({ u, expanded, onToggle }) {
           {/* Market Data */}
           {u.market && (
             <div style={{ marginTop: 12, marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 8 }}>Market Data</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 8 }}>Market Data</div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
                 {[
-                  ["Price", u.market.price, "#ccc"],
-                  ["MCap", u.market.mcap, "#ccc"],
-                  ["FDV", u.market.fdv, "#ccc"],
-                  ["24h Volume", u.market.vol24h, "#ccc"],
-                  ["ATH Drop", u.market.athDrop, "#ef4444"],
-                  ["Exchanges", u.market.exchanges, "#888"],
+                  ["Price", u.market.price, "var(--text-primary)"],
+                  ["MCap", u.market.mcap, "var(--text-primary)"],
+                  ["FDV", u.market.fdv, "var(--text-primary)"],
+                  ["24h Volume", u.market.vol24h, "var(--text-primary)"],
+                  ["ATH Drop", u.market.athDrop, "var(--accent-red)"],
+                  ["Exchanges", u.market.exchanges, "var(--text-secondary)"],
                 ].map(([label, val, valCol]) => (
-                  <div key={label} style={{ background: "#0c0e14", borderRadius: 6, padding: "8px 12px", border: "1px solid #14161e" }}>
-                    <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
+                  <div key={label} style={{ background: "var(--bg-secondary)", borderRadius: 6, padding: "8px 12px", border: "1px solid var(--border)" }}>
+                    <div style={{ fontSize: 10, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: "0.3px" }}>{label}</div>
                     <div style={{ fontSize: 13, fontWeight: 600, color: valCol, marginTop: 2 }}>{val}</div>
                   </div>
                 ))}
@@ -828,30 +869,30 @@ function UnlockCard({ u, expanded, onToggle }) {
 
           {/* Vesting note */}
           {u.vesting && (
-            <div style={{ marginTop: 10, fontSize: 12, color: "#666", lineHeight: 1.6, background: "#0c0e14", borderRadius: 6, padding: "10px 12px", border: "1px solid #14161e" }}>
-              <span style={{ color: "#888", fontWeight: 600 }}>Vesting: </span>{u.vesting}
+            <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-tertiary)", lineHeight: 1.6, background: "var(--bg-secondary)", borderRadius: 6, padding: "10px 12px", border: "1px solid var(--border)" }}>
+              <span style={{ color: "var(--text-secondary)", fontWeight: 600 }}>Vesting: </span>{u.vesting}
             </div>
           )}
 
           {/* Timeline */}
           {u.timeline && (
             <div style={{ marginTop: 12, marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 10 }}>Unlock Timeline</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 10 }}>Unlock Timeline</div>
               <div style={{ position: "relative", paddingLeft: 20 }}>
-                <div style={{ position: "absolute", left: 6, top: 4, bottom: 4, width: 2, background: "#1e2028" }} />
+                <div style={{ position: "absolute", left: 6, top: 4, bottom: 4, width: 2, background: "var(--border)" }} />
                 {u.timeline.map((t, i) => {
-                  const statusColors = { done: "#34d399", upcoming: "#f59e0b", unconfirmed: "#555" };
+                  const statusColors = { done: "#34d399", upcoming: "#f59e0b", unconfirmed: "var(--text-tertiary)" };
                   const statusLabels = { done: "완료", upcoming: "임박", unconfirmed: "미확정" };
-                  const sc = statusColors[t.status] || "#555";
+                  const sc = statusColors[t.status] || "var(--text-tertiary)";
                   return (
-                    <div key={i} style={{ position: "relative", marginBottom: i < u.timeline.length - 1 ? 10 : 0, paddingBottom: i < u.timeline.length - 1 ? 10 : 0, borderBottom: i < u.timeline.length - 1 ? "1px solid #14161e" : "none" }}>
-                      <div style={{ position: "absolute", left: -17, top: 4, width: 10, height: 10, borderRadius: "50%", background: t.status === "done" ? sc : "#0c0e14", border: `2px solid ${sc}` }} />
+                    <div key={i} style={{ position: "relative", marginBottom: i < u.timeline.length - 1 ? 10 : 0, paddingBottom: i < u.timeline.length - 1 ? 10 : 0, borderBottom: i < u.timeline.length - 1 ? "1px solid var(--border)" : "none" }}>
+                      <div style={{ position: "absolute", left: -17, top: 4, width: 10, height: 10, borderRadius: "50%", background: t.status === "done" ? sc : "var(--bg-secondary)", border: `2px solid ${sc}` }} />
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                        <span style={{ fontSize: 12, fontWeight: 700, color: t.status === "upcoming" ? "#f59e0b" : "#aaa", minWidth: 90 }}>{t.date}</span>
+                        <span style={{ fontSize: 12, fontWeight: 700, color: t.status === "upcoming" ? "#f59e0b" : "var(--text-primary)", minWidth: 90 }}>{t.date}</span>
                         <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, fontWeight: 600, color: sc, background: `${sc}15`, border: `1px solid ${sc}33` }}>{statusLabels[t.status]}</span>
-                        {t.warn && <span style={{ fontSize: 10, color: "#ef4444", fontWeight: 700 }}>!</span>}
+                        {t.warn && <span style={{ fontSize: 10, color: "var(--accent-red)", fontWeight: 700 }}>!</span>}
                       </div>
-                      <div style={{ fontSize: 12, color: t.warn ? "#ef8888" : "#888", lineHeight: 1.5 }}>{t.event}</div>
+                      <div style={{ fontSize: 12, color: t.warn ? "#ef8888" : "var(--text-secondary)", lineHeight: 1.5 }}>{t.event}</div>
                     </div>
                   );
                 })}
@@ -862,15 +903,15 @@ function UnlockCard({ u, expanded, onToggle }) {
           {/* Strategy */}
           {u.strategy && (
             <div style={{ marginTop: 12 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 8 }}>Strategy Analysis</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 8 }}>Strategy Analysis</div>
               <div style={{ display: "grid", gridTemplateColumns: u.strategy.length > 2 ? "repeat(2, 1fr)" : "1fr", gap: 8 }}>
                 {u.strategy.map((s, i) => {
                   const typeColors = { short: "#ef4444", timing: "#f59e0b", bounce: "#34d399", caution: "#6b7280" };
                   const tc = typeColors[s.type] || "#6b7280";
                   return (
-                    <div key={i} style={{ background: "#0c0e14", borderRadius: 6, padding: "12px 14px", border: "1px solid #14161e", borderLeft: `2px solid ${tc}` }}>
+                    <div key={i} style={{ background: "var(--bg-secondary)", borderRadius: 6, padding: "12px 14px", border: "1px solid var(--border)", borderLeft: `2px solid ${tc}` }}>
                       <div style={{ fontSize: 13, fontWeight: 700, color: tc, marginBottom: 4 }}>{s.title}</div>
-                      <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6, marginBottom: 6 }}>{s.desc}</div>
+                      <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 6 }}>{s.desc}</div>
                       <div style={{ fontSize: 11, color: "#664433", lineHeight: 1.5 }}>
                         <span style={{ color: "#885544", fontWeight: 600 }}>Risk: </span>{s.risk}
                       </div>
